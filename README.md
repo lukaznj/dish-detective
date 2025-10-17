@@ -1,5 +1,5 @@
 # Dish Detective
-![alt text](https://imgur.com/a/nYa2mW8)
+![Image](https://github.com/user-attachments/assets/5cd5345f-acd2-4bd5-ad14-4ffb477b7b6d)
 # Opis projekta
 Studenti koji se hrane u menzama često se suočavaju s problemom jelovnika. Na stranici studentskog
 centra pročitaju dnevnu ponudu i izbor, a u menzi ih dočeka potpuno drugačija hrana. Da bismo riješili
