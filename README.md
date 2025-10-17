@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Dish Detective
 
-## Getting Started
+# Opis projekta
+Studenti koji se hrane u menzama često se suočavaju s problemom jelovnika. Na stranici studentskog
+centra pročitaju dnevnu ponudu i izbor, a u menzi ih dočeka potpuno drugačija hrana. Da bismo riješili
+ovaj problem, našom ćemo aplikacijom omogućiti dinamično ažuriranje jelovnika kako
+bi svaki student bio ispravno informiran o dostupnoj hrani u pojedinoj menzi. Student bi kroz aplikaciju
+mogao vidjeti trenutno stanje dostupnih jela u menzi, kao i vrijeme koje je proteklo od kada je to jelo
+postalo dostupno, odnosno koliko je vremena prošlo od kad je to jelo zadnji put posluženo.
 
-First, run the development server:
+Aplikacija će omogućiti radnicima u menzi da kroz jednostavno i intuitivno sučelje obavijeste studente o
+promijeni ponude hrane. Studenti će moći vidjeti trenutnu ponudu određene menze te dobitkom
+notifikacije biti obaviješteni o promijeni jelovnika, odnosno dostupnosti nekog prehrambenog proizvoda.
+Samo sučelje aplikacije ovisiti će o vrsti korisnika.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+# Funkcijski zahtjevi
+> Navedite ključne zahtjeve Vašeg projekta.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# Tehnologije
+Frontend: React.js, HTML5, TailwindCSS
+Backend: Next.js
+Baza podataka: MongoDB
+Autentifikacije: NextAuth.js
+Servis za obavijesti: Firebase Cloud Messaging
+Servis za geolokaciju: Google Maps API
+Servis za deployment: Vercel
+  
+# Članovi tima
+Matej Božac
+Loren Čekada
+Matea Maračić
+Andrea Marić
+Ivan Marfat
+Luka Ražem
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# 📝 Licenca
+Važeča (1)
+[![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
 
-## Learn More
+Ovaj repozitorij sadrži otvoreni obrazovni sadržaji (eng. Open Educational Resources)  i licenciran je prema pravilima Creative Commons licencije koja omogućava da preuzmete djelo, podijelite ga s drugima uz 
+uvjet da navođenja autora, ne upotrebljavate ga u komercijalne svrhe te dijelite pod istim uvjetima [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License HR][cc-by-nc-sa].
+>
+> ### Napomena:
+>
+> Svi paketi distribuiraju se pod vlastitim licencama.
+> Svi upotrijebleni materijali  (slike, modeli, animacije, ...) distribuiraju se pod vlastitim licencama.
 
-To learn more about Next.js, take a look at the following resources:
+[![CC BY-NC-SA 4.0][cc-by-nc-sa-image]][cc-by-nc-sa]
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+[cc-by-nc-sa]: https://creativecommons.org/licenses/by-nc/4.0/deed.hr 
+[cc-by-nc-sa-image]: https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png
+[cc-by-nc-sa-shield]: https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Orginal [![cc0-1.0][cc0-1.0-shield]][cc0-1.0]
+>
+>COPYING: All the content within this repository is dedicated to the public domain under the CC0 1.0 Universal (CC0 1.0) Public Domain Dedication.
+>
+[![CC0-1.0][cc0-1.0-image]][cc0-1.0]
 
-## Deploy on Vercel
+[cc0-1.0]: https://creativecommons.org/licenses/by/1.0/deed.en
+[cc0-1.0-image]: https://licensebuttons.net/l/by/1.0/88x31.png
+[cc0-1.0-shield]: https://img.shields.io/badge/License-CC0--1.0-lightgrey.svg
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Reference na licenciranje repozitorija
