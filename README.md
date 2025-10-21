@@ -13,10 +13,6 @@ promijeni ponude hrane. Studenti će moći vidjeti trenutnu ponudu određene men
 notifikacije biti obaviješteni o promijeni jelovnika, odnosno dostupnosti nekog prehrambenog proizvoda.
 Samo sučelje aplikacije ovisiti će o vrsti korisnika.
 
-# Funkcijski zahtjevi
-> Navedite ključne zahtjeve Vašeg projekta.
-
-
 # Tehnologije
 Frontend: React.js, HTML5, TailwindCSS
 Backend: Next.js
