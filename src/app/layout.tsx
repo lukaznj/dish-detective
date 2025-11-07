@@ -1,21 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
 import {ClerkProvider} from "@clerk/nextjs";
+import ThemeRegistry from "@/components/ThemeRegistry";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Dish Detective",
@@ -27,13 +14,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (<ClerkProvider>
-        <html lang="hr">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
+  return (
+      <ClerkProvider>
+          <html lang="hr">
+             <body>
+                 <ThemeRegistry>
+                    {children}
+                 </ThemeRegistry>
+            </body>
         </html>
       </ClerkProvider>
   );
