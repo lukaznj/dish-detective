@@ -1,5 +1,493 @@
+"use client";
+
+import React from "react";
+
+import {
+  Box,
+  Button,
+  Typography,
+  Menu,
+  MenuItem,
+  Stack,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
+
 export default function Home() {
+  // Used for main login dropdown
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  // Used for top-right (mini) login dropdown
+  const [anchorElTop, setAnchorElTop] = React.useState<null | HTMLElement>(
+    null
+  );
+  const openTop = Boolean(anchorElTop);
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isShortScreen = useMediaQuery("(max-height: 740px)");
+
+  const handleRoleSelect = (role: string) => {
+    setAnchorEl(null);
+    setAnchorElTop(null);
+    // TODO: go to appropriate login page based on role
+  };
+
+  const handleKontakt = () => {
+    // TODO: go to contact page
+  };
+
+  // Mobile layout
+  if (isMobile) {
     return (
-        <div> Hello world </div>
+      <Box
+        sx={{
+          position: "relative",
+          minHeight: "100vh",
+          width: "100vw",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundImage: `url(/mobilebg.jpg)`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: 22,
+            left: 20,
+            display: "flex",
+            gap: 1,
+            alignItems: "center",
+            zIndex: 1,
+          }}
+        >
+          <img
+            src="/logoDark.png"
+            alt="Dish Detective Logo"
+            style={{ width: 36, height: 36 }}
+          />
+          <Typography
+            variant="body1"
+            sx={{
+              color: "#212222",
+              fontWeight: 700,
+              fontSize: "1.2rem",
+            }}
+          >
+            Dish Detective
+          </Typography>
+        </Box>
+
+        <Box
+          sx={{
+            position: "absolute",
+            top: 22,
+            right: 20,
+            display: "flex",
+            alignItems: "center",
+            gap: 1.5,
+          }}
+        >
+          <img
+            src="/translate.png"
+            alt="Translate Icon"
+            style={{ width: 36, height: 36, cursor: "pointer" }}
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={(e) => setAnchorElTop(e.currentTarget)}
+            sx={{
+              fontWeight: 600,
+              borderRadius: 2,
+              minHeight: 35,
+              textTransform: "none",
+            }}
+          >
+            Prijava
+          </Button>
+
+          <Menu
+            anchorEl={anchorElTop}
+            open={openTop}
+            onClose={() => setAnchorElTop(null)}
+            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+            transformOrigin={{ vertical: "top", horizontal: "right" }}
+            slotProps={{
+              list: {
+                disablePadding: true,
+              },
+              paper: {
+                sx: { minWidth: 300, mt: 1, borderRadius: 2 },
+              },
+            }}
+          >
+            <MenuItem
+              onClick={() => handleRoleSelect("radnik")}
+              sx={{ fontSize: "1rem", py: 0 }}
+            >
+              Radnik u menzi
+            </MenuItem>
+            <Box sx={{ borderBottom: "1px solid black", my: 0 }} />
+            <MenuItem
+              onClick={() => handleRoleSelect("student")}
+              sx={{ fontSize: "1rem" }}
+            >
+              Student
+            </MenuItem>
+          </Menu>
+        </Box>
+
+        <Box
+          sx={{
+            backgroundColor: "rgba(255, 255, 255, 0.8)",
+            borderRadius: 4,
+            padding: 4,
+            maxWidth: "90%",
+            boxShadow: 3,
+            mt: 2,
+            mb: 2,
+            "@media (max-height: 740px)": {
+              mt: 5,
+            },
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              mb: 3,
+            }}
+          >
+            <Box
+              component="img"
+              src="logoDark.png"
+              alt="Dish Detective Logo"
+              sx={{
+                width: "18vh",
+                height: "18vh",
+                mb: 1,
+                "@media (min-height: 900px)": {
+                  width: "20vh",
+                  height: "20vh",
+                },
+              }}
+            />
+            <Typography
+              variant="h5"
+              sx={{
+                color: "#000000d4",
+                fontWeight: 750,
+                textAlign: "center",
+              }}
+            >
+              Dish Detective
+            </Typography>
+          </Box>
+          <Typography
+            variant="h3"
+            fontWeight={800}
+            sx={{
+              color: "#000000d4",
+              mb: 2,
+              textAlign: "center",
+              letterSpacing: -1,
+              fontSize: { xs: "6vh" },
+            }}
+          >
+            Poboljšaj svoje iskustvo u menzi
+          </Typography>
+
+          <Typography
+            variant="h6"
+            fontWeight={600}
+            sx={{
+              mb: 3,
+              color: "#3c403d",
+              textAlign: "center",
+              fontSize: { xs: "1.1rem" },
+            }}
+          >
+            Real-time jelovnik u restoranima
+          </Typography>
+
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={(e) => setAnchorEl(e.currentTarget)}
+            fullWidth
+            sx={{
+              fontWeight: 600,
+              borderRadius: 3,
+              minHeight: 50,
+              textTransform: "none",
+            }}
+          >
+            Prijava
+          </Button>
+
+          <Menu
+            anchorEl={anchorEl}
+            open={open}
+            onClose={() => setAnchorEl(null)}
+            // We make the menu open upwards on short screens
+            // TODO: Think of a better responsive fix, I guess?
+            anchorOrigin={{
+              vertical: isShortScreen ? "top" : "bottom",
+              horizontal: "center",
+            }}
+            transformOrigin={{
+              vertical: isShortScreen ? "bottom" : "top",
+              horizontal: "center",
+            }}
+            slotProps={{
+              list: {
+                disablePadding: true,
+              },
+              paper: {
+                sx: { minWidth: 300, mt: 1, borderRadius: 2 },
+              },
+            }}
+          >
+            <MenuItem
+              onClick={() => handleRoleSelect("radnik")}
+              sx={{ fontSize: "1.2rem", py: 1.2 }}
+            >
+              Radnik u menzi
+            </MenuItem>
+            <Box sx={{ borderBottom: "1px solid black", my: 0 }} />
+            <MenuItem
+              onClick={() => handleRoleSelect("student")}
+              sx={{ fontSize: "1.2rem", py: 1.2 }}
+            >
+              Student
+            </MenuItem>
+          </Menu>
+        </Box>
+      </Box>
     );
+  }
+
+  // Desktop layout
+  return (
+    <Box
+      sx={{
+        position: "relative",
+        minHeight: "100vh",
+        width: "100vw",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "flex-start",
+        paddingLeft: 10,
+        backgroundImage: `url(/desktopbg.jpg)`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        opacity: 0.95,
+      }}
+    >
+      {/* This overlay box makes the background a bit darker */}
+      <Box
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: "rgba(0, 0, 0, 0.13)",
+          zIndex: 0,
+        }}
+      />
+
+      <Box
+        sx={{
+          position: "absolute",
+          top: 20,
+          left: 40,
+          display: "flex",
+          gap: 1,
+          alignItems: "center",
+          zIndex: 1,
+        }}
+      >
+        <img
+          src="/logoWhite.png"
+          alt="Dish Detective Logo"
+          style={{ width: 36, height: 36 }}
+        />
+        <Typography
+          variant="body1"
+          sx={{
+            color: "white",
+            fontWeight: 700,
+            fontSize: "1.2rem",
+          }}
+        >
+          Dish Detective
+        </Typography>
+      </Box>
+
+      <Box
+        sx={{
+          position: "absolute",
+          top: 20,
+          right: 40,
+          display: "flex",
+          gap: 2,
+          alignItems: "center",
+          zIndex: 1,
+        }}
+      >
+        <Button
+          disableRipple
+          onClick={handleKontakt}
+          sx={{
+            color: "black",
+            textTransform: "none",
+            fontWeight: 600,
+            backgroundColor: "transparent",
+            "&:hover": {
+              textDecoration: "underline",
+            },
+          }}
+        >
+          Kontakt
+        </Button>
+
+        <Button
+          variant="contained"
+          onClick={(e) => setAnchorElTop(e.currentTarget)}
+          sx={{
+            fontWeight: 600,
+            borderRadius: 2,
+            minHeight: 35,
+            minWidth: 90,
+            backgroundColor: "#ff8c00",
+            color: "white",
+            textTransform: "none",
+            "&:hover": {
+              backgroundColor: "#f18501ff",
+            },
+          }}
+        >
+          Prijava
+        </Button>
+
+        <Menu
+          anchorEl={anchorElTop}
+          open={openTop}
+          onClose={() => setAnchorElTop(null)}
+          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+          transformOrigin={{ vertical: "top", horizontal: "right" }}
+          slotProps={{
+            list: {
+              disablePadding: true,
+            },
+            paper: {
+              sx: { minWidth: 300, mt: 1, borderRadius: 2 },
+            },
+          }}
+        >
+          <MenuItem
+            onClick={() => handleRoleSelect("radnik")}
+            sx={{ fontSize: "1rem", py: 1.2 }}
+          >
+            Radnik u menzi
+          </MenuItem>
+          <Box sx={{ borderBottom: "1px solid black", my: 0 }} />
+          <MenuItem
+            onClick={() => handleRoleSelect("student")}
+            sx={{ fontSize: "1rem", py: 1.2 }}
+          >
+            Student
+          </MenuItem>
+        </Menu>
+      </Box>
+
+      <Box
+        sx={{
+          maxWidth: 600,
+          zIndex: 1,
+        }}
+      >
+        <Typography
+          variant="h2"
+          fontWeight={800}
+          sx={{
+            color: "white",
+            mb: 2,
+            lineHeight: 1.2,
+            wordBreak: "break-word",
+            letterSpacing: -1,
+          }}
+        >
+          Poboljšaj svoje iskustvo u menzi
+        </Typography>
+
+        <Typography
+          variant="h5"
+          sx={{
+            mb: 3,
+            color: "lightgrey",
+            letterSpacing: 1.2,
+          }}
+        >
+          Real-time jelovnik u restoranima
+        </Typography>
+
+        <Stack spacing={2}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={(e) => setAnchorEl(e.currentTarget)}
+            sx={{
+              fontWeight: 600,
+              borderRadius: 3,
+              width: "25%",
+              minHeight: 45,
+              color: "white",
+              textTransform: "none",
+            }}
+          >
+            Prijava
+          </Button>
+
+          <Menu
+            anchorEl={anchorEl}
+            open={open}
+            onClose={() => setAnchorEl(null)}
+            slotProps={{
+              list: {
+                disablePadding: true,
+              },
+              paper: {
+                sx: { minWidth: 300, mt: 1, borderRadius: 2 },
+              },
+            }}
+          >
+            <MenuItem
+              onClick={() => handleRoleSelect("radnik")}
+              sx={{ fontSize: "1rem", py: 1.2 }}
+            >
+              Radnik u menzi
+            </MenuItem>
+            <Box sx={{ borderBottom: "1px solid black", my: 0 }} />
+            <MenuItem
+              onClick={() => handleRoleSelect("student")}
+              sx={{ fontSize: "1rem", py: 1.2 }}
+            >
+              Student
+            </MenuItem>
+          </Menu>
+        </Stack>
+      </Box>
+    </Box>
+  );
 }
