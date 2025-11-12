@@ -1,7 +1,3 @@
 export default function Page() {
-    return (
-        <div>
-        Employee Dashboard
-        </div>
-        );
-    }
+  return <div>Employee Dashboard</div>;
+}
