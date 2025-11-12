@@ -22,7 +22,7 @@ export default function Home() {
   const open = Boolean(anchorEl);
   // Used for top-right (mini) login dropdown
   const [anchorElTop, setAnchorElTop] = React.useState<null | HTMLElement>(
-    null
+    null,
   );
   const openTop = Boolean(anchorElTop);
 
