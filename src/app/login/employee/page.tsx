@@ -4,7 +4,7 @@ import React from "react";
 import { SignIn } from "@clerk/nextjs";
 import { Box, Typography } from "@mui/material";
 
-export default function EmployeeLoginPage() {
+export default function Page() {
   return (
     <Box
       sx={{
