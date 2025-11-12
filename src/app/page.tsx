@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 
 import {
   Box,
@@ -14,6 +15,8 @@ import {
 } from "@mui/material";
 
 export default function Home() {
+  const router = useRouter();
+
   // Used for main login dropdown
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -30,7 +33,13 @@ export default function Home() {
   const handleRoleSelect = (role: string) => {
     setAnchorEl(null);
     setAnchorElTop(null);
-    // TODO: go to appropriate login page based on role
+
+    // Navigate to appropriate login page based on role
+    if (role === "student") {
+      router.push("/login/student");
+    } else if (role === "radnik") {
+      router.push("/login/employee");
+    }
   };
 
   const handleKontakt = () => {
