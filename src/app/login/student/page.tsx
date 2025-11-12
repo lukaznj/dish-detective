@@ -15,6 +15,7 @@ export default function Page() {
         backgroundImage: "url(/loginBackground.svg)",
         backgroundSize: "cover",
         backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
     >
       <Box>
