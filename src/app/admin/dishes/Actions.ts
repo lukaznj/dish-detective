@@ -19,9 +19,7 @@ type ActionResponse = {
   errors?: Record<string, string>;
 };
 
-export async function createDish(
-  input: DishInput,
-): Promise<ActionResponse> {
+export async function createDish(input: DishInput): Promise<ActionResponse> {
   try {
     const conn = await dbConnect();
     // Needed because we use a custom connection

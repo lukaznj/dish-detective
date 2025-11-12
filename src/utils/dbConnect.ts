@@ -41,7 +41,18 @@ async function dbConnect(): Promise<typeof mongoose> {
       bufferCommands: false,
     };
 
-    cached.promise = mongoose.connect(MONGODB_URI!, opts).then((mongoose) => {
+    const MONGODB_URI = process.env.MONGODB_URI!;
+
+    if (!MONGODB_URI && process.env.NODE_ENV !== "test") {
+      throw new Error("Please define the MONGODB_URI environment variable");
+    }
+
+    const uri =
+      process.env.NODE_ENV === "test"
+        ? process.env.MONGODB_TEST_URI!
+        : MONGODB_URI;
+
+    cached.promise = mongoose.connect(uri, opts).then((mongoose) => {
       cached.conn = mongoose;
       return mongoose;
     });
