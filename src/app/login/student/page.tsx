@@ -12,7 +12,9 @@ export default function Page() {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                backgroundColor: "white",
+                backgroundImage: "url(/loginBackground.svg)",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
             }}
         >
             <Box>
@@ -21,13 +23,11 @@ export default function Page() {
                     sx={{
                         fontWeight: 700,
                         my: 3,
+                        textAlign: "center",
                     }}
                 >
                     Student login
                 </Typography>
-            {/*<Box sx={{*/}
-            {/*    color: "#edeff1",*/}
-            {/*}}>*/}
                 <SignIn
                     appearance={{
                         elements: {
@@ -66,6 +66,15 @@ export default function Page() {
                             },
                             cardBox: {
                                 boxShadow: "none",
+                            },
+                            button: {
+
+                            },
+                            socialButtonsBlockButton__google: {
+
+                            },
+                            button__google: {
+
                             }
 
                         }
@@ -75,9 +84,6 @@ export default function Page() {
                     signUpUrl="/login/student"
                     forceRedirectUrl="/student/dashboard"
                 />
-            {/*</Box>*/}
-
-
             </Box>
 
         </Box>

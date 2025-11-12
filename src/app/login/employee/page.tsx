@@ -12,7 +12,10 @@ export default function Page() {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        backgroundColor: "white",
+          backgroundImage: "url(/loginBackground.svg)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
       }}
     >
         <Box>
@@ -21,6 +24,7 @@ export default function Page() {
                 sx={{
                     fontWeight: 700,
                     my: 3,
+                    textAlign: "center",
                 }}
             >
                 Zaposlenik login
@@ -37,6 +41,12 @@ export default function Page() {
                         },
                         footer: {
                             display: "none",
+                        },
+                        headerSubtitle: {
+                            display: "none",
+                        },
+                        button: {
+                          fontSize: "1rem",
                         },
                         formButtonPrimary: {
                             backgroundColor: "#2869e8",
