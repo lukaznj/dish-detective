@@ -67,9 +67,6 @@ export default function Page() {
               cardBox: {
                 boxShadow: "none",
               },
-              button: {},
-              socialButtonsBlockButton__google: {},
-              button__google: {},
             },
           }}
           routing="path"
