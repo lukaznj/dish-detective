@@ -1,7 +1,9 @@
 import {clerkMiddleware, createRouteMatcher} from '@clerk/nextjs/server';
 
 const isProtectedRoute = createRouteMatcher([
-    // Rotes to be protected should be added here
+    '/student(.*)',
+    '/employee(.*)',
+    '/admin(.*)',
 ]);
 
 export default clerkMiddleware(async (auth, req) => {
