@@ -73,7 +73,7 @@ export default function Page() {
           routing="path"
           path="/login/student"
           signUpUrl="/login/student"
-          forceRedirectUrl="/student/dashboard"
+          forceRedirectUrl="/auth/redirect"
         />
       </Box>
     </Box>
