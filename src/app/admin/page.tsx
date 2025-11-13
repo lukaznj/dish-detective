@@ -1,6 +1,21 @@
 "use client";
 
-import { Box, Typography, Button } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Button,
+  Stack,
+  IconButton,
+  Divider,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
+
+import HomeFilledIcon from "@mui/icons-material/HomeFilled";
+import TuneIcon from "@mui/icons-material/Tune";
+import CreateIcon from "@mui/icons-material/Create";
+import PeopleIcon from "@mui/icons-material/People";
+import ChatIcon from "@mui/icons-material/Chat";
 
 import { ReactNode } from "react";
 
@@ -37,50 +52,140 @@ export default function Page() {
     console.log(`Kliknuta akcija: ${action}`);
   };
 
-  return (
-    <Box
-      sx={{
-        flexGrow: 1,
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        bgcolor: "background.default",
-        justifyContent: "flex-start",
-        pt: 4,
-      }}
-    >
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  if (isMobile) {
+    return (
       <Box
         sx={{
-          p: { xs: 2, sm: 3 },
-          flexGrow: 0,
-          maxWidth: 600,
-          mx: "auto",
-          width: "100%",
+          flexGrow: 1,
+          minHeight: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          bgcolor: "background.default",
+          justifyContent: "flex-start",
+          pt: 4,
         }}
       >
-        <Typography
-          variant="h4"
-          component="h1"
+        <Box
           sx={{
-            mb: 4,
-            fontWeight: "bold",
-            fontSize: { xs: "2rem", sm: "2.25rem" },
+            p: { xs: 2, sm: 3 },
+            flexGrow: 0,
+            maxWidth: 600,
+            mx: "auto",
+            width: "100%",
           }}
         >
-          Izaberite akciju
+          <Typography
+            variant="h4"
+            component="h1"
+            sx={{
+              mb: 4,
+              fontWeight: "bold",
+              fontSize: { xs: "2rem", sm: "2.25rem" },
+            }}
+          >
+            Izaberite akciju
+          </Typography>
+
+          <Box>
+            <ActionButton onClick={() => handleActionClick("restorani")}>
+              Upravljaj restoranima
+            </ActionButton>
+            <ActionButton onClick={() => handleActionClick("jelima")}>
+              Upravljaj jelima
+            </ActionButton>
+            <ActionButton onClick={() => handleActionClick("racunima")}>
+              Upravljaj računima
+            </ActionButton>
+          </Box>
+        </Box>
+      </Box>
+    );
+  }
+
+  const navWidth = 80;
+
+  return (
+    <Box sx={{ height: "100vh", width: "100vw", display: "flex" }}>
+      <Box
+        component="nav"
+        sx={{
+          position: "fixed",
+          left: 0,
+          top: 0,
+          bottom: 0,
+          width: navWidth,
+          bgcolor: "common.white",
+          boxShadow: "2px 0 8px rgba(0,0,0,0.12)",
+          zIndex: 10,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Box
+          sx={{
+            p: 2,
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Stack spacing={1} alignItems="center">
+            <IconButton sx={{ color: "grey.900" }}>
+              <HomeFilledIcon />
+            </IconButton>
+            <IconButton sx={{ color: "grey.900" }}>
+              <TuneIcon />
+            </IconButton>
+            <IconButton sx={{ color: "grey.900" }}>
+              <CreateIcon />
+            </IconButton>
+            <IconButton sx={{ color: "grey.900" }}>
+              <PeopleIcon />
+            </IconButton>
+            <IconButton sx={{ color: "grey.900" }}>
+              <ChatIcon />
+            </IconButton>
+          </Stack>
+        </Box>
+      </Box>
+
+      <Box
+        sx={{
+          display: "flex",
+          marginLeft: `${navWidth}px`,
+          flexGrow: 1,
+          flexDirection: "column",
+          height: "100vh",
+        }}
+      >
+        <Box
+          sx={{
+            bgcolor: "primary.main",
+            height: 80,
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            px: 4,
+          }}
+        />
+        <Typography
+          variant="h4"
+          fontWeight={700}
+          sx={{ color: "#212222", p: 5 }}
+        >
+          Dobrodošli
         </Typography>
 
-        <Box>
-          <ActionButton onClick={() => handleActionClick("restorani")}>
-            Upravljaj restoranima
-          </ActionButton>
-          <ActionButton onClick={() => handleActionClick("jelima")}>
-            Upravljaj jelima
-          </ActionButton>
-          <ActionButton onClick={() => handleActionClick("racunima")}>
-            Upravljaj računima
-          </ActionButton>
+        <Box sx={{ px: 4, mt: -3}}>
+          <Divider sx={{ borderBottomWidth: 2 }} />
         </Box>
+
+        
       </Box>
     </Box>
   );
