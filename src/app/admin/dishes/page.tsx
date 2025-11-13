@@ -34,8 +34,8 @@ import TuneIcon from "@mui/icons-material/Tune";
 import CreateIcon from "@mui/icons-material/Create";
 import PeopleIcon from "@mui/icons-material/People";
 import ChatIcon from "@mui/icons-material/Chat";
-import PersonIcon from '@mui/icons-material/Person';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import PersonIcon from "@mui/icons-material/Person";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 
 const dishNames = [
   "Margherita Pizza",
@@ -273,120 +273,55 @@ export default function Page() {
         </Box>
 
         <Box
-  component="footer"
-  sx={{
-    position: "fixed",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 60,
-    bgcolor: "background.paper",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-around",
-    px: 2,
-    boxShadow: "0 -2px 8px rgba(0,0,0,0.15)",
-    zIndex: 10,
-  }}
->
-  <IconButton sx={{ color: "grey.900" }}>
-    <PersonIcon />
-  </IconButton>
-  <IconButton sx={{ color: "grey.900" }}>
-    <HomeFilledIcon />
-  </IconButton>
-  <IconButton sx={{ color: "grey.900" }}>
-    <NotificationsIcon />
-  </IconButton>
-</Box>
+          component="footer"
+          sx={{
+            position: "fixed",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: 60,
+            bgcolor: "background.paper",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-around",
+            px: 2,
+            boxShadow: "0 -2px 8px rgba(0,0,0,0.15)",
+            zIndex: 10,
+          }}
+        >
+          <IconButton sx={{ color: "grey.900" }}>
+            <PersonIcon />
+          </IconButton>
+          <IconButton sx={{ color: "grey.900" }}>
+            <HomeFilledIcon />
+          </IconButton>
+          <IconButton sx={{ color: "grey.900" }}>
+            <NotificationsIcon />
+          </IconButton>
+        </Box>
       </Box>
     );
   }
 
+  // ...existing code...
   const navWidth = 80;
 
   // TODO: Make desktop layout more responsive!
 
   return (
-    <Box
-      sx={{
-        position: "relative",
-        minHeight: "100vh",
-        width: "100vw",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "flex-start",
-        alignItems: "stretch",
-      }}
-    >
-      <Box
-        component="header"
-        sx={{
-          height: { xs: 64, sm: 88 },
-          width: "100%",
-          bgcolor: "primary.main",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          zIndex: 3,
-          px: 2,
-          boxShadow: 1,
-          position: "relative",
-        }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            gap: 1,
-            alignItems: "center",
-          }}
-        >
-          <img
-            src="/logoWhite.png"
-            alt="Dish Detective Logo"
-            style={{ width: 36, height: 36 }}
-          />
-          <Typography
-            variant="body1"
-            sx={{
-              color: "white",
-              fontWeight: 700,
-              fontSize: "1.2rem",
-            }}
-          >
-            Dish Detective
-          </Typography>
-        </Box>
-
-        <Button
-          variant="contained"
-          onClick={handleAdminDashboard}
-          sx={{
-            bgcolor: "success.light",
-            color: "white",
-            fontWeight: 600,
-            textTransform: "none",
-            mr: 2,
-            "&:hover": {
-              bgcolor: "success.dark",
-            },
-          }}
-        >
-          Admin
-        </Button>
-      </Box>
-
+    <Box sx={{ height: "100vh", width: "100vw", display: "flex" }}>
+      {/* Fixed Vertical Navbar */}
       <Box
         component="nav"
         sx={{
           position: "fixed",
           left: 0,
-          top: { xs: 64, sm: 88 },
+          top: 0,
           bottom: 0,
-          width: 80,
+          width: navWidth,
           bgcolor: "common.white",
           boxShadow: "2px 0 8px rgba(0,0,0,0.12)",
-          zIndex: 2,
+          zIndex: 10,
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -421,111 +356,180 @@ export default function Page() {
         </Box>
       </Box>
 
+      {/* Main Content Area (Header + Scrollable Content) */}
       <Box
         sx={{
-          p: { xs: 2, sm: 3, md: 5 },
-          ml: `${navWidth}px`,
           display: "flex",
-          alignItems: "center",
-          gap: { xs: 2, md: 3 },
-          justifyContent: "space-between",
+          flexDirection: "column",
+          flex: 1,
+          ml: `${navWidth}px`,
+          height: "100vh",
         }}
       >
-        <Typography
-          variant="h4"
-          fontWeight={800}
+        {/* Sticky Header */}
+        <Box
+          component="header"
           sx={{
-            color: "#212222",
-            ml: { xs: 1, sm: 2, md: 4, lg: 5 },
-            lineHeight: 1.2,
-            letterSpacing: -1,
+            height: { xs: 64, sm: 88 },
+            width: "100%",
+            bgcolor: "primary.main",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            zIndex: 5,
+            px: 2,
+            boxShadow: 1,
+            flexShrink: 0, // Prevent header from shrinking
           }}
         >
-          Jela
-        </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              gap: 1,
+              alignItems: "center",
+            }}
+          >
+            <img
+              src="/logoWhite.png"
+              alt="Dish Detective Logo"
+              style={{ width: 36, height: 36 }}
+            />
+            <Typography
+              variant="body1"
+              sx={{
+                color: "white",
+                fontWeight: 700,
+                fontSize: "1.2rem",
+              }}
+            >
+              Dish Detective
+            </Typography>
+          </Box>
+
+          <Button
+            variant="contained"
+            onClick={handleAdminDashboard}
+            sx={{
+              bgcolor: "success.light",
+              color: "white",
+              fontWeight: 600,
+              textTransform: "none",
+              mr: 2,
+              "&:hover": {
+                bgcolor: "success.dark",
+              },
+            }}
+          >
+            Admin
+          </Button>
+        </Box>
 
         <Box
           sx={{
             flex: 1,
-            display: "flex",
-            justifyContent: "flex-start",
-            ml: { xs: 2, sm: 4, md: 10, lg: 30 },
+            overflowY: "auto",
+            p: { xs: 2, sm: 3, md: 5 },
           }}
         >
-          <TextField
-            size="small"
-            placeholder="Search"
-            variant="outlined"
-            onChange={handleSearch}
+          {/* Search and Title Section */}
+          <Box
             sx={{
-              bgcolor: "background.paper",
-              borderRadius: 999,
-              width: "100%",
-              maxWidth: 480,
-              boxShadow: 0.5,
-              "& .MuiOutlinedInput-root": {
-                borderRadius: 999,
-              },
-            }}
-          />
-
-          <IconButton
-            onClick={handleAddDish}
-            sx={{
-              ml: 2,
-              bgcolor: "action.hover",
-              color: "text.secondary",
-              boxShadow: 1,
-              "&:hover": {
-                bgcolor: "action.selected",
-              },
+              display: "flex",
+              alignItems: "center",
+              gap: { xs: 2, md: 3 },
+              justifyContent: "space-between",
+              mb: 2,
             }}
           >
-            <AddIcon />
-          </IconButton>
+            <Typography
+              variant="h4"
+              fontWeight={800}
+              sx={{
+                color: "#212222",
+                ml: { xs: 1, sm: 2, md: 4, lg: 6 },
+                lineHeight: 1.2,
+                letterSpacing: -1,
+              }}
+            >
+              Jela
+            </Typography>
+
+            <Box
+              sx={{
+                flex: 1,
+                display: "flex",
+                justifyContent: "flex-start",
+                ml: { md: 25, lg: 35 },
+              }}
+            >
+              <TextField
+                size="small"
+                placeholder="Search"
+                variant="outlined"
+                onChange={handleSearch}
+                sx={{
+                  bgcolor: "background.paper",
+                  borderRadius: 999,
+                  width: "100%",
+                  maxWidth: 480,
+                  boxShadow: 0.5,
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: 999,
+                  },
+                }}
+              />
+
+              <IconButton
+                onClick={handleAddDish}
+                sx={{
+                  ml: 2,
+                  bgcolor: "action.hover",
+                  color: "text.secondary",
+                  boxShadow: 1,
+                  "&:hover": {
+                    bgcolor: "action.selected",
+                  },
+                }}
+              >
+                <AddIcon />
+              </IconButton>
+            </Box>
+          </Box>
+
+          <Box sx={{ px: { xs: 1, sm: 2, md: 4, lg: 5 } }}>
+            <Divider sx={{ borderBottomWidth: 2 }} />
+          </Box>
+
+          {/* Dishes List */}
+          <Box
+            sx={{
+              pt: 5,
+              px: 5,
+              display: "flex",
+              flexDirection: "column",
+              gap: 2,
+            }}
+          >
+            {loading ? (
+              <Typography>Loading dishes...</Typography>
+            ) : dishes.length === 0 ? (
+              <Typography sx={{ ml: { sm: 1, md: 1, lg: 1 } }}>
+                No dishes found. Click + to add one!
+              </Typography>
+            ) : (
+              dishes.map((dish) => (
+                <DishCard
+                  key={dish._id}
+                  name={dish.name}
+                  restaurantName={dish.category}
+                  position={dish.description}
+                  onDelete={() => handleDeleteDish(dish._id)}
+                />
+              ))
+            )}
+          </Box>
         </Box>
       </Box>
-      <Box sx={{ ml: 10, px: 10, mt: -2 }}>
-        <Divider sx={{ borderBottomWidth: 2 }} />
-      </Box>
-
-      <Box
-        sx={{
-          p: 5,
-          ml: `${navWidth}px`,
-          display: "flex",
-          flexDirection: "column",
-          gap: 2,
-        }}
-      >
-        {loading ? (
-          <Typography>Loading dishes...</Typography>
-        ) : dishes.length === 0 ? (
-          <Typography sx={{ ml: { xs: 1, sm: 2, md: 4, lg: 5 } }}>
-            No dishes found. Click + to add one!
-          </Typography>
-        ) : (
-          dishes.map((dish) => (
-            <DishCard
-              key={dish._id}
-              name={dish.name}
-              restaurantName={dish.category}
-              position={dish.description}
-              onDelete={() => handleDeleteDish(dish._id)}
-            />
-          ))
-        )}
-      </Box>
-
-      <Box
-        component="footer"
-        sx={{
-          height: 50,
-          bgcolor: "primary.main",
-          mt: "auto",
-          zIndex: 3,
-        }}
-      />
     </Box>
   );
 }
