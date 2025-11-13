@@ -54,8 +54,8 @@ export default function Page() {
 
   const handleActionClick = (action: string) => {
     console.log(`Kliknuta akcija: ${action}`);
-    if (action === "jelima"){
-      router.push('/admin/dishes');
+    if (action === "jelima") {
+      router.push("/admin/dishes");
     }
 
     // TODO: Implement navigation for other actions
@@ -144,7 +144,15 @@ export default function Page() {
           }}
         >
           <Stack spacing={1} alignItems="center">
-            <IconButton sx={{ color: "grey.900" }}>
+            <IconButton
+              sx={{
+                color: "primary.dark",
+                bgcolor: "grey.200",
+                "&:hover": {
+                  bgcolor: "grey.200",
+                },
+              }}
+            >
               <HomeFilledIcon />
             </IconButton>
             <IconButton sx={{ color: "grey.900" }}>
@@ -170,7 +178,7 @@ export default function Page() {
           flexGrow: 1,
           flexDirection: "column",
           height: "100vh",
-          overflow: "hidden"
+          overflow: "hidden",
         }}
       >
         <Box
@@ -185,7 +193,7 @@ export default function Page() {
             px: 4,
             zIndex: 20,
             position: "relative",
-            flexShrink: 0
+            flexShrink: 0,
           }}
         >
           <Box
@@ -230,7 +238,7 @@ export default function Page() {
           </Button>
         </Box>
         <Typography
-          marginLeft = {`${navWidth}px`}
+          marginLeft={`${navWidth}px`}
           variant="h4"
           fontWeight={780}
           sx={{ color: "#212222", p: 5 }}
@@ -238,7 +246,7 @@ export default function Page() {
           Dobrodošli
         </Typography>
 
-        <Box sx={{ px: 4, mt: -3, marginLeft: `${navWidth}px`}}>
+        <Box sx={{ px: 4, mt: -3, marginLeft: `${navWidth}px` }}>
           <Divider sx={{ borderBottomWidth: 2 }} />
         </Box>
 
@@ -269,6 +277,18 @@ export default function Page() {
               fontSize: "1.25rem",
               fontWeight: "600",
               color: "text.primary",
+              opacity: 0,
+              animation: "fadeInUp 0.6s ease-out 0.1s forwards",
+              "@keyframes fadeInUp": {
+                from: {
+                  opacity: 0,
+                  transform: "translateY(20px)",
+                },
+                to: {
+                  opacity: 1,
+                  transform: "translateY(0)",
+                },
+              },
               "&:hover": {
                 bgcolor: "grey.10",
                 boxShadow: 4,
@@ -323,6 +343,18 @@ export default function Page() {
               fontSize: "1.25rem",
               fontWeight: "600",
               color: "text.primary",
+              opacity: 0,
+              animation: "fadeInUp 0.6s ease-out 0.3s forwards",
+              "@keyframes fadeInUp": {
+                from: {
+                  opacity: 0,
+                  transform: "translateY(20px)",
+                },
+                to: {
+                  opacity: 1,
+                  transform: "translateY(0)",
+                },
+              },
               "&:hover": {
                 bgcolor: "grey.10",
                 boxShadow: 4,
@@ -377,6 +409,18 @@ export default function Page() {
               fontSize: "1.25rem",
               fontWeight: "600",
               color: "text.primary",
+              opacity: 0,
+              animation: "fadeInUp 0.6s ease-out 0.5s forwards",
+              "@keyframes fadeInUp": {
+                from: {
+                  opacity: 0,
+                  transform: "translateY(20px)",
+                },
+                to: {
+                  opacity: 1,
+                  transform: "translateY(0)",
+                },
+              },
               "&:hover": {
                 bgcolor: "grey.10",
                 boxShadow: 4,
@@ -414,7 +458,7 @@ export default function Page() {
             mt: "auto",
             zIndex: 20,
             position: "relative",
-            flexShrink: 0
+            flexShrink: 0,
           }}
         />
       </Box>

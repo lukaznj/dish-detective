@@ -358,7 +358,15 @@ export default function Page() {
             <IconButton sx={{ color: "grey.900" }}>
               <TuneIcon />
             </IconButton>
-            <IconButton sx={{ color: "grey.900" }}>
+            <IconButton
+              sx={{
+                color: "primary.dark",
+                bgcolor: "grey.200",
+                "&:hover": {
+                  bgcolor: "grey.200",
+                },
+              }}
+            >
               <CreateIcon />
             </IconButton>
             <IconButton sx={{ color: "grey.900" }}>
@@ -450,7 +458,7 @@ export default function Page() {
             sx={{
               display: "flex",
               flexDirection: "column",
-              mb: 3,
+              mb: 2,
               ml: `${navWidth}px`,
             }}
           >
@@ -488,7 +496,7 @@ export default function Page() {
                   bgcolor: "background.paper",
                   borderRadius: 999,
                   width: "100%",
-                  mt: { sm: 0, md: -5 },
+                  mt: { sm: 0, md: -6 },
                   maxWidth: { sm: 400, md: 330, lg: 480 },
                   boxShadow: 0.5,
                   "& .MuiOutlinedInput-root": {
@@ -501,7 +509,7 @@ export default function Page() {
                 onClick={handleAddDish}
                 sx={{
                   ml: 2,
-                  mt: { sm: 0, md: -5 },
+                  mt: { sm: 0, md: -6 },
                   bgcolor: "action.hover",
                   color: "text.secondary",
                   boxShadow: 1,
