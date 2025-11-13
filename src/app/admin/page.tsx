@@ -171,9 +171,51 @@ export default function Page() {
             width: "100%",
             display: "flex",
             alignItems: "center",
+            justifyContent: "space-between",
             px: 4,
           }}
-        />
+        >
+          <Box
+            sx={{
+              display: "flex",
+              gap: 1,
+              alignItems: "center",
+            }}
+          >
+            <img
+              src="/logoWhite.png"
+              alt="Dish Detective Logo"
+              style={{ width: 36, height: 36 }}
+            />
+            <Typography
+              variant="body1"
+              sx={{
+                color: "white",
+                fontWeight: 700,
+                fontSize: "1.2rem",
+              }}
+            >
+              Dish Detective
+            </Typography>
+          </Box>
+
+          <Button
+            variant="contained"
+            // onClick={handleAdminDashboard}
+            sx={{
+              bgcolor: "success.light",
+              color: "white",
+              fontWeight: 600,
+              textTransform: "none",
+              mr: 2,
+              "&:hover": {
+                bgcolor: "success.dark",
+              },
+            }}
+          >
+            Admin
+          </Button>
+        </Box>
         <Typography
           variant="h4"
           fontWeight={780}
@@ -348,6 +390,14 @@ export default function Page() {
             </Typography>
           </Button>
         </Box>
+        <Box
+          sx={{
+            bgcolor: "primary.main",
+            height: 60,
+            width: "100%",
+            mt: "auto",
+          }}
+        />
       </Box>
     </Box>
   );
