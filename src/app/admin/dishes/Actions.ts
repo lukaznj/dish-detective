@@ -25,33 +25,6 @@ export async function createDish(input: DishInput): Promise<ActionResponse> {
     // Needed because we use a custom connection
     const DishModel = conn.model("Dish", Dish.schema);
 
-    // Validate input
-    const errors: Record<string, string> = {};
-
-    if (!input.name || input.name.trim().length === 0) {
-      errors.name = "Name is required";
-    }
-
-    if (!input.description || input.description.trim().length === 0) {
-      errors.description = "Description is required";
-    }
-
-    if (!input.category || input.category.trim().length === 0) {
-      errors.category = "Category is required";
-    }
-
-    if (!input.imageUrl || input.imageUrl.trim().length === 0) {
-      errors.imageUrl = "Image URL is required";
-    }
-
-    if (Object.keys(errors).length > 0) {
-      return {
-        success: false,
-        message: "Validation failed",
-        errors,
-      };
-    }
-
     const dish = await DishModel.create({
       name: input.name.trim(),
       description: input.description.trim(),
@@ -105,15 +78,6 @@ export async function deleteDish(dishId: string): Promise<ActionResponse> {
     const conn = await dbConnect();
     // Needed because we use a custom connection
     const DishModel = conn.model("Dish", Dish.schema);
-
-    // Check if passed id even exists
-    if (!dishId || dishId.trim().length === 0) {
-      return {
-        success: false,
-        message: "Dish ID is required",
-        errors: { id: "Invalid dish ID" },
-      };
-    }
 
     // Validate id
     if (!conn.Types.ObjectId.isValid(dishId)) {
@@ -193,51 +157,12 @@ export async function updateDish(
     // Needed because we use a custom connection
     const DishModel = conn.model("Dish", Dish.schema);
 
-    // Check if passed id even exists
-    if (!dishId || dishId.trim().length === 0) {
-      return {
-        success: false,
-        message: "Dish ID is required",
-        errors: { id: "Invalid dish ID" },
-      };
-    }
-
     // Validate id
     if (!conn.Types.ObjectId.isValid(dishId)) {
       return {
         success: false,
         message: "Invalid dish ID format",
         errors: { id: "Invalid ObjectId format" },
-      };
-    }
-
-    // Validate input fields if provided
-    const errors: Record<string, string> = {};
-
-    if (input.name !== undefined && input.name.trim().length === 0) {
-      errors.name = "Name cannot be empty";
-    }
-
-    if (
-      input.description !== undefined &&
-      input.description.trim().length === 0
-    ) {
-      errors.description = "Description cannot be empty";
-    }
-
-    if (input.category !== undefined && input.category.trim().length === 0) {
-      errors.category = "Category cannot be empty";
-    }
-
-    if (input.imageUrl !== undefined && input.imageUrl.trim().length === 0) {
-      errors.imageUrl = "Image URL cannot be empty";
-    }
-
-    if (Object.keys(errors).length > 0) {
-      return {
-        success: false,
-        message: "Validation failed",
-        errors,
       };
     }
 
