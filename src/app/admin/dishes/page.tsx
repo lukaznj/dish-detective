@@ -433,10 +433,7 @@ export default function Page() {
           <Box
             sx={{
               display: "flex",
-              alignItems: "center",
-              justifyItems: "center",
-              gap: { xs: 2, md: 3 },
-              justifyContent: "space-between",
+              flexDirection: "column",
               mb: 2,
               ml: `${navWidth}px`,
             }}
@@ -445,10 +442,12 @@ export default function Page() {
               variant="h4"
               fontWeight={800}
               sx={{
+                width: "fit-content",
                 color: "#212222",
                 ml: { xs: 1, sm: 2, md: 4, lg: 6 },
                 lineHeight: 1.2,
                 letterSpacing: -1,
+                display: { sm: "none", md: "block" },
               }}
             >
               Jela
@@ -456,11 +455,11 @@ export default function Page() {
 
             <Box
               sx={{
-                flex: 1,
                 display: "flex",
-                justifyContent: "flex-start",
-                ml: { sm: 15, md: 25, lg: 30, xl: 35},
+                justifyContent: "center",
                 alignItems: "center",
+                gap: 2,
+                px: { xs: 2, sm: 3, md: 5 },
               }}
             >
               <TextField
@@ -472,7 +471,8 @@ export default function Page() {
                   bgcolor: "background.paper",
                   borderRadius: 999,
                   width: "100%",
-                  maxWidth: {sm: 350, lg: 480},
+                  mt: { sm: 0, md: -5 },
+                  maxWidth: { sm: 400, md: 330, lg: 480 },
                   boxShadow: 0.5,
                   "& .MuiOutlinedInput-root": {
                     borderRadius: 999,
@@ -484,6 +484,7 @@ export default function Page() {
                 onClick={handleAddDish}
                 sx={{
                   ml: 2,
+                  mt: { sm: 0, md: -5 },
                   bgcolor: "action.hover",
                   color: "text.secondary",
                   boxShadow: 1,
@@ -497,7 +498,7 @@ export default function Page() {
             </Box>
           </Box>
 
-          <Box sx={{ px: { xs: 1, sm: 2, md: 4, lg: 5 }, ml: `${navWidth}px`, }}>
+          <Box sx={{ px: { xs: 1, sm: 2, md: 4, lg: 5 }, ml: `${navWidth}px` }}>
             <Divider sx={{ borderBottomWidth: 2 }} />
           </Box>
 
