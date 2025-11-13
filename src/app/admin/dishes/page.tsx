@@ -296,7 +296,7 @@ export default function Page() {
     <HomeFilledIcon />
   </IconButton>
   <IconButton sx={{ color: "grey.900" }}>
-    <PersonIcon />
+    <NotificationsIcon />
   </IconButton>
 </Box>
       </Box>
