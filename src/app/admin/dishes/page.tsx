@@ -384,14 +384,14 @@ export default function Page() {
         <Box
           component="header"
           sx={{
-            height: { xs: 64, sm: 88 },
+            height: { xs: 64, sm: 80 },
             width: "100%",
             bgcolor: "primary.main",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
             zIndex: 50,
-            px: 2,
+            px: 4,
             boxShadow: 1,
             flexShrink: 0,
           }}
@@ -450,13 +450,13 @@ export default function Page() {
             sx={{
               display: "flex",
               flexDirection: "column",
-              mb: 2,
+              mb: 3,
               ml: `${navWidth}px`,
             }}
           >
             <Typography
               variant="h4"
-              fontWeight={800}
+              fontWeight={780}
               sx={{
                 width: "fit-content",
                 color: "#212222",
