@@ -18,6 +18,7 @@ import PeopleIcon from "@mui/icons-material/People";
 import ChatIcon from "@mui/icons-material/Chat";
 
 import { ReactNode } from "react";
+import { People } from "@mui/icons-material";
 
 interface ActionButtonProps {
   children: ReactNode;
@@ -175,17 +176,178 @@ export default function Page() {
         />
         <Typography
           variant="h4"
-          fontWeight={700}
+          fontWeight={780}
           sx={{ color: "#212222", p: 5 }}
         >
           Dobrodošli
         </Typography>
 
-        <Box sx={{ px: 4, mt: -3}}>
+        <Box sx={{ px: 4, mt: -3 }}>
           <Divider sx={{ borderBottomWidth: 2 }} />
         </Box>
 
-        
+        <Box
+          sx={{
+            px: 5,
+            py: 4,
+            display: "flex",
+            gap: 3,
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
+        >
+          <Button
+            onClick={() => handleActionClick("restorani")}
+            sx={{
+              flex: 1,
+              flexDirection: "column",
+              alignItems: "flex-start",
+              minWidth: 150,
+              maxWidth: 350,
+              bgColor: "white",
+              boxShadow: 2,
+              p: 3,
+              borderRadius: 3,
+              textTransform: "none",
+              fontSize: "1.25rem",
+              fontWeight: "600",
+              color: "text.primary",
+              "&:hover": {
+                bgcolor: "grey.10",
+                boxShadow: 4,
+              },
+            }}
+          >
+            <TuneIcon sx={{ fontSize: 40, color: "text.primary" }} />
+            <Typography
+              sx={{
+                fontSize: "1.6vw",
+                fontWeight: "600",
+                color: "text.primary",
+                pt: 1,
+              }}
+            >
+              Upravljaj restoranima
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: "0.9vw",
+                fontWeight: "550",
+                color: "text.secondary",
+                pt: 1,
+              }}
+            >
+              • Dodavanje i brisanje restorana
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: "0.9vw",
+                fontWeight: "550",
+                color: "text.secondary",
+              }}
+            >
+              • Postavljanje voditelja menze
+            </Typography>
+          </Button>
+          <Button
+            onClick={() => handleActionClick("restorani")}
+            sx={{
+              flex: 1,
+              flexDirection: "column",
+              alignItems: "flex-start",
+              minWidth: 150,
+              maxWidth: 350,
+              minHeight: 350,
+              bgColor: "white",
+              boxShadow: 2,
+              p: 3,
+              borderRadius: 3,
+              textTransform: "none",
+              fontSize: "1.25rem",
+              fontWeight: "600",
+              color: "text.primary",
+              "&:hover": {
+                bgcolor: "grey.10",
+                boxShadow: 4,
+              },
+            }}
+          >
+            <CreateIcon sx={{ fontSize: 40, color: "text.primary" }} />
+            <Typography
+              sx={{
+                fontSize: "1.6vw",
+                fontWeight: "600",
+                color: "text.primary",
+                pt: 1,
+              }}
+            >
+              Upravljaj jelima
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: "0.9vw",
+                fontWeight: "550",
+                color: "text.secondary",
+                pt: 1,
+              }}
+            >
+              • Dodavanje i brisanje jela
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: "0.9vw",
+                fontWeight: "550",
+                color: "text.secondary",
+              }}
+            >
+              • Naglašavanje sastojaka i alergena
+            </Typography>
+          </Button>
+          <Button
+            onClick={() => handleActionClick("restorani")}
+            sx={{
+              flex: 1,
+              flexDirection: "column",
+              alignItems: "flex-start",
+              minWidth: 150,
+              maxWidth: 350,
+              bgColor: "white",
+              boxShadow: 2,
+              p: 3,
+              borderRadius: 3,
+              textTransform: "none",
+              fontSize: "1.25rem",
+              fontWeight: "600",
+              color: "text.primary",
+              "&:hover": {
+                bgcolor: "grey.10",
+                boxShadow: 4,
+              },
+            }}
+          >
+            <PeopleIcon sx={{ fontSize: 40, color: "text.primary" }} />
+            <Typography
+              sx={{
+                fontSize: "1.6vw",
+                fontWeight: "600",
+                color: "text.primary",
+                pt: 1,
+              }}
+            >
+              Upravljaj računima
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: "0.9vw",
+                fontWeight: "550",
+                color: "text.secondary",
+                pt: 1,
+              }}
+            >
+              • Dodavanje i brisanje računa radnika
+            </Typography>
+          </Button>
+        </Box>
       </Box>
     </Box>
   );
