@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { getAllRestaurants } from "../../restaurants/actions";
 import { createWorkerManagerAccount } from "./actions";
+import SuccessScreen from "@/components/SuccessScreen";
 
 type Restaurant = {
   _id: string;
@@ -27,6 +28,7 @@ export default function ManagerWorkerCreatePage() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string>("");
+  const [showSuccessScreen, setShowSuccessScreen] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -90,19 +92,11 @@ export default function ManagerWorkerCreatePage() {
 
       if (result.success) {
         setSuccess("Račun uspješno kreiran!");
-        // Reset form
-        setFormData({
-          name: "",
-          lastName: "",
-          username: "",
-          password: "",
-          restaurantId: "",
-          role: "worker",
-        });
-        // Redirect after a short delay to show success message
+        setShowSuccessScreen(true);
+        // Redirect after showing success screen
         setTimeout(() => {
           router.push("/admin/accounts");
-        }, 1500);
+        }, 2000);
       } else {
         setError(result.error || "Neuspješno kreiranje računa");
       }
@@ -112,6 +106,11 @@ export default function ManagerWorkerCreatePage() {
       setLoading(false);
     }
   };
+
+  // Show success screen after successful creation
+  if (showSuccessScreen) {
+    return <SuccessScreen message="Račun uspješno kreiran!" />;
+  }
 
   return (
     <Box
