@@ -360,7 +360,7 @@ export default function Page() {
           display: "flex",
           flexDirection: "column",
           flex: 1,
-          ml: `${navWidth}px`,
+          //ml: `${navWidth}px`,
           height: "100vh",
         }}
       >
@@ -374,7 +374,7 @@ export default function Page() {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            zIndex: 5,
+            zIndex: 50,
             px: 2,
             boxShadow: 1,
             flexShrink: 0,
@@ -438,6 +438,7 @@ export default function Page() {
               gap: { xs: 2, md: 3 },
               justifyContent: "space-between",
               mb: 2,
+              ml: `${navWidth}px`,
             }}
           >
             <Typography
@@ -496,7 +497,7 @@ export default function Page() {
             </Box>
           </Box>
 
-          <Box sx={{ px: { xs: 1, sm: 2, md: 4, lg: 5 } }}>
+          <Box sx={{ px: { xs: 1, sm: 2, md: 4, lg: 5 }, ml: `${navWidth}px`, }}>
             <Divider sx={{ borderBottomWidth: 2 }} />
           </Box>
 
@@ -507,6 +508,7 @@ export default function Page() {
               display: "flex",
               flexDirection: "column",
               gap: 2,
+              ml: `${navWidth}px`,
             }}
           >
             {loading ? (
@@ -535,7 +537,7 @@ export default function Page() {
             width: "100%",
             bgcolor: "primary.main",
             flexShrink: 0, // Prevent footer from shrinking
-            zIndex: 5,
+            zIndex: 50,
           }}
         />
       </Box>
