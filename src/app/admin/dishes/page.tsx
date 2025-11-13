@@ -29,7 +29,7 @@ interface Dish {
 
 import DishCard from "@/components/DishCard";
 import AddIcon from "@mui/icons-material/Add";
-import { getAllDishes, deleteDish, createDish } from "./Actions";
+import { getAllDishes, deleteDish, createDish } from "./actions";
 
 import HomeFilledIcon from "@mui/icons-material/HomeFilled";
 import TuneIcon from "@mui/icons-material/Tune";

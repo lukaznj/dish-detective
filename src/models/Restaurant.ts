@@ -65,9 +65,9 @@ const restaurantSchema = new Schema<IRestaurant>(
   },
 );
 
-const Restaurant: Model<IRestaurant> = mongoose.model<IRestaurant>(
-  "Restaurant",
-  restaurantSchema,
-);
+// Use existing model if it exists to avoid OverwriteModelError
+const Restaurant: Model<IRestaurant> =
+  (mongoose.models.Restaurant as Model<IRestaurant>) ||
+  mongoose.model<IRestaurant>("Restaurant", restaurantSchema);
 
 export default Restaurant;
