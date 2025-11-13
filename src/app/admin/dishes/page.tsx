@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   Box,
@@ -12,41 +12,286 @@ import {
   IconButton,
   useMediaQuery,
   useTheme,
+  Drawer,
+  List,
+  ListItemButton,
+  ListItemText,
 } from "@mui/material";
 
 interface Dish {
-  id: string;
+  _id: string;
   name: string;
-  restaurantName: string;
-  position: string;
+  description: string;
+  category: string;
+  imageUrl: string;
+  allergens: string[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+import DishCard from "@/components/DishCard";
+import AddIcon from "@mui/icons-material/Add";
+import { getAllDishes, deleteDish, createDish } from "./Actions";
+
+const dishNames = [
+  "Margherita Pizza",
+  "Caesar Salad",
+  "Spaghetti Carbonara",
+  "Beef Burger",
+  "Chicken Tikka Masala",
+  "Pad Thai",
+  "Sushi Roll",
+  "Fish and Chips",
+  "Tacos al Pastor",
+  "Ramen Bowl",
+  "Grilled Salmon",
+  "Greek Salad",
+  "BBQ Ribs",
+  "Penne Arrabbiata",
+  "Chicken Wings",
+  "Tom Yum Soup",
+  "Beef Stew",
+  "Mushroom Risotto",
+  "Lamb Chops",
+  "Falafel Wrap",
+];
+
+const descriptions = [
+  "A delicious and savory dish",
+  "Fresh ingredients cooked to perfection",
+  "Traditional recipe with a modern twist",
+  "Authentic flavors from around the world",
+  "Chef's special recommendation",
+  "Popular customer favorite",
+  "Made with locally sourced ingredients",
+  "A classic comfort food",
+  "Perfectly seasoned and grilled",
+  "Rich and flavorful",
+];
+
+const categories = [
+  "Appetizer",
+  "Main Course",
+  "Dessert",
+  "Soup",
+  "Salad",
+  "Pasta",
+  "Seafood",
+  "Vegetarian",
+  "Grill",
+  "Asian",
+];
+
+const allergensList = [
+  ["Gluten", "Dairy"],
+  ["Nuts", "Eggs"],
+  ["Shellfish"],
+  ["Soy"],
+  ["Dairy", "Eggs"],
+  [],
+  ["Gluten"],
+  ["Nuts", "Dairy"],
+];
+
+function getRandomElement<T>(arr: T[]): T {
+  return arr[Math.floor(Math.random() * arr.length)];
 }
 
 export default function Page() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const isShortScreen = useMediaQuery("(max-height: 740px)");
 
   const [dishes, setDishes] = useState<Dish[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const handleAddDish = () => {
-    const newDish: Dish = {
-      id: Date.now().toString(),
-      name: `Dish ${dishes.length + 1}`,
-      restaurantName: "Sample Restaurant",
-      position: "Main Course",
-    };
-    setDishes([...dishes, newDish]);
+  useEffect(() => {
+    loadDishes();
+  }, []);
+
+  const loadDishes = async () => {
+    setLoading(true);
+    const response = await getAllDishes();
+
+    if (response.success && response.data) {
+      setDishes(response.data);
+    } else {
+      console.error("Failed to load dishes:", response.message);
+    }
+    setLoading(false);
   };
 
-  const handleDeleteDish = (id: string) => {
-    setDishes(dishes.filter((dish) => dish.id !== id));
+  const handleAddDish = async () => {
+    const randomDish = {
+      name: getRandomElement(dishNames),
+      description: getRandomElement(descriptions),
+      category: getRandomElement(categories),
+      imageUrl: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c",
+      allergens: getRandomElement(allergensList),
+    };
+
+    const response = await createDish(randomDish);
+
+    if (response.success) {
+      loadDishes();
+    } else {
+      console.error("Failed to create dish:", response.message);
+      alert("Failed to create dish: " + response.message);
+    }
+  };
+
+  const handleDeleteDish = async (id: string) => {
+    const response = await deleteDish(id);
+
+    if (response.success) {
+      setDishes(dishes.filter((dish) => dish._id !== id));
+    } else {
+      console.error("Failed to delete dish:", response.message);
+      alert("Failed to delete dish");
+    }
+  };
+
+  const handleAdminDashboard = () => {
+  // TODO: Navigate to admin dashboard page
+  };
+
+  const handleLogout = () => {
+  // TODO: Clear session and navigate to home page
+  };
+
+  const handleSearch = () => {
+  // TODO: Implement search functionality to filter dishes
   };
 
   if (isMobile) {
-    return null;
+    return (
+      <Box
+        sx={{
+          minHeight: "100vh",
+          width: "100vw",
+          display: "flex",
+          flexDirection: "column",
+          bgcolor: "background.default",
+        }}
+      >
+        <Box
+          component="header"
+          sx={{
+            height: 64,
+            width: "100%",
+            bgcolor: "primary.main",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            px: 2,
+            boxShadow: 1,
+            position: "sticky",
+            top: 0,
+            zIndex: 10,
+          }}
+        >
+          <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+            <img
+              src="/logoWhite.png"
+              alt="Logo"
+              style={{ width: 28, height: 28 }}
+            />
+            <Typography
+              variant="body1"
+              sx={{ color: "white", fontWeight: 700, fontSize: "1rem" }}
+            >
+              Dish Detective
+            </Typography>
+          </Box>
+
+          <Button
+            variant="contained"
+            size="small"
+            onClick={handleLogout}
+            sx={{
+              bgcolor: "grey.800",
+              color: "white",
+              fontSize: "0.75rem",
+              textTransform: "none",
+              "&:hover": { bgcolor: "success.dark" },
+            }}
+          >
+            Log out
+          </Button>
+        </Box>
+
+        <Box sx={{ p: 2 }}>
+          <Box sx={{ display: "flex", gap: 1, mb: 2 }}>
+            <TextField
+              size="small"
+              placeholder="Search"
+              variant="outlined"
+              onChange={handleSearch}
+              sx={{
+                flex: 1,
+                bgcolor: "background.paper",
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "50px",
+                },
+              }}
+            />
+            <IconButton
+              onClick={handleAddDish}
+              sx={{
+                bgcolor: "action.hover",
+                color: "text.secondary",
+                boxShadow: 1,
+                "&:hover": { bgcolor: "action.selected" },
+              }}
+            >
+              <AddIcon />
+            </IconButton>
+          </Box>
+
+          <Divider sx={{ mb: 2, borderBottomWidth: 2 }} />
+
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            {loading ? (
+              <Typography>Loading dishes...</Typography>
+            ) : dishes.length === 0 ? (
+              <Typography>No dishes found. Click + to add!</Typography>
+            ) : (
+              dishes.map((dish) => (
+                <DishCard
+                  key={dish._id}
+                  name={dish.name}
+                  restaurantName={dish.category}
+                  position={dish.description}
+                  onDelete={() => handleDeleteDish(dish._id)}
+                />
+              ))
+            )}
+          </Box>
+        </Box>
+
+        <Box
+          component="footer"
+          sx={{
+            position: "fixed",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: 60,
+            bgcolor: "background.paper",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            px: 2,
+            boxShadow: "0 -2px 8px rgba(0,0,0,0.15)",
+            zIndex: 10,
+          }}
+        ></Box>
+      </Box>
+    );
   }
 
   const navWidth = 100;
+
+ // TODO: Make desktop layout more responsive!
 
   return (
     <Box
@@ -101,6 +346,7 @@ export default function Page() {
 
         <Button
           variant="contained"
+          onClick={handleAdminDashboard}
           sx={{
             bgcolor: "success.light",
             color: "white",
@@ -141,19 +387,19 @@ export default function Page() {
           }}
         >
           <Stack spacing={1} alignItems="center">
-            <Button variant="text" sx={{ minWidth: 90 }}>
+            <Button variant="text" sx={{ color: "grey.900", minWidth: 90 }}>
               Icon1
             </Button>
-            <Button variant="text" sx={{ minWidth: 90 }}>
+            <Button variant="text" sx={{ color: "grey.900", minWidth: 90 }}>
               Icon2
             </Button>
-            <Button variant="text" sx={{ minWidth: 90 }}>
+            <Button variant="text" sx={{ color: "grey.900", minWidth: 90 }}>
               Icon3
             </Button>
-            <Button variant="text" sx={{ minWidth: 90 }}>
+            <Button variant="text" sx={{ color: "grey.900", minWidth: 90 }}>
               Icon4
             </Button>
-            <Button variant="text" sx={{ minWidth: 90 }}>
+            <Button variant="text" sx={{ color: "grey.900", minWidth: 90 }}>
               Icon5
             </Button>
           </Stack>
@@ -162,11 +408,11 @@ export default function Page() {
 
       <Box
         sx={{
-          p: 5,
+          p: { xs: 2, sm: 3, md: 5 },
           ml: `${navWidth}px`,
           display: "flex",
           alignItems: "center",
-          gap: 3,
+          gap: { xs: 2, md: 3 },
           justifyContent: "space-between",
         }}
       >
@@ -175,9 +421,8 @@ export default function Page() {
           fontWeight={800}
           sx={{
             color: "#212222",
-            ml: 10,
+            ml: { xs: 1, sm: 2, md: 4, lg: 5 },
             lineHeight: 1.2,
-            wordBreak: "break-word",
             letterSpacing: -1,
           }}
         >
@@ -189,17 +434,19 @@ export default function Page() {
             flex: 1,
             display: "flex",
             justifyContent: "flex-start",
-            ml: 30,
+            ml: { xs: 2, sm: 4, md: 10, lg: 30 },
           }}
         >
           <TextField
             size="small"
             placeholder="Search"
             variant="outlined"
+            onChange={handleSearch}
             sx={{
               bgcolor: "background.paper",
               borderRadius: 999,
-              width: { xs: 160, sm: 480 },
+              width: "100%",
+              maxWidth: 480,
               boxShadow: 0.5,
               "& .MuiOutlinedInput-root": {
                 borderRadius: 999,
@@ -236,15 +483,23 @@ export default function Page() {
           gap: 2,
         }}
       >
-        {dishes.map((dish) => (
-          <DishCard
-            key={dish.id}
-            name={dish.name}
-            restaurantName={dish.restaurantName}
-            position={dish.position}
-            onDelete={() => handleDeleteDish(dish.id)}
-          />
-        ))}
+        {loading ? (
+          <Typography>Loading dishes...</Typography>
+        ) : dishes.length === 0 ? (
+          <Typography sx={{ ml: { xs: 1, sm: 2, md: 4, lg: 5 } }}>
+            No dishes found. Click + to add one!
+          </Typography>
+        ) : (
+          dishes.map((dish) => (
+            <DishCard
+              key={dish._id}
+              name={dish.name}
+              restaurantName={dish.category}
+              position={dish.description}
+              onDelete={() => handleDeleteDish(dish._id)}
+            />
+          ))
+        )}
       </Box>
     </Box>
   );
