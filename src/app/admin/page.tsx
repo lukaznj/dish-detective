@@ -162,19 +162,22 @@ export default function Page() {
           flexGrow: 1,
           flexDirection: "column",
           height: "100vh",
+          overflow: "hidden"
         }}
       >
         <Box
           sx={{
             bgcolor: "primary.main",
             height: 80,
+            minHeight: 80,
             width: "100%",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
             px: 4,
             zIndex: 20,
-            position: "relative"
+            position: "relative",
+            flexShrink: 0
           }}
         >
           <Box
@@ -234,7 +237,7 @@ export default function Page() {
         <Box
           sx={{
             px: 5,
-            py: 4,
+            py: 6,
             display: "flex",
             marginLeft: `${navWidth}px`,
             gap: 3,
@@ -267,7 +270,7 @@ export default function Page() {
             <TuneIcon sx={{ fontSize: 40, color: "text.primary" }} />
             <Typography
               sx={{
-                fontSize: "1.6vw",
+                fontSize: "clamp(1rem, 1.7vw, 2rem)",
                 fontWeight: "600",
                 color: "text.primary",
                 pt: 1,
@@ -277,7 +280,7 @@ export default function Page() {
             </Typography>
             <Typography
               sx={{
-                fontSize: "0.9vw",
+                fontSize: "clamp(0.75rem, 0.9vw, 1.2rem)",
                 fontWeight: "550",
                 color: "text.secondary",
                 pt: 1,
@@ -287,7 +290,7 @@ export default function Page() {
             </Typography>
             <Typography
               sx={{
-                fontSize: "0.9vw",
+                fontSize: "clamp(0.75rem, 0.9vw, 1.2rem)",
                 fontWeight: "550",
                 color: "text.secondary",
               }}
@@ -321,7 +324,7 @@ export default function Page() {
             <CreateIcon sx={{ fontSize: 40, color: "text.primary" }} />
             <Typography
               sx={{
-                fontSize: "1.6vw",
+                fontSize: "clamp(1rem, 1.7vw, 2rem)",
                 fontWeight: "600",
                 color: "text.primary",
                 pt: 1,
@@ -331,7 +334,7 @@ export default function Page() {
             </Typography>
             <Typography
               sx={{
-                fontSize: "0.9vw",
+                fontSize: "clamp(0.75rem, 0.9vw, 1.2rem)",
                 fontWeight: "550",
                 color: "text.secondary",
                 pt: 1,
@@ -341,7 +344,7 @@ export default function Page() {
             </Typography>
             <Typography
               sx={{
-                fontSize: "0.9vw",
+                fontSize: "clamp(0.75rem, 0.9vw, 1.2rem)",
                 fontWeight: "550",
                 color: "text.secondary",
               }}
@@ -375,7 +378,7 @@ export default function Page() {
             <PeopleIcon sx={{ fontSize: 40, color: "text.primary" }} />
             <Typography
               sx={{
-                fontSize: "1.6vw",
+                fontSize: "clamp(1rem, 1.7vw, 2rem)",
                 fontWeight: "600",
                 color: "text.primary",
                 pt: 1,
@@ -385,7 +388,7 @@ export default function Page() {
             </Typography>
             <Typography
               sx={{
-                fontSize: "0.9vw",
+                fontSize: "clamp(0.75rem, 0.9vw, 1.2rem)",
                 fontWeight: "550",
                 color: "text.secondary",
                 pt: 1,
@@ -402,7 +405,8 @@ export default function Page() {
             width: "100%",
             mt: "auto",
             zIndex: 20,
-            position: "relative"
+            position: "relative",
+            flexShrink: 0
           }}
         />
       </Box>
