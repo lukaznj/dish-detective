@@ -64,9 +64,7 @@ export async function createDish(input: DishInput): Promise<ActionResponse> {
       success: true,
       message: "Dish created successfully",
       data: {
-        id: (dish._id as Types.ObjectId).toString(),
-        name: dish.name,
-        category: dish.category,
+        id: (dish._id as Types.ObjectId).toString()
       },
     };
   } catch (error: any) {
@@ -139,8 +137,7 @@ export async function deleteDish(dishId: string): Promise<ActionResponse> {
       success: true,
       message: "Dish deleted successfully",
       data: {
-        id: (deletedDish._id as Types.ObjectId).toString(),
-        name: deletedDish.name,
+        id: (deletedDish._id as Types.ObjectId).toString()
       },
     };
   } catch (error: any) {
@@ -271,9 +268,7 @@ export async function updateDish(
       success: true,
       message: "Dish updated successfully",
       data: {
-        id: (updatedDish._id as Types.ObjectId).toString(),
-        name: updatedDish.name,
-        category: updatedDish.category,
+        id: (updatedDish._id as Types.ObjectId).toString()
       },
     };
   } catch (error: any) {
