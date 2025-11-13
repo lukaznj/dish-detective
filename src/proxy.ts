@@ -33,8 +33,8 @@ export default clerkMiddleware(async (auth, req) => {
 
   // Find or create user with atomic upsert
   const user = await User.findOneAndUpdate(
-    { id: userId },
-    { $setOnInsert: { id: userId, role: "student" } },
+    { clerkId: userId },
+    { $setOnInsert: { clerkId: userId, role: "student" } },
     { upsert: true, new: true },
   ).lean();
 

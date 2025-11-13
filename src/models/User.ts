@@ -5,7 +5,7 @@ export type UserRole = "student" | "admin" | "manager" | "worker";
 
 // User document interface
 export interface IUser extends Document {
-  id: string;
+  clerkId: string;
   role: UserRole;
   createdAt: Date;
   updatedAt: Date;
@@ -13,7 +13,7 @@ export interface IUser extends Document {
 
 const userSchema = new Schema<IUser>(
   {
-    id: {
+    clerkId: {
       type: String,
       required: [true, "ID is required"],
       unique: true,
