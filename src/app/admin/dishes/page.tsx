@@ -29,6 +29,12 @@ import DishCard from "@/components/DishCard";
 import AddIcon from "@mui/icons-material/Add";
 import { getAllDishes, deleteDish, createDish } from "./Actions";
 
+import HomeFilledIcon from "@mui/icons-material/HomeFilled";
+import TuneIcon from "@mui/icons-material/Tune";
+import CreateIcon from "@mui/icons-material/Create";
+import PeopleIcon from "@mui/icons-material/People";
+import ChatIcon from "@mui/icons-material/Chat";
+
 const dishNames = [
   "Margherita Pizza",
   "Caesar Salad",
@@ -285,7 +291,7 @@ export default function Page() {
     );
   }
 
-  const navWidth = 100;
+  const navWidth = 80;
 
   // TODO: Make desktop layout more responsive!
 
@@ -364,7 +370,7 @@ export default function Page() {
           left: 0,
           top: { xs: 64, sm: 88 },
           bottom: 0,
-          width: 100,
+          width: 80,
           bgcolor: "common.white",
           boxShadow: "2px 0 8px rgba(0,0,0,0.12)",
           zIndex: 2,
@@ -383,21 +389,21 @@ export default function Page() {
           }}
         >
           <Stack spacing={1} alignItems="center">
-            <Button variant="text" sx={{ color: "grey.900", minWidth: 90 }}>
-              Icon1
-            </Button>
-            <Button variant="text" sx={{ color: "grey.900", minWidth: 90 }}>
-              Icon2
-            </Button>
-            <Button variant="text" sx={{ color: "grey.900", minWidth: 90 }}>
-              Icon3
-            </Button>
-            <Button variant="text" sx={{ color: "grey.900", minWidth: 90 }}>
-              Icon4
-            </Button>
-            <Button variant="text" sx={{ color: "grey.900", minWidth: 90 }}>
-              Icon5
-            </Button>
+            <IconButton sx={{ color: "grey.900" }}>
+              <HomeFilledIcon />
+            </IconButton>
+            <IconButton sx={{ color: "grey.900" }}>
+              <TuneIcon />
+            </IconButton>
+            <IconButton sx={{ color: "grey.900" }}>
+              <CreateIcon />
+            </IconButton>
+            <IconButton sx={{ color: "grey.900" }}>
+              <PeopleIcon />
+            </IconButton>
+            <IconButton sx={{ color: "grey.900" }}>
+              <ChatIcon />
+            </IconButton>
           </Stack>
         </Box>
       </Box>
