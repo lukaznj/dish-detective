@@ -35,6 +35,7 @@ const userSchema = new Schema<IUser>(
 
 // Prevent errors in hot reloads
 const User: Model<IUser> =
-  (mongoose.models.User as Model<IUser>) || mongoose.model<IUser>("User", userSchema);
+  (mongoose.models.User as Model<IUser>) ||
+  mongoose.model<IUser>("User", userSchema);
 
 export default User;

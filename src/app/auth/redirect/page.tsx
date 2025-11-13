@@ -16,9 +16,8 @@ export default async function RedirectAfterSignIn() {
   const user = await User.findOneAndUpdate(
     { id: userId },
     { $setOnInsert: { id: userId, role: "student" } },
-    { upsert: true, new: true }
+    { upsert: true, new: true },
   ).lean();
-
 
   switch (user.role) {
     case "admin":
@@ -32,4 +31,3 @@ export default async function RedirectAfterSignIn() {
       redirect("/student");
   }
 }
-
