@@ -56,9 +56,11 @@ export default function Page() {
     console.log(`Kliknuta akcija: ${action}`);
     if (action === "jelima") {
       router.push("/admin/dishes");
+    } else if (action === "racunima") {
+      router.push("/admin/accounts");
     }
 
-    // TODO: Implement navigation for other actions
+    // TODO: Implement navigation for restaurants
   };
 
   const theme = useTheme();
