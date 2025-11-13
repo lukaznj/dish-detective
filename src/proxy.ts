@@ -9,6 +9,7 @@ const isPublicRoute = createRouteMatcher([
   "/login/employee(.*)",
   "/sign-in(.*)",
   "/sign-up(.*)",
+  "/auth/redirect",
 ]);
 
 const isAdminRoute = createRouteMatcher(["/admin(.*)"]);
