@@ -74,15 +74,43 @@ export async function createWorkerManagerAccount({
   } catch (error: any) {
     console.error("Error creating employee account:", error);
 
-    // Handle specific errors
-    if (error.errors?.[0]?.code === "form_identifier_exists") {
-      return { success: false, error: "Username already exists" };
+    // Handle Clerk-specific errors
+    if (error.clerkError) {
+      // Check for password-related errors
+      const passwordError = error.errors?.find(
+        (err: any) => err.code === 'form_password_pwned' ||
+                      err.code === 'form_password_length_too_short' ||
+                      err.code === 'form_password_not_strong_enough'
+      );
+
+      if (passwordError) {
+        return {
+          success: false,
+          error: "Lozinka mora imati minimalno 8 znakova"
+        };
+      }
+
+      // Check for username exists error
+      const usernameError = error.errors?.find(
+        (err: any) => err.code === 'form_identifier_exists'
+      );
+
+      if (usernameError) {
+        return { success: false, error: "Korisničko ime već postoji" };
+      }
+
+      // Generic Clerk error
+      return {
+        success: false,
+        error: error.errors?.[0]?.longMessage || "Greška prilikom kreiranja računa u Clerk sustavu"
+      };
     }
 
+    // Handle Mongoose validation errors
     if (error.name === "ValidationError") {
       return { success: false, error: error.message };
     }
 
-    return { success: false, error: "Failed to create employee account" };
+    return { success: false, error: "Neuspješno kreiranje računa zaposlenika" };
   }
 }
