@@ -12,7 +12,7 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { getAllRestaurants } from "../../restaurants/actions";
-import { createWorkerManagerAccount } from "./actions";
+import { createEmployeeAccount } from "./actions";
 import SuccessScreen from "@/components/SuccessScreen";
 
 type Restaurant = {
@@ -20,7 +20,7 @@ type Restaurant = {
   name: string;
 };
 
-export default function ManagerWorkerCreatePage() {
+export default function EmployeeCreatePage() {
   const router = useRouter();
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [loading, setLoading] = useState(false);
@@ -81,7 +81,7 @@ export default function ManagerWorkerCreatePage() {
     setSuccess(null);
 
     try {
-      const result = await createWorkerManagerAccount({
+      const result = await createEmployeeAccount({
         name: formData.name,
         lastName: formData.lastName,
         username: formData.username,

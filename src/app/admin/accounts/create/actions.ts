@@ -12,7 +12,7 @@ interface CreateEmployeeAccountParams {
   restaurantId: string;
 }
 
-export async function createWorkerManagerAccount({
+export async function createEmployeeAccount({
   name,
   lastName,
   username,
