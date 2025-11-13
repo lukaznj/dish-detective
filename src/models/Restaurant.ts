@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
 
-interface Location {
+export interface Location {
   type: "Point";
   coordinates: [number, number]; // [longitude, latitude]
 }
