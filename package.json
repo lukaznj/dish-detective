@@ -19,6 +19,7 @@
     "@fontsource/roboto": "^5.2.8",
     "@mui/icons-material": "^7.3.5",
     "@mui/material": "^7.3.4",
+    "@tailwindcss/postcss": "^4.1.17",
     "mongoose": "^8.19.3",
     "next": "^16.0.1",
     "prettier": "^3.6.2",
@@ -31,10 +32,13 @@
     "@types/node": "^20.19.24",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
+    "autoprefixer": "^10.4.22",
     "eslint": "^9",
     "eslint-config-next": "^16.0.1",
     "jest": "^30.2.0",
     "mongodb-memory-server": "^10.3.0",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.17",
     "ts-jest": "^29.4.5",
     "typescript": "^5"
   }
