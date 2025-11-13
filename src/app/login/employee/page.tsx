@@ -59,7 +59,7 @@ export default function Page() {
           routing="path"
           path="/login/employee"
           signUpUrl="/login/employee"
-          forceRedirectUrl="/employee/dashboard"
+          forceRedirectUrl="/auth/redirect"
         />
       </Box>
     </Box>
