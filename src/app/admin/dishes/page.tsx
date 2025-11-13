@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 
+import { useRouter } from "next/navigation";
+
 import {
   Box,
   Button,
@@ -104,9 +106,11 @@ function getRandomElement<T>(arr: T[]): T {
 export default function Page() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const router = useRouter();
 
   const [dishes, setDishes] = useState<Dish[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     loadDishes();
@@ -129,6 +133,7 @@ export default function Page() {
       name: getRandomElement(dishNames),
       description: getRandomElement(descriptions),
       category: getRandomElement(categories),
+      // Placeholder URL
       imageUrl: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c",
       allergens: getRandomElement(allergensList),
     };
@@ -155,22 +160,32 @@ export default function Page() {
   };
 
   const handleAdminDashboard = () => {
-    // TODO: Navigate to admin dashboard page
+    router.push("/admin");
   };
 
   const handleLogout = () => {
     // TODO: Clear session and navigate to home page
   };
 
-  const handleSearch = () => {
-    // TODO: Implement search functionality to filter dishes
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
   };
+
+  const filteredDishes = dishes.filter((dish) => {
+    const query = searchQuery.toLowerCase();
+    return (
+      dish.name.toLowerCase().includes(query) ||
+      dish.description.toLowerCase().includes(query) ||
+      dish.category.toLowerCase().includes(query) ||
+      dish.allergens.some((allergen) => allergen.toLowerCase().includes(query))
+    );
+  });
 
   if (isMobile) {
     return (
       <Box
         sx={{
-          minHeight: "100vh",
+          height: "100vh",
           width: "100vw",
           display: "flex",
           flexDirection: "column",
@@ -188,8 +203,8 @@ export default function Page() {
             justifyContent: "space-between",
             px: 2,
             boxShadow: 1,
-            position: "sticky",
             top: 0,
+            flexShrink: 0,
             zIndex: 10,
           }}
         >
@@ -223,12 +238,13 @@ export default function Page() {
           </Button>
         </Box>
 
-        <Box sx={{ p: 2 }}>
+        <Box sx={{ p: 2, flex: 1, overflowY: "auto" }}>
           <Box sx={{ display: "flex", gap: 1, mb: 2 }}>
             <TextField
               size="small"
               placeholder="Search"
               variant="outlined"
+              value={searchQuery}
               onChange={handleSearch}
               sx={{
                 flex: 1,
@@ -256,10 +272,14 @@ export default function Page() {
           <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
             {loading ? (
               <Typography>Loading dishes...</Typography>
-            ) : dishes.length === 0 ? (
-              <Typography>No dishes found. Click + to add!</Typography>
+            ) : filteredDishes.length === 0 ? (
+              <Typography>
+                {searchQuery
+                  ? "No dishes found matching your search."
+                  : "No dishes found. Click + to add!"}
+              </Typography>
             ) : (
-              dishes.map((dish) => (
+              filteredDishes.map((dish) => (
                 <DishCard
                   key={dish._id}
                   name={dish.name}
@@ -275,10 +295,6 @@ export default function Page() {
         <Box
           component="footer"
           sx={{
-            position: "fixed",
-            bottom: 0,
-            left: 0,
-            right: 0,
             height: 60,
             bgcolor: "background.paper",
             display: "flex",
@@ -287,12 +303,13 @@ export default function Page() {
             px: 2,
             boxShadow: "0 -2px 8px rgba(0,0,0,0.15)",
             zIndex: 10,
+            flexShrink: 0,
           }}
         >
           <IconButton sx={{ color: "grey.900" }}>
             <PersonIcon />
           </IconButton>
-          <IconButton sx={{ color: "grey.900" }}>
+          <IconButton onClick={handleAdminDashboard} sx={{ color: "grey.900" }}>
             <HomeFilledIcon />
           </IconButton>
           <IconButton sx={{ color: "grey.900" }}>
@@ -303,14 +320,10 @@ export default function Page() {
     );
   }
 
-  // ...existing code...
   const navWidth = 80;
-
-  // TODO: Make desktop layout more responsive!
 
   return (
     <Box sx={{ height: "100vh", width: "100vw", display: "flex" }}>
-      {/* Fixed Vertical Navbar */}
       <Box
         component="nav"
         sx={{
@@ -337,13 +350,24 @@ export default function Page() {
           }}
         >
           <Stack spacing={1} alignItems="center">
-            <IconButton sx={{ color: "grey.900" }}>
+            <IconButton
+              onClick={handleAdminDashboard}
+              sx={{ color: "grey.900" }}
+            >
               <HomeFilledIcon />
             </IconButton>
             <IconButton sx={{ color: "grey.900" }}>
               <TuneIcon />
             </IconButton>
-            <IconButton sx={{ color: "grey.900" }}>
+            <IconButton
+              sx={{
+                color: "primary.dark",
+                bgcolor: "grey.200",
+                "&:hover": {
+                  bgcolor: "grey.200",
+                },
+              }}
+            >
               <CreateIcon />
             </IconButton>
             <IconButton sx={{ color: "grey.900" }}>
@@ -356,13 +380,12 @@ export default function Page() {
         </Box>
       </Box>
 
-      {/* Main Content Area (Header + Scrollable Content) */}
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
           flex: 1,
-          ml: `${navWidth}px`,
+          //ml: `${navWidth}px`,
           height: "100vh",
         }}
       >
@@ -370,16 +393,16 @@ export default function Page() {
         <Box
           component="header"
           sx={{
-            height: { xs: 64, sm: 88 },
+            height: { xs: 64, sm: 80 },
             width: "100%",
             bgcolor: "primary.main",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            zIndex: 5,
-            px: 2,
+            zIndex: 50,
+            px: 4,
             boxShadow: 1,
-            flexShrink: 0, // Prevent header from shrinking
+            flexShrink: 0,
           }}
         >
           <Box
@@ -415,6 +438,7 @@ export default function Page() {
               fontWeight: 600,
               textTransform: "none",
               mr: 2,
+              boxShadow: 0,
               "&:hover": {
                 bgcolor: "success.dark",
               },
@@ -435,20 +459,21 @@ export default function Page() {
           <Box
             sx={{
               display: "flex",
-              alignItems: "center",
-              gap: { xs: 2, md: 3 },
-              justifyContent: "space-between",
+              flexDirection: "column",
               mb: 2,
+              ml: `${navWidth}px`,
             }}
           >
             <Typography
               variant="h4"
-              fontWeight={800}
+              fontWeight={780}
               sx={{
+                width: "fit-content",
                 color: "#212222",
                 ml: { xs: 1, sm: 2, md: 4, lg: 6 },
                 lineHeight: 1.2,
                 letterSpacing: -1,
+                display: { sm: "none", md: "block" },
               }}
             >
               Jela
@@ -456,22 +481,25 @@ export default function Page() {
 
             <Box
               sx={{
-                flex: 1,
                 display: "flex",
-                justifyContent: "flex-start",
-                ml: { md: 25, lg: 35 },
+                justifyContent: "center",
+                alignItems: "center",
+                gap: 2,
+                px: { xs: 2, sm: 3, md: 5 },
               }}
             >
               <TextField
                 size="small"
                 placeholder="Search"
                 variant="outlined"
+                value={searchQuery}
                 onChange={handleSearch}
                 sx={{
                   bgcolor: "background.paper",
                   borderRadius: 999,
                   width: "100%",
-                  maxWidth: 480,
+                  mt: { sm: 0, md: -6 },
+                  maxWidth: { sm: 400, md: 330, lg: 480 },
                   boxShadow: 0.5,
                   "& .MuiOutlinedInput-root": {
                     borderRadius: 999,
@@ -483,6 +511,7 @@ export default function Page() {
                 onClick={handleAddDish}
                 sx={{
                   ml: 2,
+                  mt: { sm: 0, md: -6 },
                   bgcolor: "action.hover",
                   color: "text.secondary",
                   boxShadow: 1,
@@ -496,11 +525,10 @@ export default function Page() {
             </Box>
           </Box>
 
-          <Box sx={{ px: { xs: 1, sm: 2, md: 4, lg: 5 } }}>
+          <Box sx={{ px: { xs: 1, sm: 2, md: 4, lg: 5 }, ml: `${navWidth}px` }}>
             <Divider sx={{ borderBottomWidth: 2 }} />
           </Box>
 
-          {/* Dishes List */}
           <Box
             sx={{
               pt: 5,
@@ -508,16 +536,19 @@ export default function Page() {
               display: "flex",
               flexDirection: "column",
               gap: 2,
+              ml: `${navWidth}px`,
             }}
           >
             {loading ? (
               <Typography>Loading dishes...</Typography>
-            ) : dishes.length === 0 ? (
+            ) : filteredDishes.length === 0 ? (
               <Typography sx={{ ml: { sm: 1, md: 1, lg: 1 } }}>
-                No dishes found. Click + to add one!
+                {searchQuery
+                  ? "No dishes found matching your search."
+                  : "No dishes found. Click + to add one!"}
               </Typography>
             ) : (
-              dishes.map((dish) => (
+              filteredDishes.map((dish) => (
                 <DishCard
                   key={dish._id}
                   name={dish.name}
@@ -529,6 +560,16 @@ export default function Page() {
             )}
           </Box>
         </Box>
+        <Box
+          component="footer"
+          sx={{
+            height: 50,
+            width: "100%",
+            bgcolor: "primary.main",
+            flexShrink: 0, // Prevent footer from shrinking
+            zIndex: 50,
+          }}
+        />
       </Box>
     </Box>
   );
