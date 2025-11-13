@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { MongoMemoryServer } from "mongodb-memory-server";
-import { createDish, updateDish, getAllDishes, deleteDish } from "./Actions";
+import { createDish, updateDish, getAllDishes, deleteDish } from "./actions";
 
 // Ovaj kod je bio napisan uz pomoć UI alata
 describe("Dish Server Actions", () => {
