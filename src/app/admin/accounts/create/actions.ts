@@ -62,7 +62,7 @@ export async function createWorkerManagerAccount({
       success: true,
       message: "Employee account created successfully",
       user: {
-        id: mongoUser._id,
+        id: String(mongoUser._id), // Convert ObjectId to string
         clerkId: clerkUser.id,
         username,
         name,
