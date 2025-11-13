@@ -145,6 +145,7 @@ export default function Page() {
         >
           <Stack spacing={1} alignItems="center">
             <IconButton
+              onClick={() => router.push("/admin")}
               sx={{
                 color: "primary.dark",
                 bgcolor: "grey.200",
@@ -155,13 +156,22 @@ export default function Page() {
             >
               <HomeFilledIcon />
             </IconButton>
-            <IconButton sx={{ color: "grey.900" }}>
+            <IconButton
+              onClick={() => handleActionClick("restorani")}
+              sx={{ color: "grey.900" }}
+            >
               <TuneIcon />
             </IconButton>
-            <IconButton sx={{ color: "grey.900" }}>
+            <IconButton
+              onClick={() => handleActionClick("jelima")}
+              sx={{ color: "grey.900" }}
+            >
               <CreateIcon />
             </IconButton>
-            <IconButton sx={{ color: "grey.900" }}>
+            <IconButton
+              onClick={() => handleActionClick("racunima")}
+              sx={{ color: "grey.900" }}
+            >
               <PeopleIcon />
             </IconButton>
             <IconButton sx={{ color: "grey.900" }}>
@@ -229,6 +239,7 @@ export default function Page() {
               fontWeight: 600,
               textTransform: "none",
               mr: 2,
+              boxShadow: 0,
               "&:hover": {
                 bgcolor: "success.dark",
               },

@@ -133,6 +133,7 @@ export default function Page() {
       name: getRandomElement(dishNames),
       description: getRandomElement(descriptions),
       category: getRandomElement(categories),
+      // Placeholder URL
       imageUrl: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c",
       allergens: getRandomElement(allergensList),
     };
@@ -308,7 +309,7 @@ export default function Page() {
           <IconButton sx={{ color: "grey.900" }}>
             <PersonIcon />
           </IconButton>
-          <IconButton sx={{ color: "grey.900" }}>
+          <IconButton onClick={handleAdminDashboard} sx={{ color: "grey.900" }}>
             <HomeFilledIcon />
           </IconButton>
           <IconButton sx={{ color: "grey.900" }}>
@@ -319,10 +320,7 @@ export default function Page() {
     );
   }
 
-  // ...existing code...
   const navWidth = 80;
-
-  // TODO: Make desktop layout more responsive!
 
   return (
     <Box sx={{ height: "100vh", width: "100vw", display: "flex" }}>
@@ -352,7 +350,10 @@ export default function Page() {
           }}
         >
           <Stack spacing={1} alignItems="center">
-            <IconButton sx={{ color: "grey.900" }}>
+            <IconButton
+              onClick={handleAdminDashboard}
+              sx={{ color: "grey.900" }}
+            >
               <HomeFilledIcon />
             </IconButton>
             <IconButton sx={{ color: "grey.900" }}>
@@ -437,6 +438,7 @@ export default function Page() {
               fontWeight: 600,
               textTransform: "none",
               mr: 2,
+              boxShadow: 0,
               "&:hover": {
                 bgcolor: "success.dark",
               },
