@@ -12,10 +12,6 @@ import {
   IconButton,
   useMediaQuery,
   useTheme,
-  Drawer,
-  List,
-  ListItemButton,
-  ListItemText,
 } from "@mui/material";
 
 interface Dish {
@@ -151,15 +147,15 @@ export default function Page() {
   };
 
   const handleAdminDashboard = () => {
-  // TODO: Navigate to admin dashboard page
+    // TODO: Navigate to admin dashboard page
   };
 
   const handleLogout = () => {
-  // TODO: Clear session and navigate to home page
+    // TODO: Clear session and navigate to home page
   };
 
   const handleSearch = () => {
-  // TODO: Implement search functionality to filter dishes
+    // TODO: Implement search functionality to filter dishes
   };
 
   if (isMobile) {
@@ -291,7 +287,7 @@ export default function Page() {
 
   const navWidth = 100;
 
- // TODO: Make desktop layout more responsive!
+  // TODO: Make desktop layout more responsive!
 
   return (
     <Box
