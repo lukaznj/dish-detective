@@ -117,6 +117,10 @@ export default function ManagerWorkerCreatePage() {
       sx={{
         minHeight: "100vh",
         bgcolor: "#f5f5f5",
+        backgroundImage: "url(/BackgroundMan.svg)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
         p: 3,
       }}
     >
