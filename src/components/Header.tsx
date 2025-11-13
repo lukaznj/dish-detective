@@ -1,15 +1,17 @@
-"use client";
+"use client"; // Required for usePathname and useState
 
-import React from 'react';
+import React from 'react'; // 1. Import React for useState
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+// 2. Import MUI components for the dropdown menu
 import { Menu, MenuItem, Box } from '@mui/material';
 
 export default function Header({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isHomepage = pathname === '/';
 
+  // 3. Add state to manage the dropdown menu
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -20,12 +22,12 @@ export default function Header({ children }: { children: React.ReactNode }) {
   };
 
   if (isHomepage) {
-    // === HOMEPAGE HEADER ===
+    // === HOMEPAGE HEADER (Transparent & Absolute) ===
     return (
       <>
         <header className="absolute top-0 left-0 w-full z-50">
           <nav className="flex items-center justify-between py-4 px-6 lg:px-8">
-
+            {/* Left: Dish Detective Logo & Text (Home Link) */}
             <Link
               href="/"
               className="group flex items-center space-x-2"
@@ -42,14 +44,17 @@ export default function Header({ children }: { children: React.ReactNode }) {
               </span>
             </Link>
 
+            {/* Right: Kontakt and Prijava buttons */}
             <div className="flex items-center space-x-4 md:space-x-6">
               <Link
                 href="/kontakt"
+                // 4. Added classes for white box, padding, and rounding to match Prijava
                 className="rounded-md bg-white px-4 py-2 text-lg font-medium text-black hover:bg-gray-200"
               >
                 Kontakt
               </Link>
               
+              {/* 5. Changed from Link to button to open dropdown */}
               <button
                 aria-controls={open ? 'prijava-menu' : undefined}
                 aria-haspopup="true"
@@ -60,6 +65,7 @@ export default function Header({ children }: { children: React.ReactNode }) {
                 Prijava
               </button>
               
+              {/* 6. Added the MUI Menu component for the dropdown */}
               <Menu
                 id="prijava-menu"
                 anchorEl={anchorEl}
@@ -90,11 +96,12 @@ export default function Header({ children }: { children: React.ReactNode }) {
       </>
     );
   } else {
-    // === DEFAULT HEADER ===
+    // === DEFAULT HEADER (For all other pages) ===
     return (
       <>
         <header className="w-full bg-[#56aaf4] text-white shadow-md">
           <nav className="flex items-center justify-between py-4 px-6 lg:px-8">
+            {/* Left: Dish Detective Logo & Text (Home Link) */}
             <Link
               href="/"
               className="group flex items-center space-x-2"
@@ -111,6 +118,7 @@ export default function Header({ children }: { children: React.ReactNode }) {
               </span>
             </Link>
 
+            {/* Right: Translate and Odjava buttons */}
             <div className="flex items-center space-x-4 md:space-x-6">
               <button
                 type="button"
