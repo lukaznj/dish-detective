@@ -110,6 +110,7 @@ export default function Page() {
 
   const [dishes, setDishes] = useState<Dish[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     loadDishes();
@@ -165,15 +166,25 @@ export default function Page() {
     // TODO: Clear session and navigate to home page
   };
 
-  const handleSearch = () => {
-    // TODO: Implement search functionality to filter dishes
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
   };
+
+  const filteredDishes = dishes.filter((dish) => {
+    const query = searchQuery.toLowerCase();
+    return (
+      dish.name.toLowerCase().includes(query) ||
+      dish.description.toLowerCase().includes(query) ||
+      dish.category.toLowerCase().includes(query) ||
+      dish.allergens.some((allergen) => allergen.toLowerCase().includes(query))
+    );
+  });
 
   if (isMobile) {
     return (
       <Box
         sx={{
-          minHeight: "100vh",
+          height: "100vh",
           width: "100vw",
           display: "flex",
           flexDirection: "column",
@@ -191,8 +202,8 @@ export default function Page() {
             justifyContent: "space-between",
             px: 2,
             boxShadow: 1,
-            position: "sticky",
             top: 0,
+            flexShrink: 0,
             zIndex: 10,
           }}
         >
@@ -226,12 +237,13 @@ export default function Page() {
           </Button>
         </Box>
 
-        <Box sx={{ p: 2 }}>
+        <Box sx={{ p: 2, flex: 1, overflowY: "auto" }}>
           <Box sx={{ display: "flex", gap: 1, mb: 2 }}>
             <TextField
               size="small"
               placeholder="Search"
               variant="outlined"
+              value={searchQuery}
               onChange={handleSearch}
               sx={{
                 flex: 1,
@@ -259,10 +271,14 @@ export default function Page() {
           <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
             {loading ? (
               <Typography>Loading dishes...</Typography>
-            ) : dishes.length === 0 ? (
-              <Typography>No dishes found. Click + to add!</Typography>
+            ) : filteredDishes.length === 0 ? (
+              <Typography>
+                {searchQuery
+                  ? "No dishes found matching your search."
+                  : "No dishes found. Click + to add!"}
+              </Typography>
             ) : (
-              dishes.map((dish) => (
+              filteredDishes.map((dish) => (
                 <DishCard
                   key={dish._id}
                   name={dish.name}
@@ -278,10 +294,6 @@ export default function Page() {
         <Box
           component="footer"
           sx={{
-            position: "fixed",
-            bottom: 0,
-            left: 0,
-            right: 0,
             height: 60,
             bgcolor: "background.paper",
             display: "flex",
@@ -290,6 +302,7 @@ export default function Page() {
             px: 2,
             boxShadow: "0 -2px 8px rgba(0,0,0,0.15)",
             zIndex: 10,
+            flexShrink: 0,
           }}
         >
           <IconButton sx={{ color: "grey.900" }}>
@@ -469,6 +482,7 @@ export default function Page() {
                 size="small"
                 placeholder="Search"
                 variant="outlined"
+                value={searchQuery}
                 onChange={handleSearch}
                 sx={{
                   bgcolor: "background.paper",
@@ -517,12 +531,14 @@ export default function Page() {
           >
             {loading ? (
               <Typography>Loading dishes...</Typography>
-            ) : dishes.length === 0 ? (
+            ) : filteredDishes.length === 0 ? (
               <Typography sx={{ ml: { sm: 1, md: 1, lg: 1 } }}>
-                No dishes found. Click + to add one!
+                {searchQuery
+                  ? "No dishes found matching your search."
+                  : "No dishes found. Click + to add one!"}
               </Typography>
             ) : (
-              dishes.map((dish) => (
+              filteredDishes.map((dish) => (
                 <DishCard
                   key={dish._id}
                   name={dish.name}
