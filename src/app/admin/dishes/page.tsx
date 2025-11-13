@@ -310,7 +310,6 @@ export default function Page() {
 
   return (
     <Box sx={{ height: "100vh", width: "100vw", display: "flex" }}>
-      {/* Fixed Vertical Navbar */}
       <Box
         component="nav"
         sx={{
@@ -356,7 +355,6 @@ export default function Page() {
         </Box>
       </Box>
 
-      {/* Main Content Area (Header + Scrollable Content) */}
       <Box
         sx={{
           display: "flex",
@@ -379,7 +377,7 @@ export default function Page() {
             zIndex: 5,
             px: 2,
             boxShadow: 1,
-            flexShrink: 0, // Prevent header from shrinking
+            flexShrink: 0,
           }}
         >
           <Box
@@ -436,6 +434,7 @@ export default function Page() {
             sx={{
               display: "flex",
               alignItems: "center",
+              justifyItems: "center",
               gap: { xs: 2, md: 3 },
               justifyContent: "space-between",
               mb: 2,
@@ -459,7 +458,8 @@ export default function Page() {
                 flex: 1,
                 display: "flex",
                 justifyContent: "flex-start",
-                ml: { md: 25, lg: 35 },
+                ml: { sm: 15, md: 25, lg: 30, xl: 35},
+                alignItems: "center",
               }}
             >
               <TextField
@@ -471,7 +471,7 @@ export default function Page() {
                   bgcolor: "background.paper",
                   borderRadius: 999,
                   width: "100%",
-                  maxWidth: 480,
+                  maxWidth: {sm: 350, lg: 480},
                   boxShadow: 0.5,
                   "& .MuiOutlinedInput-root": {
                     borderRadius: 999,
@@ -500,7 +500,6 @@ export default function Page() {
             <Divider sx={{ borderBottomWidth: 2 }} />
           </Box>
 
-          {/* Dishes List */}
           <Box
             sx={{
               pt: 5,
@@ -529,6 +528,16 @@ export default function Page() {
             )}
           </Box>
         </Box>
+        <Box
+          component="footer"
+          sx={{
+            height: 50,
+            width: "100%",
+            bgcolor: "primary.main",
+            flexShrink: 0, // Prevent footer from shrinking
+            zIndex: 5,
+          }}
+        />
       </Box>
     </Box>
   );
