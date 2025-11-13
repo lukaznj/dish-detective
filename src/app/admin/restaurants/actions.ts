@@ -1,15 +1,15 @@
 "use server";
 
-import Restaurant, {Location} from "../../../models/Restaurant";
+import Restaurant, { Location } from "../../../models/Restaurant";
 import dbConnect from "../../../utils/dbConnect";
 import { Types } from "mongoose";
 
 type RestaurantInput = {
-    name: string;
-    address: string;
-    imageUrl: string;
-    workingHours: string[];
-    location: Location;
+  name: string;
+  address: string;
+  imageUrl: string;
+  workingHours: string[];
+  location: Location;
 };
 
 type ActionResponse = {
@@ -19,7 +19,9 @@ type ActionResponse = {
   errors?: Record<string, string>;
 };
 
-export async function createRestaurant(input: RestaurantInput): Promise<ActionResponse> {
+export async function createRestaurant(
+  input: RestaurantInput,
+): Promise<ActionResponse> {
   try {
     const conn = await dbConnect();
     // Needed because we use a custom connection
@@ -37,7 +39,7 @@ export async function createRestaurant(input: RestaurantInput): Promise<ActionRe
       success: true,
       message: "Restaurant created successfully",
       data: {
-        id: (restaurant._id as Types.ObjectId).toString()
+        id: (restaurant._id as Types.ObjectId).toString(),
       },
     };
   } catch (error: any) {
@@ -73,7 +75,9 @@ export async function createRestaurant(input: RestaurantInput): Promise<ActionRe
   }
 }
 
-export async function deleteRestaurant(restaurantId: string): Promise<ActionResponse> {
+export async function deleteRestaurant(
+  restaurantId: string,
+): Promise<ActionResponse> {
   try {
     const conn = await dbConnect();
     // Needed because we use a custom connection
@@ -88,7 +92,8 @@ export async function deleteRestaurant(restaurantId: string): Promise<ActionResp
       };
     }
 
-    const deletedRestaurant = await RestaurantModel.findByIdAndDelete(restaurantId);
+    const deletedRestaurant =
+      await RestaurantModel.findByIdAndDelete(restaurantId);
 
     if (!deletedRestaurant) {
       return {
@@ -101,7 +106,7 @@ export async function deleteRestaurant(restaurantId: string): Promise<ActionResp
       success: true,
       message: "Restaurant deleted successfully",
       data: {
-        id: (deletedRestaurant._id as Types.ObjectId).toString()
+        id: (deletedRestaurant._id as Types.ObjectId).toString(),
       },
     };
   } catch (error: any) {
@@ -149,7 +154,7 @@ export async function getAllRestaurants(): Promise<ActionResponse> {
 }
 
 export async function updateRestaurant(
-    restId: string,
+  restId: string,
   input: Partial<RestaurantInput>,
 ): Promise<ActionResponse> {
   try {
@@ -169,18 +174,21 @@ export async function updateRestaurant(
     // Update only whats provided
     const updateData: any = {};
     if (input.name !== undefined) updateData.name = input.name.trim();
-    if (input.address !== undefined)
-      updateData.address = input.address.trim();
+    if (input.address !== undefined) updateData.address = input.address.trim();
     if (input.workingHours !== undefined)
       updateData.workingHours = input.workingHours;
     if (input.imageUrl !== undefined)
       updateData.imageUrl = input.imageUrl.trim();
     if (input.location !== undefined) updateData.location = input.location;
 
-    const updatedRest = await RestaurantModel.findByIdAndUpdate(restId, updateData, {
-      new: true,
-      runValidators: true,
-    });
+    const updatedRest = await RestaurantModel.findByIdAndUpdate(
+      restId,
+      updateData,
+      {
+        new: true,
+        runValidators: true,
+      },
+    );
 
     if (!updatedRest) {
       return {
@@ -193,7 +201,7 @@ export async function updateRestaurant(
       success: true,
       message: "Rest updated successfully",
       data: {
-        id: (updatedRest._id as Types.ObjectId).toString()
+        id: (updatedRest._id as Types.ObjectId).toString(),
       },
     };
   } catch (error: any) {
