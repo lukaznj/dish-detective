@@ -1,3 +1,3 @@
-export default function Page() {
-  return <div>Here admin can create accounts for managers and workers</div>;
+export default function WorkerManagerAccountsPage() {
+    return <div>Here admin can view accounts for managers and workers</div>;
 }
