@@ -34,6 +34,8 @@ import TuneIcon from "@mui/icons-material/Tune";
 import CreateIcon from "@mui/icons-material/Create";
 import PeopleIcon from "@mui/icons-material/People";
 import ChatIcon from "@mui/icons-material/Chat";
+import PersonIcon from '@mui/icons-material/Person';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 
 const dishNames = [
   "Margherita Pizza",
@@ -271,22 +273,32 @@ export default function Page() {
         </Box>
 
         <Box
-          component="footer"
-          sx={{
-            position: "fixed",
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height: 60,
-            bgcolor: "background.paper",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            px: 2,
-            boxShadow: "0 -2px 8px rgba(0,0,0,0.15)",
-            zIndex: 10,
-          }}
-        ></Box>
+  component="footer"
+  sx={{
+    position: "fixed",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 60,
+    bgcolor: "background.paper",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-around",
+    px: 2,
+    boxShadow: "0 -2px 8px rgba(0,0,0,0.15)",
+    zIndex: 10,
+  }}
+>
+  <IconButton sx={{ color: "grey.900" }}>
+    <PersonIcon />
+  </IconButton>
+  <IconButton sx={{ color: "grey.900" }}>
+    <HomeFilledIcon />
+  </IconButton>
+  <IconButton sx={{ color: "grey.900" }}>
+    <PersonIcon />
+  </IconButton>
+</Box>
       </Box>
     );
   }
@@ -354,6 +366,7 @@ export default function Page() {
             color: "white",
             fontWeight: 600,
             textTransform: "none",
+            mr: 2,
             "&:hover": {
               bgcolor: "success.dark",
             },
@@ -503,6 +516,16 @@ export default function Page() {
           ))
         )}
       </Box>
+
+      <Box
+        component="footer"
+        sx={{
+          height: 50,
+          bgcolor: "primary.main",
+          mt: "auto",
+          zIndex: 3,
+        }}
+      />
     </Box>
   );
 }
