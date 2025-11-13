@@ -120,7 +120,7 @@ export default function Page() {
           width: navWidth,
           bgcolor: "common.white",
           boxShadow: "2px 0 8px rgba(0,0,0,0.12)",
-          zIndex: 10,
+          zIndex: 1,
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -158,7 +158,7 @@ export default function Page() {
       <Box
         sx={{
           display: "flex",
-          marginLeft: `${navWidth}px`,
+          //marginLeft: `${navWidth}px`,
           flexGrow: 1,
           flexDirection: "column",
           height: "100vh",
@@ -173,6 +173,8 @@ export default function Page() {
             alignItems: "center",
             justifyContent: "space-between",
             px: 4,
+            zIndex: 20,
+            position: "relative"
           }}
         >
           <Box
@@ -217,6 +219,7 @@ export default function Page() {
           </Button>
         </Box>
         <Typography
+          marginLeft = {`${navWidth}px`}
           variant="h4"
           fontWeight={780}
           sx={{ color: "#212222", p: 5 }}
@@ -224,7 +227,7 @@ export default function Page() {
           Dobrodošli
         </Typography>
 
-        <Box sx={{ px: 4, mt: -3 }}>
+        <Box sx={{ px: 4, mt: -3, marginLeft: `${navWidth}px`}}>
           <Divider sx={{ borderBottomWidth: 2 }} />
         </Box>
 
@@ -233,6 +236,7 @@ export default function Page() {
             px: 5,
             py: 4,
             display: "flex",
+            marginLeft: `${navWidth}px`,
             gap: 3,
             flexWrap: "wrap",
             justifyContent: "center",
@@ -356,6 +360,7 @@ export default function Page() {
               bgColor: "white",
               boxShadow: 2,
               p: 3,
+              pb: 5,
               borderRadius: 3,
               textTransform: "none",
               fontSize: "1.25rem",
@@ -393,9 +398,11 @@ export default function Page() {
         <Box
           sx={{
             bgcolor: "primary.main",
-            height: 60,
+            height: 50,
             width: "100%",
             mt: "auto",
+            zIndex: 20,
+            position: "relative"
           }}
         />
       </Box>
