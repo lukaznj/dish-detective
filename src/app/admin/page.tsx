@@ -19,6 +19,7 @@ import ChatIcon from "@mui/icons-material/Chat";
 
 import { ReactNode } from "react";
 import { People } from "@mui/icons-material";
+import { useRouter } from "next/navigation";
 
 interface ActionButtonProps {
   children: ReactNode;
@@ -49,8 +50,15 @@ const ActionButton = ({ children, onClick }: ActionButtonProps) => (
 );
 
 export default function Page() {
+  const router = useRouter();
+
   const handleActionClick = (action: string) => {
     console.log(`Kliknuta akcija: ${action}`);
+    if (action === "jelima"){
+      router.push('/admin/dishes');
+    }
+
+    // TODO: Implement navigation for other actions
   };
 
   const theme = useTheme();
@@ -299,7 +307,7 @@ export default function Page() {
             </Typography>
           </Button>
           <Button
-            onClick={() => handleActionClick("restorani")}
+            onClick={() => handleActionClick("jelima")}
             sx={{
               flex: 1,
               flexDirection: "column",
@@ -353,7 +361,7 @@ export default function Page() {
             </Typography>
           </Button>
           <Button
-            onClick={() => handleActionClick("restorani")}
+            onClick={() => handleActionClick("racunima")}
             sx={{
               flex: 1,
               flexDirection: "column",
