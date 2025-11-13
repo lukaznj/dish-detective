@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 
+import { useRouter } from "next/navigation";
+
 import {
   Box,
   Button,
@@ -104,6 +106,7 @@ function getRandomElement<T>(arr: T[]): T {
 export default function Page() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const router = useRouter();
 
   const [dishes, setDishes] = useState<Dish[]>([]);
   const [loading, setLoading] = useState(true);
@@ -155,7 +158,7 @@ export default function Page() {
   };
 
   const handleAdminDashboard = () => {
-    // TODO: Navigate to admin dashboard page
+    router.push("/admin");
   };
 
   const handleLogout = () => {
