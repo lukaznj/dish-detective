@@ -11,7 +11,7 @@ jobs:
     env:
       CI: true
       CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
-      MONGODB_URI: ${{ secrets.MONGODB_URI }}
+      NEXT_PUBLIC_MONGODB_URI: ${{ secrets.NEXT_PUBLIC_MONGODB_URI }}
       NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
     steps:
       - uses: actions/checkout@v4
