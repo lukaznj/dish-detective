@@ -30,7 +30,7 @@ Servis za deployment: Vercel
 
 Testiranje: Jest, Playwright
 
-Dizajn: https://www.figma.com/design/TAYnOBQ1sF67U5V2m3If55/DishDetectiveDesign?node-id=0-1&t=IBkCq3Oz0q1A6u54-1
+[Dizajn na Figmi] (https://www.figma.com/design/TAYnOBQ1sF67U5V2m3If55/DishDetectiveDesign?node-id=0-1&t=IBkCq3Oz0q1A6u54-1)
   
 # Članovi tima
 Matej Božac
