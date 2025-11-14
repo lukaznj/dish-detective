@@ -12,7 +12,7 @@ type ActionResponse = {
   errors?: Record<string, string>;
 };
 
-export async function createDishWithImage(
+export async function createDish(
   formData: FormData,
 ): Promise<ActionResponse> {
   try {

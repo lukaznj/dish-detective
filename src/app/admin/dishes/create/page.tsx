@@ -17,7 +17,7 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import CloseIcon from "@mui/icons-material/Close";
-import { createDishWithImage } from "./actions";
+import { createDish } from "./actions";
 import SuccessScreen from "@/components/SuccessScreen";
 
 export default function Page() {
@@ -103,7 +103,7 @@ export default function Page() {
         formDataToSend.append("image", imageFile);
       }
 
-      const response = await createDishWithImage(formDataToSend);
+      const response = await createDish(formDataToSend);
 
       if (response.success) {
         setSuccess("Jelo uspješno kreirano!");
