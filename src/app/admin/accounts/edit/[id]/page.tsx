@@ -1,4 +1,3 @@
-// d:\Progi\dish-detective\src\app\admin\accounts\edit\[id]\page.tsx
 "use client";
 
 import { useState, useEffect } from "react";
@@ -79,6 +78,8 @@ export default function EditWorkerManagerAccountPage({
 
   if (isMobile) {
     return (
+      <>
+      <AdminNavbar isMobile={isMobile} />
       <Box
         sx={{
           height: "100vh",
@@ -263,6 +264,7 @@ export default function EditWorkerManagerAccountPage({
           </Typography>
         </Box>
       </Box>
+      </>
     );
   }
 
