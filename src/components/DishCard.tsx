@@ -1,6 +1,14 @@
 "use client";
 
-import { Paper, Box, Typography, IconButton, Chip, useMediaQuery, useTheme } from "@mui/material";
+import {
+  Paper,
+  Box,
+  Typography,
+  IconButton,
+  Chip,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
@@ -65,15 +73,17 @@ const DishCard = ({
         </Box>
 
         {/* Content Section - Right side */}
-        <Box sx={{
-          p: 1.5,
-          flexGrow: 1,
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          gap: 1.5,
-          overflow: "hidden",
-        }}>
+        <Box
+          sx={{
+            p: 1.5,
+            flexGrow: 1,
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 1.5,
+            overflow: "hidden",
+          }}
+        >
           <Box sx={{ flexGrow: 1, minWidth: 0 }}>
             <Typography
               variant="subtitle1"
@@ -102,7 +112,9 @@ const DishCard = ({
               {restaurantName}
             </Typography>
             {allergens.length > 0 && (
-              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5, mt: 0.5 }}>
+              <Box
+                sx={{ display: "flex", flexWrap: "wrap", gap: 0.5, mt: 0.5 }}
+              >
                 {allergens.slice(0, 2).map((allergen) => (
                   <Chip
                     key={allergen}
@@ -133,7 +145,14 @@ const DishCard = ({
           </Box>
 
           {/* Action Buttons */}
-          <Box sx={{ display: "flex", flexDirection: "column", gap: 0.5, flexShrink: 0 }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 0.5,
+              flexShrink: 0,
+            }}
+          >
             {onEdit && (
               <IconButton
                 onClick={(e) => {

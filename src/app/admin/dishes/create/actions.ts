@@ -13,7 +13,7 @@ type ActionResponse = {
 };
 
 export async function createDishWithImage(
-  formData: FormData
+  formData: FormData,
 ): Promise<ActionResponse> {
   try {
     // Extract form data
@@ -38,7 +38,10 @@ export async function createDishWithImage(
 
     // Parse allergens
     const allergens = allergensString
-      ? allergensString.split(",").map((a) => a.trim()).filter(Boolean)
+      ? allergensString
+          .split(",")
+          .map((a) => a.trim())
+          .filter(Boolean)
       : [];
 
     let imageUrl = "";
@@ -118,4 +121,3 @@ export async function createDishWithImage(
     };
   }
 }
-

@@ -19,7 +19,6 @@ type ActionResponse = {
   errors?: Record<string, string>;
 };
 
-
 export async function deleteDish(dishId: string): Promise<ActionResponse> {
   try {
     const conn = await dbConnect();

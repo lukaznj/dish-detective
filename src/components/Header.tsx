@@ -21,7 +21,6 @@ export default function Header() {
   const isHomepage = pathname === "/";
   const isLoginRoute = pathname.startsWith("/login");
 
-
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -135,59 +134,57 @@ export default function Header() {
     );
   }
 
-
-    return (
-      <AppBar position="static" sx={{ bgcolor: "#56aaf4" }}>
-        <Toolbar
+  return (
+    <AppBar position="static" sx={{ bgcolor: "#56aaf4" }}>
+      <Toolbar
+        sx={{
+          justifyContent: "space-between",
+          py: 2,
+          px: { xs: 3, lg: 4 },
+        }}
+      >
+        <Box
+          component={Link}
+          href="/"
           sx={{
-            justifyContent: "space-between",
-            py: 2,
-            px: { xs: 3, lg: 4 },
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
+            textDecoration: "none",
+            color: "white",
           }}
         >
-          <Box
-            component={Link}
-            href="/"
+          <Image
+            src="/logoWhite.png"
+            alt="Dish Detective Logo"
+            width={32}
+            height={32}
+          />
+          <Typography
+            variant="h5"
             sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: 1,
-              textDecoration: "none",
-              color: "white",
+              fontWeight: "bold",
+              "&:hover": {
+                color: "grey.200",
+              },
             }}
           >
-            <Image
-              src="/logoWhite.png"
-              alt="Dish Detective Logo"
-              width={32}
-              height={32}
-            />
-            <Typography
-              variant="h5"
-              sx={{
-                fontWeight: "bold",
-                "&:hover": {
-                  color: "grey.200",
+            Dish Detective
+          </Typography>
+        </Box>
+
+        <Box sx={{ display: "flex", gap: { xs: 2, md: 3 } }}>
+          {!isLoginRoute && (
+            <UserButton
+              appearance={{
+                elements: {
+                  avatarBox: "w-10 h-10",
                 },
               }}
-            >
-              Dish Detective
-            </Typography>
-          </Box>
-
-          <Box sx={{ display: "flex", gap: { xs: 2, md: 3 } }}>
-            {!isLoginRoute && (
-              <UserButton
-                appearance={{
-                  elements: {
-                    avatarBox: "w-10 h-10",
-                  },
-                }}
-              />
-            )}
-          </Box>
-        </Toolbar>
-      </AppBar>
-    );
-
+            />
+          )}
+        </Box>
+      </Toolbar>
+    </AppBar>
+  );
 }

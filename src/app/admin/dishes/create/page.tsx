@@ -213,7 +213,11 @@ export default function DishCreatePage() {
                       Odaberi sliku
                     </Button>
                   </label>
-                  <Typography variant="caption" display="block" sx={{ mt: 1, color: "text.secondary" }}>
+                  <Typography
+                    variant="caption"
+                    display="block"
+                    sx={{ mt: 1, color: "text.secondary" }}
+                  >
                     PNG, JPG do 5MB
                   </Typography>
                 </Box>
@@ -224,7 +228,9 @@ export default function DishCreatePage() {
               fullWidth
               label="Naziv jela"
               value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
               required
               sx={{
                 mb: 3,
@@ -239,7 +245,9 @@ export default function DishCreatePage() {
               fullWidth
               label="Opis"
               value={formData.description}
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, description: e.target.value })
+              }
               required
               multiline
               rows={3}
@@ -256,7 +264,9 @@ export default function DishCreatePage() {
               fullWidth
               label="Kategorija"
               value={formData.category}
-              onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, category: e.target.value })
+              }
               required
               sx={{
                 mb: 3,
@@ -470,7 +480,11 @@ export default function DishCreatePage() {
                     Odaberi sliku
                   </Button>
                 </label>
-                <Typography variant="caption" display="block" sx={{ mt: 1, color: "text.secondary" }}>
+                <Typography
+                  variant="caption"
+                  display="block"
+                  sx={{ mt: 1, color: "text.secondary" }}
+                >
                   PNG, JPG do 5MB
                 </Typography>
               </Box>
@@ -495,7 +509,9 @@ export default function DishCreatePage() {
             fullWidth
             label="Opis"
             value={formData.description}
-            onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, description: e.target.value })
+            }
             required
             multiline
             rows={3}
@@ -511,7 +527,9 @@ export default function DishCreatePage() {
             fullWidth
             label="Kategorija"
             value={formData.category}
-            onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, category: e.target.value })
+            }
             required
             sx={{
               mb: 3,
@@ -603,4 +621,3 @@ export default function DishCreatePage() {
     </Box>
   );
 }
-

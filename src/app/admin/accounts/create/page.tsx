@@ -158,7 +158,9 @@ export default function EmployeeCreatePage() {
               fullWidth
               label="Ime"
               value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
               required
               sx={{
                 mb: 3,
@@ -287,21 +289,34 @@ export default function EmployeeCreatePage() {
 
         {/* Fixed Button Area at Bottom */}
         <Box
-          onClick={loading || loadingRestaurants || !!passwordError ? undefined : handleSubmit}
+          onClick={
+            loading || loadingRestaurants || !!passwordError
+              ? undefined
+              : handleSubmit
+          }
           sx={{
             position: "fixed",
             bottom: "64px", // Above navbar
             left: 0,
             right: 0,
             height: "70px",
-            bgcolor: loading || loadingRestaurants || !!passwordError ? "grey.400" : "primary.main",
+            bgcolor:
+              loading || loadingRestaurants || !!passwordError
+                ? "grey.400"
+                : "primary.main",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            cursor: loading || loadingRestaurants || !!passwordError ? "not-allowed" : "pointer",
+            cursor:
+              loading || loadingRestaurants || !!passwordError
+                ? "not-allowed"
+                : "pointer",
             transition: "all 0.2s ease-in-out",
             "&:active": {
-              bgcolor: loading || loadingRestaurants || !!passwordError ? "grey.400" : "primary.dark",
+              bgcolor:
+                loading || loadingRestaurants || !!passwordError
+                  ? "grey.400"
+                  : "primary.dark",
             },
           }}
         >
