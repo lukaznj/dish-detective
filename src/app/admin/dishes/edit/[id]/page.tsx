@@ -18,6 +18,9 @@ import AddIcon from "@mui/icons-material/Add";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import CloseIcon from "@mui/icons-material/Close";
 import AdminNavbar, { navWidth, headerHeight } from "@/components/AdminNavbar";
+import { getAllDishes } from "../../actions";
+import { updateDish } from "../actions";
+import { put } from "@vercel/blob";
 
 export default function DishEditPage({
   params,
@@ -38,8 +41,10 @@ export default function DishEditPage({
 
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [currentImageUrl, setCurrentImageUrl] = useState<string>("");
   const [allergenInput, setAllergenInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [loadingDish, setLoadingDish] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
@@ -49,7 +54,38 @@ export default function DishEditPage({
 
   useEffect(() => {
     if (!id) return;
-    // TODO: Load dish data from backend using id
+
+    const loadDish = async () => {
+      try {
+        setLoadingDish(true);
+        const result = await getAllDishes();
+
+        if (result.success && result.data) {
+          const dish = result.data.find((d: any) => d._id === id);
+
+          if (dish) {
+            setFormData({
+              name: dish.name,
+              description: dish.description,
+              category: dish.category,
+              allergens: dish.allergens || [],
+            });
+            setCurrentImageUrl(dish.imageUrl);
+            setImagePreview(dish.imageUrl);
+          } else {
+            setError("Jelo nije pronađeno");
+          }
+        } else {
+          setError("Greška pri učitavanju jela");
+        }
+      } catch (err) {
+        setError("Greška pri učitavanju jela");
+      } finally {
+        setLoadingDish(false);
+      }
+    };
+
+    loadDish();
   }, [id]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -91,23 +127,67 @@ export default function DishEditPage({
     if (e) e.preventDefault();
     if (!id) return;
 
+    // Require image (either existing or new upload)
+    if (!imagePreview && !imageFile) {
+      setError("Molimo odaberite sliku jela");
+      return;
+    }
+
     setLoading(true);
     setError(null);
     setSuccess(null);
 
     try {
-      // TODO: Submit update to backend
+      let imageUrl = currentImageUrl;
 
-      // Placeholder success
-      console.log("Submitting:", formData, imageFile);
-      setSuccess("Jelo uspješno ažurirano!");
-      setTimeout(() => router.push("/admin/dishes"), 2000);
+      // Upload new image if provided
+      if (imageFile) {
+        const blob = await put(`dishes/${Date.now()}-${imageFile.name}`, imageFile, {
+          access: "public",
+        });
+        imageUrl = blob.url;
+      }
+
+      const result = await updateDish(id, {
+        name: formData.name,
+        description: formData.description,
+        category: formData.category,
+        imageUrl: imageUrl,
+        allergens: formData.allergens,
+      });
+
+      if (result.success) {
+        setSuccess("Jelo uspješno ažurirano!");
+        setTimeout(() => router.push("/admin/dishes"), 2000);
+      } else {
+        setError(result.message || "Došlo je do greške. Pokušajte ponovo.");
+      }
     } catch (err) {
+      console.error("Error updating dish:", err);
       setError("Došlo je do greške. Pokušajte ponovo.");
     } finally {
       setLoading(false);
     }
   };
+
+  if (loadingDish) {
+    return (
+      <>
+        <AdminNavbar isMobile={isMobile} />
+        <Box
+          sx={{
+            height: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            bgcolor: "#f5f5f5",
+          }}
+        >
+          <CircularProgress />
+        </Box>
+      </>
+    );
+  }
 
   if (isMobile) {
     return (
@@ -127,33 +207,34 @@ export default function DishEditPage({
               flex: 1,
               overflowY: "auto",
               p: 3,
-              pb: "90px",
+              pb: "180px", // Extra padding for the fixed button and navbar
             }}
           >
-            <Typography
-              variant="h4"
-              sx={{
-                fontWeight: 780,
-                mb: 4,
-                color: "#212222",
-              }}
-            >
-              Uredi jelo
-            </Typography>
+            <Box>
+              <Typography
+                variant="h4"
+                sx={{
+                  fontWeight: 780,
+                  mb: 4,
+                  color: "#212222",
+                }}
+              >
+                Uredi jelo
+              </Typography>
 
-            {error && (
-              <Alert severity="error" sx={{ mb: 3 }}>
-                {error}
-              </Alert>
-            )}
+              {error && (
+                <Alert severity="error" sx={{ mb: 3 }}>
+                  {error}
+                </Alert>
+              )}
 
-            {success && (
-              <Alert severity="success" sx={{ mb: 3 }}>
-                {success}
-              </Alert>
-            )}
+              {success && (
+                <Alert severity="success" sx={{ mb: 3 }}>
+                  {success}
+                </Alert>
+              )}
 
-            <Box component="form" onSubmit={handleSubmit}>
+              <Box component="form" onSubmit={handleSubmit}>
               <Box
                 sx={{
                   mb: 3,
@@ -329,6 +410,7 @@ export default function DishEditPage({
                   </Box>
                 )}
               </Box>
+            </Box>
             </Box>
           </Box>
 
