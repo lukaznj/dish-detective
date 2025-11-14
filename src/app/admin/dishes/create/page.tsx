@@ -11,6 +11,8 @@ import {
   TextField,
   Typography,
   IconButton,
+  Snackbar,
+  Alert,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
@@ -33,24 +35,78 @@ import PeopleIcon from "@mui/icons-material/People";
 import ChatIcon from "@mui/icons-material/Chat";
 import AddIcon from "@mui/icons-material/Add";
 import FileUploadIcon from '@mui/icons-material/FileUpload';
+import DeleteIcon from "@mui/icons-material/Delete";
 import PersonIcon from "@mui/icons-material/Person";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { FileUpload } from "@mui/icons-material";
+
+import { createDish } from "../actions";
 
 export default function Page() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const router = useRouter();
 
+  const [dishName, setDishName] = useState("");
+  const [ingredients, setIngredients] = useState<string[]>([]);
+  const [allergens, setAllergens] = useState<string[]>([]);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+
+  const handleAdminDashboard = () => {
+    router.push("/admin");
+  };
+
+  const handleAddIngredient = () => {
+    setIngredients([...ingredients, ""]);
+  };
+
+  const handleRemoveIngredient = (index: number) => {
+    setIngredients(ingredients.filter((_, i) => i !== index));
+  };
+
+  const handleIngredientChange = (index: number, value: string) => {
+    const newIngredients = [...ingredients];
+    newIngredients[index] = value;
+    setIngredients(newIngredients);
+  };
+
+  const handleAddAllergen = () => {
+    setAllergens([...allergens, ""]);
+  };
+
+  const handleRemoveAllergen = (index: number) => {
+    setAllergens(allergens.filter((_, i) => i !== index));
+  };
+
+  const handleAllergenChange = (index: number, value: string) => {
+    const newAllergens = [...allergens];
+    newAllergens[index] = value;
+    setAllergens(newAllergens);
+  };
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setImageFile(file);
+    }
+  };
+
+  const handleSubmit = async () => {
+    console.log("Form data:", {
+      dishName,
+      ingredients: ingredients.filter((ing) => ing.trim()),
+      allergens: allergens.filter((alg) => alg.trim()),
+      imageFile,
+    });
+    // TODO: Backend integration
+  };
+
+  
+
   if (isMobile) {
     return null;
   }
 
   const navWidth = 80;
-
-  const handleAdminDashboard = () => {
-    router.push("/admin");
-  };
 
   return (
     <Box sx={{ height: "100vh", width: "100vw", display: "flex" }}>
@@ -211,6 +267,8 @@ export default function Page() {
                 fullWidth
                 variant="outlined"
                 placeholder="..."
+                value = {dishName}
+                onChange={(e) => setDishName(e.target.value)}
                 sx={{
                   bgcolor: "background.paper",
                   mb: 2,
@@ -222,6 +280,7 @@ export default function Page() {
               <Button
                 fullWidth
                 variant="outlined"
+                component="label"
                 startIcon={<FileUploadIcon />}
                 sx={{
                   textTransform: "none",
@@ -236,7 +295,13 @@ export default function Page() {
                   },
                 }}
               >
-                Upload image
+                {imageFile ? imageFile.name : "Upload image"}
+                <input
+                  type="file"
+                  hidden
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                />
               </Button>
             </Box>
 
@@ -248,22 +313,38 @@ export default function Page() {
               >
                 Sastojci
               </Typography>
-              <TextField
-                fullWidth
-                variant="outlined"
-                placeholder="..."
-                sx={{
-                  bgcolor: "background.paper",
-                  mb: 2,
-                  "& .MuiOutlinedInput-root": {
-                    borderRadius: 2,
-                  },
-                }}
-              />
+              {ingredients.map((ingredient, index) => (
+                <Box key={index} sx={{ display: "flex", gap: 1, mb: 2 }}>
+                  <TextField
+                    fullWidth
+                    variant="outlined"
+                    placeholder="Unesite sastojak..."
+                    value={ingredient}
+                    onChange={(e) =>
+                      handleIngredientChange(index, e.target.value)
+                    }
+                    sx={{
+                      bgcolor: "background.paper",
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: 2,
+                      },
+                    }}
+                  />
+                  {ingredients.length > 1 && (
+                    <IconButton
+                      onClick={() => handleRemoveIngredient(index)}
+                      sx={{ color: "error.main" }}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  )}
+                </Box>
+              ))}
               <Button
                 fullWidth
                 variant="outlined"
                 startIcon={<AddIcon />}
+                onClick={handleAddIngredient}
                 sx={{
                   textTransform: "none",
                   borderRadius: 2,
@@ -286,22 +367,36 @@ export default function Page() {
               >
                 Alergeni
               </Typography>
-              <TextField
-                fullWidth
-                variant="outlined"
-                placeholder="..."
-                sx={{
-                  bgcolor: "background.paper",
-                  mb: 2,
-                  "& .MuiOutlinedInput-root": {
-                    borderRadius: 2,
-                  },
-                }}
-              />
+              {allergens.map((allergen, index) => (
+                <Box key={index} sx={{ display: "flex", gap: 1, mb: 2 }}>
+                  <TextField
+                    fullWidth
+                    variant="outlined"
+                    placeholder="Unesite alergen..."
+                    value={allergen}
+                    onChange={(e) => handleAllergenChange(index, e.target.value)}
+                    sx={{
+                      bgcolor: "background.paper",
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: 2,
+                      },
+                    }}
+                  />
+                  {allergens.length > 1 && (
+                    <IconButton
+                      onClick={() => handleRemoveAllergen(index)}
+                      sx={{ color: "error.main" }}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  )}
+                </Box>
+              ))}
               <Button
                 fullWidth
                 variant="outlined"
                 startIcon={<AddIcon />}
+                onClick={handleAddAllergen}
                 sx={{
                   textTransform: "none",
                   borderRadius: 2,
@@ -315,6 +410,25 @@ export default function Page() {
                 }}
               ></Button>
             </Box>
+            <Button
+              fullWidth
+              variant="contained"
+              onClick={handleSubmit}
+              sx={{
+                textTransform: "none",
+                borderRadius: 2,
+                py: 1.5,
+                mb: 3,
+                bgcolor: "grey.900",
+                color: "white",
+                fontWeight: 600,
+                "&:hover": {
+                  bgcolor: "primary.dark",
+                },
+              }}
+            >
+              Dodaj jelo
+            </Button>
           </Box>
         </Box>
         <Box
