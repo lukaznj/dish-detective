@@ -21,7 +21,7 @@ export default async function RedirectAfterSignIn() {
           clerkId: userId,
           role: "student",
           restaurantId: undefined, // Explicitly set to undefined for students
-        }
+        },
       },
       { upsert: true, new: true, runValidators: false }, // Disable validators on upsert
     ).lean();

@@ -91,7 +91,7 @@ export default function Page() {
                 alt="Google"
                 width="20"
                 height="20"
-                style={{ display: 'block' }}
+                style={{ display: "block" }}
               />
             )
           }

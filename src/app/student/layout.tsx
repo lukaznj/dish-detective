@@ -24,7 +24,7 @@ export default async function StudentLayout({
       $setOnInsert: {
         clerkId: userId,
         role: "student",
-      }
+      },
     },
     { upsert: true, new: true, runValidators: false },
   ).lean();

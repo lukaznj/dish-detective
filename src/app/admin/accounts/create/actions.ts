@@ -78,21 +78,22 @@ export async function createEmployeeAccount({
     if (error.clerkError) {
       // Check for password-related errors
       const passwordError = error.errors?.find(
-        (err: any) => err.code === 'form_password_pwned' ||
-                      err.code === 'form_password_length_too_short' ||
-                      err.code === 'form_password_not_strong_enough'
+        (err: any) =>
+          err.code === "form_password_pwned" ||
+          err.code === "form_password_length_too_short" ||
+          err.code === "form_password_not_strong_enough",
       );
 
       if (passwordError) {
         return {
           success: false,
-          error: "Lozinka mora imati minimalno 8 znakova"
+          error: "Lozinka mora imati minimalno 8 znakova",
         };
       }
 
       // Check for username exists error
       const usernameError = error.errors?.find(
-        (err: any) => err.code === 'form_identifier_exists'
+        (err: any) => err.code === "form_identifier_exists",
       );
 
       if (usernameError) {
@@ -102,7 +103,9 @@ export async function createEmployeeAccount({
       // Generic Clerk error
       return {
         success: false,
-        error: error.errors?.[0]?.longMessage || "Greška prilikom kreiranja računa u Clerk sustavu"
+        error:
+          error.errors?.[0]?.longMessage ||
+          "Greška prilikom kreiranja računa u Clerk sustavu",
       };
     }
 
