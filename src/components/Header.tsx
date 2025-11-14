@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { UserButton } from "@clerk/nextjs";
+import { UserButton, useUser } from "@clerk/nextjs"; // Import useUser
 import {
   Menu,
   MenuItem,
@@ -13,13 +13,20 @@ import {
   Toolbar,
   Button,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 
 export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
+  const { user } = useUser(); // Get the user data from Clerk
+
   const isHomepage = pathname === "/";
   const isLoginRoute = pathname.startsWith("/login");
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -28,6 +35,7 @@ export default function Header() {
   };
 
   if (isHomepage) {
+    // ... (Homepage header remains unchanged)
     return (
       <AppBar
         position="absolute"
@@ -37,7 +45,8 @@ export default function Header() {
         <Toolbar
           sx={{
             justifyContent: "space-between",
-            py: 2,
+            py: { xs: 1, sm: 2 },
+            minHeight: { xs: "60px", sm: "64px" },
             px: { xs: 3, lg: 4 },
           }}
         >
@@ -50,10 +59,11 @@ export default function Header() {
               gap: 1,
               textDecoration: "none",
               color: "white",
+              ...(isMobile && { color: "black" }),
             }}
           >
             <Image
-              src="/logoWhite.png"
+              src={isMobile ? "/logoDark.png" : "/logoWhite.png"}
               alt="Dish Detective Logo"
               width={32}
               height={32}
@@ -64,6 +74,7 @@ export default function Header() {
                 fontWeight: "bold",
                 "&:hover": {
                   color: "grey.200",
+                  ...(isMobile && { color: "grey.700" }),
                 },
               }}
             >
@@ -75,6 +86,7 @@ export default function Header() {
             <Button
               variant="contained"
               sx={{
+                display: { xs: "none", sm: "flex" },
                 bgcolor: "white",
                 color: "black",
                 fontSize: "1rem",
@@ -94,16 +106,37 @@ export default function Header() {
               onClick={handleClick}
               variant="contained"
               sx={{
-                bgcolor: "#ff8c00",
+                display: { xs: "none", sm: "flex" },
+                bgcolor: isMobile ? "#56aaf4" : "#ff8c00",
                 color: "white",
                 fontSize: "1rem",
                 fontWeight: 500,
                 "&:hover": {
-                  bgcolor: "#f18501ff",
+                  bgcolor: isMobile ? "#4a94db" : "#f18501ff",
                 },
               }}
             >
               Prijava
+            </Button>
+
+            <Button
+              sx={{
+                display: { xs: "flex", sm: "none" },
+                minWidth: 0,
+                padding: 0,
+                bgcolor: "transparent",
+                "&:hover": {
+                  bgcolor: "transparent",
+                },
+              }}
+              disableRipple
+            >
+              <Image
+                src="/translate.png"
+                alt="Translate"
+                width={32}
+                height={32}
+              />
             </Button>
 
             <Menu
@@ -134,18 +167,27 @@ export default function Header() {
     );
   }
 
+  // --- CHANGES ARE IN THIS SECTION ---
+
+  // Get the role from the public metadata we just set
+  const userRole = user?.publicMetadata?.role as string;
+  // Create the dynamic link. Default to "/" if role isn't found.
+  const homeHref = userRole ? `/${userRole}` : "/";
+
+  // Non-homepage header (blue header)
   return (
     <AppBar position="static" sx={{ bgcolor: "#56aaf4" }}>
       <Toolbar
         sx={{
           justifyContent: "space-between",
-          py: 2,
+          py: isMobile ? 1 : 2,
+          minHeight: isMobile ? "60px" : "64px",
           px: { xs: 3, lg: 4 },
         }}
       >
         <Box
           component={Link}
-          href="/"
+          href={homeHref} // Use the dynamic homeHref here
           sx={{
             display: "flex",
             alignItems: "center",
@@ -174,6 +216,27 @@ export default function Header() {
         </Box>
 
         <Box sx={{ display: "flex", gap: { xs: 2, md: 3 } }}>
+          <Button
+            sx={{
+              display: { xs: "none", sm: "flex" },
+              minWidth: 0,
+              padding: 0,
+              bgcolor: "transparent",
+              "&:hover": {
+                bgcolor: "transparent",
+              },
+            }}
+            disableRipple
+          >
+            <Image
+              src="/translate.png"
+              alt="Translate"
+              width={32}
+              height={32}
+              style={{ filter: "invert(1)" }}
+            />
+          </Button>
+
           {!isLoginRoute && (
             <UserButton
               appearance={{
