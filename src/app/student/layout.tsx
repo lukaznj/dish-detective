@@ -3,19 +3,35 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import dbConnect from "@/utils/dbConnect";
 import User from "@/models/User";
+
 export default async function StudentLayout({
   children,
 }: {
   children: ReactNode;
 }) {
   const { userId } = await auth();
+
   if (!userId) {
     redirect("/");
   }
+
   await dbConnect();
-  const user = await User.findOne({ clerkId: userId }).lean();
+
+  // Find or create user (in case they bypass /auth/redirect)
+  const user = await User.findOneAndUpdate(
+    { clerkId: userId },
+    {
+      $setOnInsert: {
+        clerkId: userId,
+        role: "student",
+      }
+    },
+    { upsert: true, new: true, runValidators: false },
+  ).lean();
+
   if (!user || user.role !== "student") {
     redirect("/");
   }
+
   return <>{children}</>;
 }
