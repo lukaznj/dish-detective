@@ -3,7 +3,11 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import dbConnect from "@/utils/dbConnect";
 import User from "@/models/User";
-export default async function StudentLayout({ children }: { children: ReactNode }) {
+export default async function StudentLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
   const { userId } = await auth();
   if (!userId) {
     redirect("/");
