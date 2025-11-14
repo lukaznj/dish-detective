@@ -1,6 +1,38 @@
 import mongoose from "mongoose";
 import { MongoMemoryServer } from "mongodb-memory-server";
-import { createDish, updateDish, getAllDishes, deleteDish } from "./actions";
+import { getAllDishes, deleteDish } from "./actions";
+import { updateDish } from "./edit/actions";
+import { createDish as createDishAPI } from "./create/actions";
+import { put } from "@vercel/blob";
+
+// Mock Vercel Blob
+jest.mock("@vercel/blob", () => ({
+  put: jest.fn(),
+}));
+
+// Helper function to convert old createDish format to new FormData format
+async function createDish(dishData: {
+  name: string;
+  description: string;
+  category: string;
+  imageUrl: string;
+  allergens: string[];
+}) {
+  // Mock the blob upload to return the provided imageUrl
+  (put as jest.Mock).mockResolvedValue({ url: dishData.imageUrl });
+
+  const formData = new FormData();
+  formData.append("name", dishData.name);
+  formData.append("description", dishData.description);
+  formData.append("category", dishData.category);
+  formData.append("allergens", dishData.allergens.join(","));
+
+  // Create a mock file
+  const mockFile = new File(["test"], "test.jpg", { type: "image/jpeg" });
+  formData.append("image", mockFile);
+
+  return await createDishAPI(formData);
+}
 
 // Ovaj kod je bio napisan uz pomoć UI alata
 describe("Dish Server Actions", () => {

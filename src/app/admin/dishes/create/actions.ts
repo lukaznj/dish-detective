@@ -12,9 +12,7 @@ type ActionResponse = {
   errors?: Record<string, string>;
 };
 
-export async function createDishWithImage(
-  formData: FormData,
-): Promise<ActionResponse> {
+export async function createDish(formData: FormData): Promise<ActionResponse> {
   try {
     // Extract form data
     const name = formData.get("name") as string;
