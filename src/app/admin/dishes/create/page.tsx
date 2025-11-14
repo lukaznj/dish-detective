@@ -121,14 +121,19 @@ export default function DishCreatePage() {
     return (
       <Box
         sx={{
-          minHeight: "100vh",
+          height: "100vh",
           bgcolor: "#f5f5f5",
           display: "flex",
           flexDirection: "column",
-          pb: "134px", // Space for button (70px) + navbar (64px)
+          overflow: "hidden",
         }}
       >
-        <Box sx={{ p: 3, flexGrow: 1 }}>
+        <Box sx={{
+          p: 3,
+          flexGrow: 1,
+          overflowY: "auto",
+          pb: "200px", // Space for button (70px) + navbar (64px) + extra margin (20px)
+        }}>
           <Typography
             variant="h4"
             sx={{
@@ -153,6 +158,7 @@ export default function DishCreatePage() {
           )}
 
           <Box component="form" onSubmit={handleSubmit}>
+            {/* ...existing code... */}
             {/* Image Upload */}
             <Box
               sx={{
@@ -384,6 +390,7 @@ export default function DishCreatePage() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        py: 5,
       }}
     >
       <Box
@@ -392,35 +399,49 @@ export default function DishCreatePage() {
           width: "100%",
           bgcolor: "white",
           borderRadius: 3,
-          p: 4,
           boxShadow: 2,
+          maxHeight: "90vh",
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden",
         }}
       >
-        <Typography
-          variant="h4"
+        <Box sx={{ p: 4, pb: 2, flexShrink: 0 }}>
+          <Typography
+            variant="h4"
+            sx={{
+              fontWeight: 780,
+              mb: 4,
+              textAlign: "center",
+              color: "#212222",
+            }}
+          >
+            Dodaj novo jelo
+          </Typography>
+
+          {error && (
+            <Alert severity="error" sx={{ mb: 3 }}>
+              {error}
+            </Alert>
+          )}
+
+          {success && (
+            <Alert severity="success" sx={{ mb: 3 }}>
+              {success}
+            </Alert>
+          )}
+        </Box>
+
+        <Box
           sx={{
-            fontWeight: 780,
-            mb: 4,
-            textAlign: "center",
-            color: "#212222",
+            px: 4,
+            pb: 4,
+            flexGrow: 1,
+            overflowY: "auto",
           }}
         >
-          Dodaj novo jelo
-        </Typography>
-
-        {error && (
-          <Alert severity="error" sx={{ mb: 3 }}>
-            {error}
-          </Alert>
-        )}
-
-        {success && (
-          <Alert severity="success" sx={{ mb: 3 }}>
-            {success}
-          </Alert>
-        )}
-
-        <Box component="form" onSubmit={handleSubmit}>
+          <Box component="form" onSubmit={handleSubmit}>
+            {/* ...existing code... */}
           {/* Image Upload */}
           <Box
             sx={{
@@ -616,6 +637,7 @@ export default function DishCreatePage() {
               "Dodaj jelo"
             )}
           </Button>
+          </Box>
         </Box>
       </Box>
     </Box>
