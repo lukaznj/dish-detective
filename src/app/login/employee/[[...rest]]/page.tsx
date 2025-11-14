@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSignIn } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import {
@@ -11,6 +11,7 @@ import {
   Alert,
   CircularProgress,
 } from "@mui/material";
+import PancakeStackLoader from "@/components/PancakeStackLoader";
 
 export default function Page() {
   const { signIn, setActive, isLoaded } = useSignIn();
@@ -20,6 +21,18 @@ export default function Page() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [pageLoaded, setPageLoaded] = useState(false);
+
+  useEffect(() => {
+    // Wait for Clerk to load
+    if (isLoaded) {
+      // Small delay to ensure background image is loaded
+      const timer = setTimeout(() => {
+        setPageLoaded(true);
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [isLoaded]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,6 +61,22 @@ export default function Page() {
       setLoading(false);
     }
   };
+
+  if (!pageLoaded) {
+    return (
+      <Box
+        sx={{
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          bgcolor: "#f5f5f5",
+        }}
+      >
+        <PancakeStackLoader />
+      </Box>
+    );
+  }
 
   return (
     <Box
