@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
+import { UserButton } from "@clerk/nextjs";
 import {
   Menu,
   MenuItem,
@@ -12,13 +13,14 @@ import {
   Toolbar,
   Button,
   Typography,
-  IconButton,
 } from "@mui/material";
 
 export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
   const isHomepage = pathname === "/";
+  const isLoginRoute = pathname.startsWith("/login");
+
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -185,35 +187,15 @@ export default function Header() {
           </Box>
 
           <Box sx={{ display: "flex", gap: { xs: 2, md: 3 } }}>
-            <IconButton
-              aria-label="Translate"
-              sx={{
-                color: "white",
-                "&:hover": { bgcolor: "#4a9de0" },
-              }}
-            >
-              <Image
-                src="/translate.png"
-                alt="Translate"
-                width={24}
-                height={24}
-                style={{ filter: "invert(1)" }}
+            {!isLoginRoute && (
+              <UserButton
+                appearance={{
+                  elements: {
+                    avatarBox: "w-10 h-10",
+                  },
+                }}
               />
-            </IconButton>
-
-            <Button
-              variant="contained"
-              sx={{
-                bgcolor: "grey.900",
-                color: "white",
-                fontWeight: 500,
-                "&:hover": {
-                  bgcolor: "grey.700",
-                },
-              }}
-            >
-              Odjava
-            </Button>
+            )}
           </Box>
         </Toolbar>
       </AppBar>
