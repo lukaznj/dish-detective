@@ -90,23 +90,6 @@ export default function Home() {
     );
   }
 
-  const handleRoleSelect = (role: string) => {
-    setAnchorEl(null);
-    setAnchorElTop(null);
-
-    // Navigate to appropriate login page based on role
-    if (role === "student") {
-      router.push("/login/student");
-    } else if (role === "radnik") {
-      router.push("/login/employee");
-    }
-  };
-
-  const handleKontakt = () => {
-    // TODO: go to contact page
-  };
-
-  // Mobile layout
   if (isMobile) {
     return (
       <Box
@@ -237,14 +220,14 @@ export default function Home() {
             }}
           >
             <MenuItem
-              onClick={() => handleRoleSelect("radnik")}
+              onClick={() => router.push("/login/employee")}
               sx={{ fontSize: "1.2rem", py: 1.2 }}
             >
               Radnik u menzi
             </MenuItem>
             <Box sx={{ borderBottom: "1px solid black", my: 0 }} />
             <MenuItem
-              onClick={() => handleRoleSelect("student")}
+              onClick={() => router.push("/login/student")}
               sx={{ fontSize: "1.2rem", py: 1.2 }}
             >
               Student
@@ -349,14 +332,14 @@ export default function Home() {
             }}
           >
             <MenuItem
-              onClick={() => handleRoleSelect("radnik")}
+              onClick={() => router.push("/login/employee")}
               sx={{ fontSize: "1rem", py: 1.2 }}
             >
               Radnik u menzi
             </MenuItem>
             <Box sx={{ borderBottom: "1px solid black", my: 0 }} />
             <MenuItem
-              onClick={() => handleRoleSelect("student")}
+              onClick={() => router.push("/login/student")}
               sx={{ fontSize: "1rem", py: 1.2 }}
             >
               Student
