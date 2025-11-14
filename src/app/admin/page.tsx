@@ -64,7 +64,8 @@ export default function Page() {
   };
 
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  // We'll catch tablet sizes as well for this page
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const isShortScreen = useMediaQuery("(max-height: 840px)");
   const isNarrowerScreen = useMediaQuery("(max-width: 1210px)");
 
