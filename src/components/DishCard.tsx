@@ -82,9 +82,10 @@ const DishCard = ({
             alignItems: "center",
             gap: 1.5,
             overflow: "hidden",
+            minWidth: 0,
           }}
         >
-          <Box sx={{ flexGrow: 1, minWidth: 0 }}>
+          <Box sx={{ flexGrow: 1, minWidth: 0, overflow: "hidden" }}>
             <Typography
               variant="subtitle1"
               component="div"
@@ -92,8 +93,12 @@ const DishCard = ({
                 fontWeight: 600,
                 overflow: "hidden",
                 textOverflow: "ellipsis",
-                whiteSpace: "nowrap",
+                display: "-webkit-box",
+                WebkitLineClamp: 1,
+                WebkitBoxOrient: "vertical",
                 mb: 0.5,
+                maxWidth: "100%",
+                wordBreak: "break-all",
               }}
             >
               {name}
@@ -104,9 +109,12 @@ const DishCard = ({
               sx={{
                 overflow: "hidden",
                 textOverflow: "ellipsis",
-                whiteSpace: "nowrap",
-                display: "block",
+                display: "-webkit-box",
+                WebkitLineClamp: 1,
+                WebkitBoxOrient: "vertical",
                 mb: 0.5,
+                maxWidth: "100%",
+                wordBreak: "break-all",
               }}
             >
               {restaurantName}
@@ -207,6 +215,8 @@ const DishCard = ({
         display: "flex",
         flexDirection: "column",
         height: "100%",
+        minHeight: 380,
+        maxHeight: 380,
         transition: "all 0.2s ease-in-out",
         "&:hover": {
           boxShadow: 4,
@@ -218,7 +228,8 @@ const DishCard = ({
       <Box
         sx={{
           width: "100%",
-          height: 200,
+          height: 160,
+          flexShrink: 0,
           bgcolor: "grey.200",
           backgroundImage: imageUrl ? `url(${imageUrl})` : "none",
           backgroundSize: "cover",
@@ -236,7 +247,14 @@ const DishCard = ({
       </Box>
 
       {/* Content Section */}
-      <Box sx={{ p: 2, flexGrow: 1, display: "flex", flexDirection: "column" }}>
+      <Box sx={{
+        p: 2,
+        flexGrow: 1,
+        display: "flex",
+        flexDirection: "column",
+        overflow: "hidden",
+        minHeight: 0,
+      }}>
         <Typography
           variant="h6"
           component="div"
@@ -245,7 +263,11 @@ const DishCard = ({
             mb: 0.5,
             overflow: "hidden",
             textOverflow: "ellipsis",
-            whiteSpace: "nowrap",
+            display: "-webkit-box",
+            WebkitLineClamp: 1,
+            WebkitBoxOrient: "vertical",
+            maxWidth: "100%",
+            wordBreak: "break-all",
           }}
         >
           {name}
@@ -257,7 +279,11 @@ const DishCard = ({
             mb: 0.5,
             overflow: "hidden",
             textOverflow: "ellipsis",
-            whiteSpace: "nowrap",
+            display: "-webkit-box",
+            WebkitLineClamp: 1,
+            WebkitBoxOrient: "vertical",
+            maxWidth: "100%",
+            wordBreak: "break-all",
           }}
         >
           {restaurantName}
@@ -271,7 +297,11 @@ const DishCard = ({
             display: "-webkit-box",
             WebkitLineClamp: 2,
             WebkitBoxOrient: "vertical",
-            mb: 2,
+            mb: 1,
+            minHeight: "2.5em",
+            maxHeight: "2.5em",
+            lineHeight: "1.25em",
+            wordBreak: "break-word",
           }}
         >
           {position}
@@ -279,19 +309,32 @@ const DishCard = ({
 
         {/* Allergens */}
         {allergens.length > 0 && (
-          <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5, mb: 2 }}>
-            {allergens.map((allergen) => (
+          <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5, mb: 1, minHeight: "24px" }}>
+            {allergens.slice(0, 3).map((allergen) => (
               <Chip
                 key={allergen}
                 label={allergen}
                 size="small"
                 sx={{
+                  height: 20,
                   bgcolor: "error.light",
                   color: "white",
-                  fontSize: "0.75rem",
+                  fontSize: "0.7rem",
                 }}
               />
             ))}
+            {allergens.length > 3 && (
+              <Chip
+                label={`+${allergens.length - 3}`}
+                size="small"
+                sx={{
+                  height: 20,
+                  bgcolor: "grey.400",
+                  color: "white",
+                  fontSize: "0.7rem",
+                }}
+              />
+            )}
           </Box>
         )}
 
