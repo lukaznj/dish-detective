@@ -1,17 +1,24 @@
-"use client"; // Required for usePathname and useState
+"use client";
 
-import React from 'react'; // 1. Import React for useState
+import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-// 2. Import MUI components for the dropdown menu
-import { Menu, MenuItem, Box } from '@mui/material';
+import {
+  Menu,
+  MenuItem,
+  Box,
+  AppBar,
+  Toolbar,
+  Button,
+  Typography,
+  IconButton,
+} from '@mui/material';
 
 export default function Header({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isHomepage = pathname === '/';
 
-  // 3. Add state to manage the dropdown menu
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -22,50 +29,87 @@ export default function Header({ children }: { children: React.ReactNode }) {
   };
 
   if (isHomepage) {
-    // === HOMEPAGE HEADER (Transparent & Absolute) ===
     return (
       <>
-        <header className="absolute top-0 left-0 w-full z-50">
-          <nav className="flex items-center justify-between py-4 px-6 lg:px-8">
-            {/* Left: Dish Detective Logo & Text (Home Link) */}
-            <Link
+        <AppBar
+          position="absolute"
+          elevation={0}
+          sx={{ background: 'transparent', zIndex: 50 }}
+        >
+          <Toolbar
+            sx={{
+              justifyContent: 'space-between',
+              py: 2,
+              px: { xs: 3, lg: 4 },
+            }}
+          >
+            <Box
+              component={Link}
               href="/"
-              className="group flex items-center space-x-2"
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1,
+                textDecoration: 'none',
+                color: 'white',
+              }}
             >
               <Image
                 src="/logoWhite.png"
                 alt="Dish Detective Logo"
                 width={32}
                 height={32}
-                className="h-8 w-8"
               />
-              <span className="text-2xl font-bold text-white group-hover:text-gray-200">
+              <Typography
+                variant="h5"
+                sx={{
+                  fontWeight: 'bold',
+                  '&:hover': {
+                    color: 'grey.200',
+                  },
+                }}
+              >
                 Dish Detective
-              </span>
-            </Link>
+              </Typography>
+            </Box>
 
-            {/* Right: Kontakt and Prijava buttons */}
-            <div className="flex items-center space-x-4 md:space-x-6">
-              <Link
+            <Box sx={{ display: 'flex', gap: { xs: 2, md: 3 } }}>
+              <Button
+                component={Link}
                 href="/kontakt"
-                // 4. Added classes for white box, padding, and rounding to match Prijava
-                className="rounded-md bg-white px-4 py-2 text-lg font-medium text-black hover:bg-gray-200"
+                variant="contained"
+                sx={{
+                  bgcolor: 'white',
+                  color: 'black',
+                  fontSize: '1rem',
+                  fontWeight: 500,
+                  '&:hover': {
+                    bgcolor: 'grey.200',
+                  },
+                }}
               >
                 Kontakt
-              </Link>
-              
-              {/* 5. Changed from Link to button to open dropdown */}
-              <button
+              </Button>
+
+              <Button
                 aria-controls={open ? 'prijava-menu' : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
-                className="rounded-md bg-[#ff8c00] px-4 py-2 text-lg font-medium text-white hover:bg-[#f18501ff]"
+                variant="contained"
+                sx={{
+                  bgcolor: '#ff8c00',
+                  color: 'white',
+                  fontSize: '1rem',
+                  fontWeight: 500,
+                  '&:hover': {
+                    bgcolor: '#f18501ff',
+                  },
+                }}
               >
                 Prijava
-              </button>
-              
-              {/* 6. Added the MUI Menu component for the dropdown */}
+              </Button>
+
               <Menu
                 id="prijava-menu"
                 anchorEl={anchorEl}
@@ -80,69 +124,91 @@ export default function Header({ children }: { children: React.ReactNode }) {
                   },
                 }}
               >
-                <MenuItem onClick={handleClose}>
-                  Radnik u menzi
-                </MenuItem>
-                <Box sx={{ borderBottom: "1px solid #e0e0e0", my: 0 }} />
-                <MenuItem onClick={handleClose}>
-                  Student
-                </MenuItem>
+                <MenuItem onClick={handleClose}>Radnik u menzi</MenuItem>
+                <Box sx={{ borderBottom: '1px solid #e0e0e0', my: 0 }} />
+                <MenuItem onClick={handleClose}>Student</MenuItem>
               </Menu>
-            </div>
-          </nav>
-        </header>
+            </Box>
+          </Toolbar>
+        </AppBar>
 
         {children}
       </>
     );
   } else {
-    // === DEFAULT HEADER (For all other pages) ===
     return (
       <>
-        <header className="w-full bg-[#56aaf4] text-white shadow-md">
-          <nav className="flex items-center justify-between py-4 px-6 lg:px-8">
-            {/* Left: Dish Detective Logo & Text (Home Link) */}
-            <Link
+        <AppBar position="static" sx={{ bgcolor: '#56aaf4' }}>
+          <Toolbar
+            sx={{
+              justifyContent: 'space-between',
+              py: 2,
+              px: { xs: 3, lg: 4 },
+            }}
+          >
+            <Box
+              component={Link}
               href="/"
-              className="group flex items-center space-x-2"
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1,
+                textDecoration: 'none',
+                color: 'white',
+              }}
             >
               <Image
                 src="/logoWhite.png"
                 alt="Dish Detective Logo"
                 width={32}
                 height={32}
-                className="h-8 w-8"
               />
-              <span className="text-2xl font-bold text-white group-hover:text-gray-200">
+              <Typography
+                variant="h5"
+                sx={{
+                  fontWeight: 'bold',
+                  '&:hover': {
+                    color: 'grey.200',
+                  },
+                }}
+              >
                 Dish Detective
-              </span>
-            </Link>
+              </Typography>
+            </Box>
 
-            {/* Right: Translate and Odjava buttons */}
-            <div className="flex items-center space-x-4 md:space-x-6">
-              <button
-                type="button"
+            <Box sx={{ display: 'flex', gap: { xs: 2, md: 3 } }}>
+              <IconButton
                 aria-label="Translate"
-                className="rounded-full p-1 hover:bg-[#4a9de0]"
+                sx={{
+                  color: 'white',
+                  '&:hover': { bgcolor: '#4a9de0' },
+                }}
               >
                 <Image
                   src="/translate.png"
                   alt="Translate"
                   width={24}
                   height={24}
-                  className="h-6 w-6 invert"
+                  style={{ filter: 'invert(1)' }}
                 />
-              </button>
+              </IconButton>
 
-              <button
-                type="button"
-                className="rounded-lg bg-gray-900 px-4 py-2 font-medium text-white hover:bg-gray-700"
+              <Button
+                variant="contained"
+                sx={{
+                  bgcolor: 'grey.900',
+                  color: 'white',
+                  fontWeight: 500,
+                  '&:hover': {
+                    bgcolor: 'grey.700',
+                  },
+                }}
               >
                 Odjava
-              </button>
-            </div>
-          </nav>
-        </header>
+              </Button>
+            </Box>
+          </Toolbar>
+        </AppBar>
 
         {children}
       </>
