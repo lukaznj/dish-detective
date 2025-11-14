@@ -31,6 +31,7 @@ import TuneIcon from "@mui/icons-material/Tune";
 import CreateIcon from "@mui/icons-material/Create";
 import PeopleIcon from "@mui/icons-material/People";
 import ChatIcon from "@mui/icons-material/Chat";
+import AddIcon from "@mui/icons-material/Add";
 import PersonIcon from "@mui/icons-material/Person";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 
@@ -174,14 +175,125 @@ export default function Page() {
             Admin
           </Button>
         </Box>
+
         <Typography
-          marginLeft={`${navWidth}px`}
-          variant="h4"
-          fontWeight={780}
-          sx={{ color: "#212222", p: 5 }}
+            marginLeft={`${navWidth}px`}
+            variant="h4"
+            fontWeight={780}
+            sx={{ color: "#212222", p: 5 }}
+          >
+            Unesite podatke
+          </Typography>
+
+        <Box
+          sx={{
+            flex: 1,
+            overflowY: "auto",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            marginLeft: `${navWidth}px`,
+          }}
         >
-          Unesite podatke
-        </Typography>
+          <Box sx={{ maxWidth: 500, width: "100%" }}>
+            {/* Naziv jela */}
+            <Box sx={{ mb: 4 }}>
+              <Typography
+                variant="body1"
+                sx={{ mb: 2, fontWeight: 400, color: "text.primary" }}
+              >
+                Naziv jela
+              </Typography>
+              <TextField
+                fullWidth
+                variant="outlined"
+                placeholder="..."
+                sx={{
+                  bgcolor: "background.paper",
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: 2,
+                  },
+                }}
+              />
+            </Box>
+
+            {/* Sastojci */}
+            <Box sx={{ mb: 4 }}>
+              <Typography
+                variant="body1"
+                sx={{ mb: 2, fontWeight: 400, color: "text.primary" }}
+              >
+                Sastojci
+              </Typography>
+              <TextField
+                fullWidth
+                variant="outlined"
+                placeholder="..."
+                sx={{
+                  bgcolor: "background.paper",
+                  mb: 2,
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: 2,
+                  },
+                }}
+              />
+              <Button
+                fullWidth
+                variant="outlined"
+                startIcon={<AddIcon />}
+                sx={{
+                  textTransform: "none",
+                  borderRadius: 2,
+                  py: 1.5,
+                  borderColor: "grey.500",
+                  color: "text.secondary",
+                  "&:hover": {
+                    borderColor: "primary.main",
+                    bgcolor: "action.hover",
+                  },
+                }}
+              ></Button>
+            </Box>
+
+            {/* Alergeni */}
+            <Box sx={{ mb: 4 }}>
+              <Typography
+                variant="body1"
+                sx={{ mb: 2, fontWeight: 400, color: "text.primary" }}
+              >
+                Alergeni
+              </Typography>
+              <TextField
+                fullWidth
+                variant="outlined"
+                placeholder="..."
+                sx={{
+                  bgcolor: "background.paper",
+                  mb: 2,
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: 2,
+                  },
+                }}
+              />
+              <Button
+                fullWidth
+                variant="outlined"
+                startIcon={<AddIcon />}
+                sx={{
+                  textTransform: "none",
+                  borderRadius: 2,
+                  py: 1.5,
+                  borderColor: "grey.500",
+                  color: "text.secondary",
+                  "&:hover": {
+                    borderColor: "primary.main",
+                    bgcolor: "action.hover",
+                  },
+                }}
+              ></Button>
+            </Box>
+          </Box>
+        </Box>
       </Box>
     </Box>
   );
