@@ -1,13 +1,5 @@
 import mongoose from "mongoose";
 
-const MONGODB_URI = process.env.MONGODB_URI;
-
-if (!MONGODB_URI) {
-  throw new Error(
-    "Please define the MONGODB_URI environment variable inside .env.local or Vercel settings",
-  );
-}
-
 // Define the Mongoose cache object type and attach it to the global scope
 // This is necessary to persist the connection across hot reloads in development
 // and across serverless function invocations in production
