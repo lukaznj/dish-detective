@@ -20,7 +20,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { createDishWithImage } from "./actions";
 import SuccessScreen from "@/components/SuccessScreen";
 
-export default function DishCreatePage() {
+export default function Page() {
   const router = useRouter();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -39,11 +39,13 @@ export default function DishCreatePage() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [showSuccessScreen, setShowSuccessScreen] = useState(false);
+  const [imageError, setImageError] = useState<string | null>(null);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       setImageFile(file);
+      setImageError(null); // Clear error when image is selected
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreview(reader.result as string);
@@ -78,9 +80,17 @@ export default function DishCreatePage() {
   const handleSubmit = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
 
+    // Validate image is uploaded
+    if (!imageFile) {
+      setImageError("Slika je obavezna");
+      setError("Molimo odaberite sliku jela");
+      return;
+    }
+
     setLoading(true);
     setError(null);
     setSuccess(null);
+    setImageError(null);
 
     try {
       const formDataToSend = new FormData();
@@ -121,14 +131,19 @@ export default function DishCreatePage() {
     return (
       <Box
         sx={{
-          minHeight: "100vh",
+          height: "100vh",
           bgcolor: "#f5f5f5",
           display: "flex",
           flexDirection: "column",
-          pb: "134px", // Space for button (70px) + navbar (64px)
+          overflow: "hidden",
         }}
       >
-        <Box sx={{ p: 3, flexGrow: 1 }}>
+        <Box sx={{
+          p: 3,
+          flexGrow: 1,
+          overflowY: "auto",
+          pb: "200px", // Space for button (70px) + navbar (64px) + extra margin (20px)
+        }}>
           <Typography
             variant="h4"
             sx={{
@@ -153,6 +168,7 @@ export default function DishCreatePage() {
           )}
 
           <Box component="form" onSubmit={handleSubmit}>
+            {/* ...existing code... */}
             {/* Image Upload */}
             <Box
               sx={{
@@ -161,7 +177,11 @@ export default function DishCreatePage() {
                 borderRadius: 2,
                 p: 2,
                 border: "2px dashed",
-                borderColor: imagePreview ? "primary.main" : "grey.300",
+                borderColor: imageError
+                  ? "error.main"
+                  : imagePreview
+                    ? "primary.main"
+                    : "grey.300",
                 textAlign: "center",
                 position: "relative",
               }}
@@ -210,15 +230,15 @@ export default function DishCreatePage() {
                       startIcon={<CloudUploadIcon />}
                       sx={{ textTransform: "none" }}
                     >
-                      Odaberi sliku
+                      Odaberi sliku *
                     </Button>
                   </label>
                   <Typography
                     variant="caption"
                     display="block"
-                    sx={{ mt: 1, color: "text.secondary" }}
+                    sx={{ mt: 1, color: imageError ? "error.main" : "text.secondary" }}
                   >
-                    PNG, JPG do 5MB
+                    {imageError || "PNG, JPG do 5MB"}
                   </Typography>
                 </Box>
               )}
@@ -342,14 +362,16 @@ export default function DishCreatePage() {
             left: 0,
             right: 0,
             height: "70px",
-            bgcolor: loading ? "grey.400" : "primary.main",
+            bgcolor: loading ? "grey.400" : "#57aaf4",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             cursor: loading ? "not-allowed" : "pointer",
             transition: "all 0.2s ease-in-out",
+            zIndex: 1000,
+            boxShadow: "0 -2px 8px rgba(0,0,0,0.15)",
             "&:active": {
-              bgcolor: loading ? "grey.400" : "primary.dark",
+              bgcolor: loading ? "grey.400" : "#3d8fd9",
             },
           }}
         >
@@ -384,6 +406,7 @@ export default function DishCreatePage() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        py: 5,
       }}
     >
       <Box
@@ -392,35 +415,49 @@ export default function DishCreatePage() {
           width: "100%",
           bgcolor: "white",
           borderRadius: 3,
-          p: 4,
           boxShadow: 2,
+          maxHeight: "90vh",
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden",
         }}
       >
-        <Typography
-          variant="h4"
+        <Box sx={{ p: 4, pb: 2, flexShrink: 0 }}>
+          <Typography
+            variant="h4"
+            sx={{
+              fontWeight: 780,
+              mb: 4,
+              textAlign: "center",
+              color: "#212222",
+            }}
+          >
+            Dodaj novo jelo
+          </Typography>
+
+          {error && (
+            <Alert severity="error" sx={{ mb: 3 }}>
+              {error}
+            </Alert>
+          )}
+
+          {success && (
+            <Alert severity="success" sx={{ mb: 3 }}>
+              {success}
+            </Alert>
+          )}
+        </Box>
+
+        <Box
           sx={{
-            fontWeight: 780,
-            mb: 4,
-            textAlign: "center",
-            color: "#212222",
+            px: 4,
+            pb: 4,
+            flexGrow: 1,
+            overflowY: "auto",
           }}
         >
-          Dodaj novo jelo
-        </Typography>
-
-        {error && (
-          <Alert severity="error" sx={{ mb: 3 }}>
-            {error}
-          </Alert>
-        )}
-
-        {success && (
-          <Alert severity="success" sx={{ mb: 3 }}>
-            {success}
-          </Alert>
-        )}
-
-        <Box component="form" onSubmit={handleSubmit}>
+          <Box component="form" onSubmit={handleSubmit}>
+            {/* ...existing code... */}
           {/* Image Upload */}
           <Box
             sx={{
@@ -428,7 +465,11 @@ export default function DishCreatePage() {
               borderRadius: 2,
               p: 2,
               border: "2px dashed",
-              borderColor: imagePreview ? "primary.main" : "grey.300",
+              borderColor: imageError
+                ? "error.main"
+                : imagePreview
+                  ? "primary.main"
+                  : "grey.300",
               textAlign: "center",
               position: "relative",
             }}
@@ -477,15 +518,15 @@ export default function DishCreatePage() {
                     startIcon={<CloudUploadIcon />}
                     sx={{ textTransform: "none" }}
                   >
-                    Odaberi sliku
+                    Odaberi sliku *
                   </Button>
                 </label>
                 <Typography
                   variant="caption"
                   display="block"
-                  sx={{ mt: 1, color: "text.secondary" }}
+                  sx={{ mt: 1, color: imageError ? "error.main" : "text.secondary" }}
                 >
-                  PNG, JPG do 5MB
+                  {imageError || "PNG, JPG do 5MB"}
                 </Typography>
               </Box>
             )}
@@ -602,7 +643,9 @@ export default function DishCreatePage() {
               fontWeight: 600,
               borderRadius: 2,
               boxShadow: 2,
+              bgcolor: "#57aaf4",
               "&:hover": {
+                bgcolor: "#3d8fd9",
                 boxShadow: 4,
               },
             }}
@@ -616,6 +659,7 @@ export default function DishCreatePage() {
               "Dodaj jelo"
             )}
           </Button>
+          </Box>
         </Box>
       </Box>
     </Box>

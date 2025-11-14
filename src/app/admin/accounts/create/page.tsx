@@ -207,7 +207,7 @@ export default function EmployeeCreatePage() {
 
             <TextField
               fullWidth
-              label="Lozinka..."
+              label="Lozinka"
               type="password"
               value={formData.password}
               onChange={(e) => handlePasswordChange(e.target.value)}
@@ -296,14 +296,14 @@ export default function EmployeeCreatePage() {
           }
           sx={{
             position: "fixed",
-            bottom: "64px", // Above navbar
+            bottom: "64px",
             left: 0,
             right: 0,
             height: "70px",
             bgcolor:
               loading || loadingRestaurants || !!passwordError
                 ? "grey.400"
-                : "primary.main",
+                : "#57aaf4",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -312,11 +312,13 @@ export default function EmployeeCreatePage() {
                 ? "not-allowed"
                 : "pointer",
             transition: "all 0.2s ease-in-out",
+            zIndex: 1000,
+            boxShadow: "0 -2px 8px rgba(0,0,0,0.15)",
             "&:active": {
               bgcolor:
                 loading || loadingRestaurants || !!passwordError
                   ? "grey.400"
-                  : "primary.dark",
+                  : "#3d8fd9",
             },
           }}
         >
@@ -436,7 +438,7 @@ export default function EmployeeCreatePage() {
 
           <TextField
             fullWidth
-            label="Lozinka..."
+            label="Lozinka"
             type="password"
             value={formData.password}
             onChange={(e) => handlePasswordChange(e.target.value)}
@@ -524,7 +526,9 @@ export default function EmployeeCreatePage() {
               fontWeight: 600,
               borderRadius: 2,
               boxShadow: 2,
+              bgcolor: "#57aaf4",
               "&:hover": {
+                bgcolor: "#3d8fd9",
                 boxShadow: 4,
               },
             }}
