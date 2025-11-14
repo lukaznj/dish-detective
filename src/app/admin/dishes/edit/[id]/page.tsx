@@ -17,7 +17,7 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import CloseIcon from "@mui/icons-material/Close";
-import AdminNavbar from "@/components/AdminNavbar";
+import AdminNavbar, { navWidth, headerHeight } from "@/components/AdminNavbar";
 
 export default function DishEditPage({
   params,
@@ -380,13 +380,12 @@ export default function DishEditPage({
       <AdminNavbar isMobile={isMobile} />
       <Box
         sx={{
-          minHeight: "100vh",
+          height: `calc(100vh - ${headerHeight}px)`, 
           bgcolor: "#f5f5f5",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          py: 4,
-          pl: "80px",
+          pt: 4,
+          pb: 4,
+          pl: `${navWidth}px`, 
+          overflowY: "auto", 
         }}
       >
         <Box
@@ -398,6 +397,7 @@ export default function DishEditPage({
             p: 4,
             boxShadow: 2,
             my: 2,
+            mx: "auto",
           }}
         >
           <Typography

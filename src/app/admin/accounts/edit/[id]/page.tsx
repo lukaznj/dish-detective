@@ -14,7 +14,7 @@ import {
   useTheme,
 } from "@mui/material";
 
-import AdminNavbar from "@/components/AdminNavbar";
+import AdminNavbar, { navWidth, headerHeight } from "@/components/AdminNavbar";
 
 type Restaurant = {
   _id: string;
@@ -273,14 +273,12 @@ export default function EditWorkerManagerAccountPage({
       <AdminNavbar isMobile={isMobile} />
       <Box
         sx={{
-          minHeight: "100vh",
+          height: `calc(100vh - ${headerHeight}px)`,
           bgcolor: "#f5f5f5",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          py: 4,
+          pt: 4,
+          pb: 4,
+          pl: `${navWidth}px`,
           overflowY: "auto",
-          pl: "80px",
         }}
       >
         <Box
@@ -292,6 +290,7 @@ export default function EditWorkerManagerAccountPage({
             p: 4,
             boxShadow: 2,
             my: 2,
+            mx: "auto",
           }}
         >
           <Typography
