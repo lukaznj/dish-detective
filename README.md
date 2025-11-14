@@ -15,12 +15,22 @@ Samo sučelje aplikacije ovisiti će o vrsti korisnika.
 
 # Tehnologije
 Frontend: React.js, HTML5, TailwindCSS
+
 Backend: Next.js
+
 Baza podataka: MongoDB
+
 Autentifikacije: NextAuth.js
+
 Servis za obavijesti: Firebase Cloud Messaging
+
 Servis za geolokaciju: Google Maps API
+
 Servis za deployment: Vercel
+
+Testiranje: Jest, Playwright
+
+Dizajn: https://www.figma.com/design/TAYnOBQ1sF67U5V2m3If55/DishDetectiveDesign?node-id=0-1&t=IBkCq3Oz0q1A6u54-1
   
 # Članovi tima
 Matej Božac

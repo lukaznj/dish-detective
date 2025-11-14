@@ -46,6 +46,9 @@ const dishSchema = new Schema<IDish>(
 // Useful since we will need to display all items when creating a new menu, and when choosing to delete a dish
 dishSchema.index({ name: 1 }, { unique: true });
 
-const Dish: Model<IDish> = mongoose.model<IDish>("Dish", dishSchema);
+// Use existing model if it exists to avoid OverwriteModelError
+const Dish: Model<IDish> =
+  (mongoose.models.Dish as Model<IDish>) ||
+  mongoose.model<IDish>("Dish", dishSchema);
 
 export default Dish;

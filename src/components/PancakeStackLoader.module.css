@@ -1,11 +1,6 @@
 :root {
   --color-pancake: #d8cb9f;
-  --color-pancake-dark-rgba: rgba(
-    88,
-    82,
-    63,
-    0.1
-  );
+  --color-pancake-dark-rgba: rgba(88, 82, 63, 0.1);
   --color-butter: #eadd4d;
   --color-bg: #249d98;
   --color-plate: #d3ebea;

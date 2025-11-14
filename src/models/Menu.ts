@@ -63,6 +63,9 @@ const menuSchema = new Schema<IMenu>(
   },
 );
 
-const Menu: Model<IMenu> = mongoose.model<IMenu>("Menu", menuSchema);
+// Use existing model if it exists to avoid OverwriteModelError
+const Menu: Model<IMenu> =
+  (mongoose.models.Menu as Model<IMenu>) ||
+  mongoose.model<IMenu>("Menu", menuSchema);
 
 export default Menu;
