@@ -32,7 +32,10 @@ export async function getAllEmployees(): Promise<ActionResponse> {
 
     const currentUser = await User.findOne({ clerkId: userId }).lean();
     if (!currentUser || currentUser.role !== "admin") {
-      return { success: false, error: "Only admins can view employee accounts" };
+      return {
+        success: false,
+        error: "Only admins can view employee accounts",
+      };
     }
 
     // Get all users with role of manager or worker
@@ -57,7 +60,9 @@ export async function getAllEmployees(): Promise<ActionResponse> {
         const clerkUser = await client.users.getUser(employee.clerkId);
 
         // Get restaurant name from MongoDB
-        const restaurant = await Restaurant.findById(employee.restaurantId).lean();
+        const restaurant = await Restaurant.findById(
+          employee.restaurantId,
+        ).lean();
 
         return {
           id: String(employee._id),
@@ -67,7 +72,10 @@ export async function getAllEmployees(): Promise<ActionResponse> {
           role: employee.role as "manager" | "worker",
         };
       } catch (error) {
-        console.error(`Error fetching data for employee ${employee.clerkId}:`, error);
+        console.error(
+          `Error fetching data for employee ${employee.clerkId}:`,
+          error,
+        );
         // Return partial data if there's an error
         return {
           id: String(employee._id),
@@ -107,7 +115,10 @@ export async function deleteEmployee(userId: string): Promise<ActionResponse> {
 
     const currentUser = await User.findOne({ clerkId: currentUserId }).lean();
     if (!currentUser || currentUser.role !== "admin") {
-      return { success: false, error: "Only admins can delete employee accounts" };
+      return {
+        success: false,
+        error: "Only admins can delete employee accounts",
+      };
     }
 
     // Find the employee to get their clerkId
@@ -118,7 +129,10 @@ export async function deleteEmployee(userId: string): Promise<ActionResponse> {
     }
 
     if (employee.role !== "manager" && employee.role !== "worker") {
-      return { success: false, error: "Can only delete manager or worker accounts" };
+      return {
+        success: false,
+        error: "Can only delete manager or worker accounts",
+      };
     }
 
     const clerkId = employee.clerkId;
@@ -143,7 +157,8 @@ export async function deleteEmployee(userId: string): Promise<ActionResponse> {
       // MongoDB entry is already deleted, so we'll consider this a partial success
       return {
         success: true,
-        message: "Employee deleted from database, but failed to delete from authentication system",
+        message:
+          "Employee deleted from database, but failed to delete from authentication system",
       };
     }
 
@@ -159,4 +174,3 @@ export async function deleteEmployee(userId: string): Promise<ActionResponse> {
     };
   }
 }
-

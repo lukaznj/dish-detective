@@ -1,9 +1,9 @@
 "use client";
 
-import React from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import React from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
 import {
   Menu,
   MenuItem,
@@ -13,11 +13,11 @@ import {
   Button,
   Typography,
   IconButton,
-} from '@mui/material';
+} from "@mui/material";
 
 export default function Header() {
   const pathname = usePathname();
-  const isHomepage = pathname === '/';
+  const isHomepage = pathname === "/";
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -33,11 +33,11 @@ export default function Header() {
       <AppBar
         position="absolute"
         elevation={0}
-        sx={{ background: 'transparent', zIndex: 50 }}
+        sx={{ background: "transparent", zIndex: 50 }}
       >
         <Toolbar
           sx={{
-            justifyContent: 'space-between',
+            justifyContent: "space-between",
             py: 2,
             px: { xs: 3, lg: 4 },
           }}
@@ -46,11 +46,11 @@ export default function Header() {
             component={Link}
             href="/"
             sx={{
-              display: 'flex',
-              alignItems: 'center',
+              display: "flex",
+              alignItems: "center",
               gap: 1,
-              textDecoration: 'none',
-              color: 'white',
+              textDecoration: "none",
+              color: "white",
             }}
           >
             <Image
@@ -62,9 +62,9 @@ export default function Header() {
             <Typography
               variant="h5"
               sx={{
-                fontWeight: 'bold',
-                '&:hover': {
-                  color: 'grey.200',
+                fontWeight: "bold",
+                "&:hover": {
+                  color: "grey.200",
                 },
               }}
             >
@@ -72,18 +72,18 @@ export default function Header() {
             </Typography>
           </Box>
 
-          <Box sx={{ display: 'flex', gap: { xs: 2, md: 3 } }}>
+          <Box sx={{ display: "flex", gap: { xs: 2, md: 3 } }}>
             <Button
               component={Link}
               href="/kontakt"
               variant="contained"
               sx={{
-                bgcolor: 'white',
-                color: 'black',
-                fontSize: '1rem',
+                bgcolor: "white",
+                color: "black",
+                fontSize: "1rem",
                 fontWeight: 500,
-                '&:hover': {
-                  bgcolor: 'grey.200',
+                "&:hover": {
+                  bgcolor: "grey.200",
                 },
               }}
             >
@@ -91,18 +91,18 @@ export default function Header() {
             </Button>
 
             <Button
-              aria-controls={open ? 'prijava-menu' : undefined}
+              aria-controls={open ? "prijava-menu" : undefined}
               aria-haspopup="true"
-              aria-expanded={open ? 'true' : undefined}
+              aria-expanded={open ? "true" : undefined}
               onClick={handleClick}
               variant="contained"
               sx={{
-                bgcolor: '#ff8c00',
-                color: 'white',
-                fontSize: '1rem',
+                bgcolor: "#ff8c00",
+                color: "white",
+                fontSize: "1rem",
                 fontWeight: 500,
-                '&:hover': {
-                  bgcolor: '#f18501ff',
+                "&:hover": {
+                  bgcolor: "#f18501ff",
                 },
               }}
             >
@@ -115,7 +115,7 @@ export default function Header() {
               open={open}
               onClose={handleClose}
               MenuListProps={{
-                'aria-labelledby': 'prijava-button',
+                "aria-labelledby": "prijava-button",
               }}
               slotProps={{
                 paper: {
@@ -124,7 +124,7 @@ export default function Header() {
               }}
             >
               <MenuItem onClick={handleClose}>Radnik u menzi</MenuItem>
-              <Box sx={{ borderBottom: '1px solid #e0e0e0', my: 0 }} />
+              <Box sx={{ borderBottom: "1px solid #e0e0e0", my: 0 }} />
               <MenuItem onClick={handleClose}>Student</MenuItem>
             </Menu>
           </Box>
@@ -133,10 +133,10 @@ export default function Header() {
     );
   } else {
     return (
-      <AppBar position="static" sx={{ bgcolor: '#56aaf4' }}>
+      <AppBar position="static" sx={{ bgcolor: "#56aaf4" }}>
         <Toolbar
           sx={{
-            justifyContent: 'space-between',
+            justifyContent: "space-between",
             py: 2,
             px: { xs: 3, lg: 4 },
           }}
@@ -145,11 +145,11 @@ export default function Header() {
             component={Link}
             href="/"
             sx={{
-              display: 'flex',
-              alignItems: 'center',
+              display: "flex",
+              alignItems: "center",
               gap: 1,
-              textDecoration: 'none',
-              color: 'white',
+              textDecoration: "none",
+              color: "white",
             }}
           >
             <Image
@@ -161,9 +161,9 @@ export default function Header() {
             <Typography
               variant="h5"
               sx={{
-                fontWeight: 'bold',
-                '&:hover': {
-                  color: 'grey.200',
+                fontWeight: "bold",
+                "&:hover": {
+                  color: "grey.200",
                 },
               }}
             >
@@ -171,12 +171,12 @@ export default function Header() {
             </Typography>
           </Box>
 
-          <Box sx={{ display: 'flex', gap: { xs: 2, md: 3 } }}>
+          <Box sx={{ display: "flex", gap: { xs: 2, md: 3 } }}>
             <IconButton
               aria-label="Translate"
               sx={{
-                color: 'white',
-                '&:hover': { bgcolor: '#4a9de0' },
+                color: "white",
+                "&:hover": { bgcolor: "#4a9de0" },
               }}
             >
               <Image
@@ -184,18 +184,18 @@ export default function Header() {
                 alt="Translate"
                 width={24}
                 height={24}
-                style={{ filter: 'invert(1)' }}
+                style={{ filter: "invert(1)" }}
               />
             </IconButton>
 
             <Button
               variant="contained"
               sx={{
-                bgcolor: 'grey.900',
-                color: 'white',
+                bgcolor: "grey.900",
+                color: "white",
                 fontWeight: 500,
-                '&:hover': {
-                  bgcolor: 'grey.700',
+                "&:hover": {
+                  bgcolor: "grey.700",
                 },
               }}
             >

@@ -14,7 +14,7 @@ import {
   useTheme,
 } from "@mui/material";
 import PancakeStackLoader from "@/components/PancakeStackLoader";
-import { getUserRole } from "./actions"
+import { getUserRole } from "./actions";
 
 export default function Home() {
   const router = useRouter();
@@ -124,7 +124,6 @@ export default function Home() {
           backgroundRepeat: "no-repeat",
         }}
       >
-
         <Box
           sx={{
             backgroundColor: "rgba(255, 255, 255, 0.8)",

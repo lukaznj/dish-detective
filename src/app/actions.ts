@@ -32,4 +32,3 @@ export async function getUserRole() {
     return { role: null, error: "Failed to fetch user role" };
   }
 }
-

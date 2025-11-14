@@ -162,9 +162,7 @@ export default function EmployeeCreatePage() {
             fullWidth
             label="Ime"
             value={formData.name}
-            onChange={(e) =>
-              setFormData({ ...formData, name: e.target.value })
-            }
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             required
             sx={{ mb: 2 }}
           />

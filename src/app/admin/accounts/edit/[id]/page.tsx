@@ -5,9 +5,5 @@ export default async function EditWorkerManagerAccountPage({
 }) {
   const { id } = await params;
 
-  return (
-    <div>
-      Here admin can edit account for employee with ID: {id}
-    </div>
-  );
+  return <div>Here admin can edit account for employee with ID: {id}</div>;
 }

@@ -11,7 +11,7 @@ interface SuccessScreenProps {
 
 export default function SuccessScreen({
   message,
-  showLoader = true
+  showLoader = true,
 }: SuccessScreenProps) {
   return (
     <Box
@@ -98,4 +98,3 @@ export default function SuccessScreen({
     </Box>
   );
 }
-

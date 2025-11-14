@@ -32,7 +32,9 @@ type EmployeeData = {
 export default function WorkerManagerAccountsPage() {
   const router = useRouter();
   const [employees, setEmployees] = useState<EmployeeData[]>([]);
-  const [filteredEmployees, setFilteredEmployees] = useState<EmployeeData[]>([]);
+  const [filteredEmployees, setFilteredEmployees] = useState<EmployeeData[]>(
+    [],
+  );
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
@@ -68,7 +70,7 @@ export default function WorkerManagerAccountsPage() {
           emp.firstName.toLowerCase().includes(query) ||
           emp.lastName.toLowerCase().includes(query) ||
           emp.restaurantName.toLowerCase().includes(query) ||
-          emp.role.toLowerCase().includes(query)
+          emp.role.toLowerCase().includes(query),
       );
       setFilteredEmployees(filtered);
     }
@@ -92,7 +94,9 @@ export default function WorkerManagerAccountsPage() {
       if (result.success) {
         // Remove employee from local state
         setEmployees(employees.filter((emp) => emp.id !== employeeToDelete));
-        setFilteredEmployees(filteredEmployees.filter((emp) => emp.id !== employeeToDelete));
+        setFilteredEmployees(
+          filteredEmployees.filter((emp) => emp.id !== employeeToDelete),
+        );
       } else {
         alert(result.error || "Greška prilikom brisanja");
       }
@@ -254,9 +258,7 @@ export default function WorkerManagerAccountsPage() {
                 }}
               >
                 <Typography variant="body1" color="text.secondary">
-                  {searchQuery
-                    ? "Nema rezultata pretrage"
-                    : "Nema zaposlenika"}
+                  {searchQuery ? "Nema rezultata pretrage" : "Nema zaposlenika"}
                 </Typography>
               </Box>
             ) : (
@@ -284,12 +286,11 @@ export default function WorkerManagerAccountsPage() {
         onClose={cancelDelete}
         aria-labelledby="delete-dialog-title"
       >
-        <DialogTitle id="delete-dialog-title">
-          Potvrda brisanja
-        </DialogTitle>
+        <DialogTitle id="delete-dialog-title">Potvrda brisanja</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Jeste li sigurni da želite obrisati ovaj račun? Ova radnja se ne može poništiti.
+            Jeste li sigurni da želite obrisati ovaj račun? Ova radnja se ne
+            može poništiti.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -309,4 +310,3 @@ export default function WorkerManagerAccountsPage() {
     </Box>
   );
 }
-
