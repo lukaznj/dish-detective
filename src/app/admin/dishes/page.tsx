@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 import {
   Box,
@@ -14,11 +14,14 @@ import {
   DialogContentText,
   DialogActions,
   Button,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
 import DishCard from "@/components/DishCard";
 import PancakeStackLoader from "@/components/PancakeStackLoader";
+import AdminNavbar, {navWidth} from "@/components/AdminNavbar";
 import { getAllDishes, deleteDish } from "./actions";
 
 interface Dish {
@@ -34,6 +37,8 @@ interface Dish {
 
 export default function Page() {
   const router = useRouter();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [dishes, setDishes] = useState<Dish[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
@@ -119,6 +124,8 @@ export default function Page() {
   }
 
   return (
+    <>
+    <AdminNavbar isMobile={isMobile}/>
     <Box
       sx={{
         height: "100vh",
@@ -129,6 +136,7 @@ export default function Page() {
         py: { xs: 3, sm: 5 },
         pt: 0,
         pb: { xs: "100px", sm: 6 },
+        ml: isMobile ? 0 : `${navWidth}px`,
         overflow: "hidden",
       }}
     >
@@ -286,5 +294,6 @@ export default function Page() {
         </DialogActions>
       </Dialog>
     </Box>
+    </>
   );
 }

@@ -14,11 +14,14 @@ import {
   DialogContentText,
   DialogActions,
   Button,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
 import EmployeeCard from "@/components/EmployeeCard";
 import PancakeStackLoader from "@/components/PancakeStackLoader";
+import AdminNavbar, {navWidth} from "@/components/AdminNavbar";
 import { getAllEmployees, deleteEmployee } from "./actions";
 
 type EmployeeData = {
@@ -31,6 +34,8 @@ type EmployeeData = {
 
 export default function WorkerManagerAccountsPage() {
   const router = useRouter();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [employees, setEmployees] = useState<EmployeeData[]>([]);
   const [filteredEmployees, setFilteredEmployees] = useState<EmployeeData[]>(
     [],
@@ -135,6 +140,8 @@ export default function WorkerManagerAccountsPage() {
   }
 
   return (
+    <>
+    <AdminNavbar isMobile={isMobile}/>
     <Box
       sx={{
         height: "100vh",
@@ -146,6 +153,7 @@ export default function WorkerManagerAccountsPage() {
         pt: 0,
         pb: { xs: "130px", sm: 6 }, // Extra padding for mobile navbar and desktop spacing
         overflow: "hidden",
+        ml: isMobile ? 0 : `${navWidth}px`,
       }}
     >
       <Typography
@@ -302,5 +310,6 @@ export default function WorkerManagerAccountsPage() {
         </DialogActions>
       </Dialog>
     </Box>
+    </>
   );
 }

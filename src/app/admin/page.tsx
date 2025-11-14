@@ -17,6 +17,7 @@ import { ReactNode, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getCurrentUserFirstName } from "@/app/admin/actions";
 import PancakeStackLoader from "@/components/PancakeStackLoader";
+import AdminNavbar, {navWidth} from "@/components/AdminNavbar";
 
 interface ActionButtonProps {
   children: ReactNode;
@@ -171,6 +172,8 @@ export default function Page() {
 
   if (isMobile) {
     return (
+      <>
+      <AdminNavbar isMobile={isMobile}/>
       <Box
         sx={{
           flexGrow: 1,
@@ -185,7 +188,7 @@ export default function Page() {
         <Typography
           variant="h4"
           fontWeight={780}
-          sx={{ color: "#212222", mb: 3 }}
+          sx={{ color: "#212222", mb: 3, ml: 1 }}
         >
           Dobrodošli{name ? `, ${name}` : ""}!
         </Typography>
@@ -220,21 +223,25 @@ export default function Page() {
           </MobileActionCard>
         </Box>
       </Box>
+      </>
     );
   }
 
   return (
+    <>
+    <AdminNavbar isMobile={isMobile}/>
     <Box
       sx={{
         height: "100vh",
         bgcolor: "#f5f5f5",
         p: 5,
+        ml:`${navWidth}px`,
       }}
     >
       <Typography
         variant="h4"
         fontWeight={780}
-        sx={{ color: "#212222", mb: 4 }}
+        sx={{ color: "#212222", mb: 4, ml: 4 }}
       >
         Dobrodošli{name ? `, ${name}` : ""}!
       </Typography>
@@ -284,5 +291,6 @@ export default function Page() {
         />
       </Box>
     </Box>
+    </>
   );
 }
