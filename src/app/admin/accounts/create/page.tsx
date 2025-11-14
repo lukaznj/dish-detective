@@ -16,7 +16,7 @@ import {
 import { getAllRestaurants } from "../../restaurants/actions";
 import { createEmployeeAccount } from "./actions";
 import SuccessScreen from "@/components/SuccessScreen";
-import AdminNavbar, {navWidth, headerHeight} from "@/components/AdminNavbar";
+import AdminNavbar, { navWidth, headerHeight } from "@/components/AdminNavbar";
 
 type Restaurant = {
   _id: string;
