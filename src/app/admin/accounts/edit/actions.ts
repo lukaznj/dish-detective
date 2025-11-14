@@ -200,4 +200,3 @@ export async function getEmployeeAccount(userId: string) {
     };
   }
 }
-

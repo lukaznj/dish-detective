@@ -142,7 +142,9 @@ describe("App Root Server Actions", () => {
 
     it("should handle Clerk auth errors", async () => {
       // Mock auth throwing an error
-      (auth as jest.Mock).mockRejectedValue(new Error("Clerk service unavailable"));
+      (auth as jest.Mock).mockRejectedValue(
+        new Error("Clerk service unavailable"),
+      );
 
       const result = await getUserRole();
 
@@ -173,4 +175,3 @@ describe("App Root Server Actions", () => {
     });
   });
 });
-

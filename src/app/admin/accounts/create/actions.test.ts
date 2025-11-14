@@ -367,9 +367,9 @@ describe("Create Employee Account Server Actions", () => {
     });
 
     it("should handle network errors gracefully", async () => {
-      const mockCreateUser = jest.fn().mockRejectedValue(
-        new Error("Network error")
-      );
+      const mockCreateUser = jest
+        .fn()
+        .mockRejectedValue(new Error("Network error"));
       (clerkClient as jest.Mock).mockResolvedValue({
         users: {
           createUser: mockCreateUser,
@@ -419,4 +419,3 @@ describe("Create Employee Account Server Actions", () => {
     });
   });
 });
-

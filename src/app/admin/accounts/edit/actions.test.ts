@@ -146,9 +146,9 @@ describe("Edit Employee Account Server Actions", () => {
     });
 
     it("should handle Clerk API errors", async () => {
-      const mockGetUser = jest.fn().mockRejectedValue(
-        new Error("Clerk API error")
-      );
+      const mockGetUser = jest
+        .fn()
+        .mockRejectedValue(new Error("Clerk API error"));
 
       (clerkClient as jest.Mock).mockResolvedValue({
         users: {
@@ -500,4 +500,3 @@ describe("Edit Employee Account Server Actions", () => {
     });
   });
 });
-

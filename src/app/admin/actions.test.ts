@@ -88,9 +88,9 @@ describe("Admin Server Actions", () => {
       (auth as jest.Mock).mockResolvedValue({ userId: mockUserId });
 
       // Mock Clerk client throwing an error
-      const mockGetUser = jest.fn().mockRejectedValue(
-        new Error("Clerk API error: User not found")
-      );
+      const mockGetUser = jest
+        .fn()
+        .mockRejectedValue(new Error("Clerk API error: User not found"));
 
       (clerkClient as jest.Mock).mockResolvedValue({
         users: {
@@ -108,7 +108,7 @@ describe("Admin Server Actions", () => {
     it("should handle auth errors gracefully", async () => {
       // Mock auth throwing an error
       (auth as jest.Mock).mockRejectedValue(
-        new Error("Authentication service unavailable")
+        new Error("Authentication service unavailable"),
       );
 
       const result = await getCurrentUserFirstName();
@@ -127,7 +127,7 @@ describe("Admin Server Actions", () => {
 
       // Mock clerkClient throwing an error
       (clerkClient as jest.Mock).mockRejectedValue(
-        new Error("Failed to initialize Clerk client")
+        new Error("Failed to initialize Clerk client"),
       );
 
       const result = await getCurrentUserFirstName();
@@ -193,4 +193,3 @@ describe("Admin Server Actions", () => {
     });
   });
 });
-

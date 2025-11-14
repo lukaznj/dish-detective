@@ -138,12 +138,14 @@ export default function Page() {
           overflow: "hidden",
         }}
       >
-        <Box sx={{
-          p: 3,
-          flexGrow: 1,
-          overflowY: "auto",
-          pb: "200px", // Space for button (70px) + navbar (64px) + extra margin (20px)
-        }}>
+        <Box
+          sx={{
+            p: 3,
+            flexGrow: 1,
+            overflowY: "auto",
+            pb: "200px", // Space for button (70px) + navbar (64px) + extra margin (20px)
+          }}
+        >
           <Typography
             variant="h4"
             sx={{
@@ -236,7 +238,10 @@ export default function Page() {
                   <Typography
                     variant="caption"
                     display="block"
-                    sx={{ mt: 1, color: imageError ? "error.main" : "text.secondary" }}
+                    sx={{
+                      mt: 1,
+                      color: imageError ? "error.main" : "text.secondary",
+                    }}
                   >
                     {imageError || "PNG, JPG do 5MB"}
                   </Typography>
@@ -458,207 +463,212 @@ export default function Page() {
         >
           <Box component="form" onSubmit={handleSubmit}>
             {/* ...existing code... */}
-          {/* Image Upload */}
-          <Box
-            sx={{
-              mb: 3,
-              borderRadius: 2,
-              p: 2,
-              border: "2px dashed",
-              borderColor: imageError
-                ? "error.main"
-                : imagePreview
-                  ? "primary.main"
-                  : "grey.300",
-              textAlign: "center",
-              position: "relative",
-            }}
-          >
-            {imagePreview ? (
-              <Box sx={{ position: "relative" }}>
-                <Box
-                  component="img"
-                  src={imagePreview}
-                  alt="Preview"
+            {/* Image Upload */}
+            <Box
+              sx={{
+                mb: 3,
+                borderRadius: 2,
+                p: 2,
+                border: "2px dashed",
+                borderColor: imageError
+                  ? "error.main"
+                  : imagePreview
+                    ? "primary.main"
+                    : "grey.300",
+                textAlign: "center",
+                position: "relative",
+              }}
+            >
+              {imagePreview ? (
+                <Box sx={{ position: "relative" }}>
+                  <Box
+                    component="img"
+                    src={imagePreview}
+                    alt="Preview"
+                    sx={{
+                      width: "100%",
+                      height: 200,
+                      objectFit: "cover",
+                      borderRadius: 2,
+                    }}
+                  />
+                  <IconButton
+                    onClick={handleRemoveImage}
+                    sx={{
+                      position: "absolute",
+                      top: 8,
+                      right: 8,
+                      bgcolor: "error.main",
+                      color: "white",
+                      "&:hover": {
+                        bgcolor: "error.dark",
+                      },
+                    }}
+                  >
+                    <CloseIcon />
+                  </IconButton>
+                </Box>
+              ) : (
+                <Box>
+                  <input
+                    accept="image/*"
+                    style={{ display: "none" }}
+                    id="image-upload-desktop"
+                    type="file"
+                    onChange={handleImageChange}
+                  />
+                  <label htmlFor="image-upload-desktop">
+                    <Button
+                      component="span"
+                      startIcon={<CloudUploadIcon />}
+                      sx={{ textTransform: "none" }}
+                    >
+                      Odaberi sliku *
+                    </Button>
+                  </label>
+                  <Typography
+                    variant="caption"
+                    display="block"
+                    sx={{
+                      mt: 1,
+                      color: imageError ? "error.main" : "text.secondary",
+                    }}
+                  >
+                    {imageError || "PNG, JPG do 5MB"}
+                  </Typography>
+                </Box>
+              )}
+            </Box>
+
+            <TextField
+              fullWidth
+              label="Naziv jela"
+              value={formData.name}
+              onChange={(e) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
+              required
+              sx={{
+                mb: 3,
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: 2,
+                },
+              }}
+            />
+
+            <TextField
+              fullWidth
+              label="Opis"
+              value={formData.description}
+              onChange={(e) =>
+                setFormData({ ...formData, description: e.target.value })
+              }
+              required
+              multiline
+              rows={3}
+              sx={{
+                mb: 3,
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: 2,
+                },
+              }}
+            />
+
+            <TextField
+              fullWidth
+              label="Kategorija"
+              value={formData.category}
+              onChange={(e) =>
+                setFormData({ ...formData, category: e.target.value })
+              }
+              required
+              sx={{
+                mb: 3,
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: 2,
+                },
+              }}
+            />
+
+            {/* Allergens Input */}
+            <Box sx={{ mb: 3 }}>
+              <Box sx={{ display: "flex", gap: 1, mb: 2 }}>
+                <TextField
+                  fullWidth
+                  label="Dodaj alergen"
+                  value={allergenInput}
+                  onChange={(e) => setAllergenInput(e.target.value)}
+                  onKeyPress={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      handleAddAllergen();
+                    }
+                  }}
                   sx={{
-                    width: "100%",
-                    height: 200,
-                    objectFit: "cover",
-                    borderRadius: 2,
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: 2,
+                    },
                   }}
                 />
                 <IconButton
-                  onClick={handleRemoveImage}
+                  onClick={handleAddAllergen}
                   sx={{
-                    position: "absolute",
-                    top: 8,
-                    right: 8,
-                    bgcolor: "error.main",
-                    color: "white",
+                    bgcolor: "grey.100",
+                    border: "1px solid #e0e0e0",
+                    borderRadius: 2,
                     "&:hover": {
-                      bgcolor: "error.dark",
+                      bgcolor: "#e0e0e0",
                     },
                   }}
                 >
-                  <CloseIcon />
+                  <AddIcon />
                 </IconButton>
               </Box>
-            ) : (
-              <Box>
-                <input
-                  accept="image/*"
-                  style={{ display: "none" }}
-                  id="image-upload-desktop"
-                  type="file"
-                  onChange={handleImageChange}
-                />
-                <label htmlFor="image-upload-desktop">
-                  <Button
-                    component="span"
-                    startIcon={<CloudUploadIcon />}
-                    sx={{ textTransform: "none" }}
-                  >
-                    Odaberi sliku *
-                  </Button>
-                </label>
-                <Typography
-                  variant="caption"
-                  display="block"
-                  sx={{ mt: 1, color: imageError ? "error.main" : "text.secondary" }}
-                >
-                  {imageError || "PNG, JPG do 5MB"}
-                </Typography>
-              </Box>
-            )}
-          </Box>
 
-          <TextField
-            fullWidth
-            label="Naziv jela"
-            value={formData.name}
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            required
-            sx={{
-              mb: 3,
-              "& .MuiOutlinedInput-root": {
-                borderRadius: 2,
-              },
-            }}
-          />
-
-          <TextField
-            fullWidth
-            label="Opis"
-            value={formData.description}
-            onChange={(e) =>
-              setFormData({ ...formData, description: e.target.value })
-            }
-            required
-            multiline
-            rows={3}
-            sx={{
-              mb: 3,
-              "& .MuiOutlinedInput-root": {
-                borderRadius: 2,
-              },
-            }}
-          />
-
-          <TextField
-            fullWidth
-            label="Kategorija"
-            value={formData.category}
-            onChange={(e) =>
-              setFormData({ ...formData, category: e.target.value })
-            }
-            required
-            sx={{
-              mb: 3,
-              "& .MuiOutlinedInput-root": {
-                borderRadius: 2,
-              },
-            }}
-          />
-
-          {/* Allergens Input */}
-          <Box sx={{ mb: 3 }}>
-            <Box sx={{ display: "flex", gap: 1, mb: 2 }}>
-              <TextField
-                fullWidth
-                label="Dodaj alergen"
-                value={allergenInput}
-                onChange={(e) => setAllergenInput(e.target.value)}
-                onKeyPress={(e) => {
-                  if (e.key === "Enter") {
-                    e.preventDefault();
-                    handleAddAllergen();
-                  }
-                }}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    borderRadius: 2,
-                  },
-                }}
-              />
-              <IconButton
-                onClick={handleAddAllergen}
-                sx={{
-                  bgcolor: "grey.100",
-                  border: "1px solid #e0e0e0",
-                  borderRadius: 2,
-                  "&:hover": {
-                    bgcolor: "#e0e0e0",
-                  },
-                }}
-              >
-                <AddIcon />
-              </IconButton>
+              {formData.allergens.length > 0 && (
+                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
+                  {formData.allergens.map((allergen) => (
+                    <Chip
+                      key={allergen}
+                      label={allergen}
+                      onDelete={() => handleRemoveAllergen(allergen)}
+                      color="primary"
+                      variant="outlined"
+                    />
+                  ))}
+                </Box>
+              )}
             </Box>
 
-            {formData.allergens.length > 0 && (
-              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
-                {formData.allergens.map((allergen) => (
-                  <Chip
-                    key={allergen}
-                    label={allergen}
-                    onDelete={() => handleRemoveAllergen(allergen)}
-                    color="primary"
-                    variant="outlined"
-                  />
-                ))}
-              </Box>
-            )}
-          </Box>
-
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            size="large"
-            disabled={loading}
-            sx={{
-              py: 1.5,
-              textTransform: "none",
-              fontSize: "1.1rem",
-              fontWeight: 600,
-              borderRadius: 2,
-              boxShadow: 2,
-              bgcolor: "#57aaf4",
-              "&:hover": {
-                bgcolor: "#3d8fd9",
-                boxShadow: 4,
-              },
-            }}
-          >
-            {loading ? (
-              <>
-                <CircularProgress size={24} sx={{ mr: 1 }} color="inherit" />
-                Kreiranje...
-              </>
-            ) : (
-              "Dodaj jelo"
-            )}
-          </Button>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              size="large"
+              disabled={loading}
+              sx={{
+                py: 1.5,
+                textTransform: "none",
+                fontSize: "1.1rem",
+                fontWeight: 600,
+                borderRadius: 2,
+                boxShadow: 2,
+                bgcolor: "#57aaf4",
+                "&:hover": {
+                  bgcolor: "#3d8fd9",
+                  boxShadow: 4,
+                },
+              }}
+            >
+              {loading ? (
+                <>
+                  <CircularProgress size={24} sx={{ mr: 1 }} color="inherit" />
+                  Kreiranje...
+                </>
+              ) : (
+                "Dodaj jelo"
+              )}
+            </Button>
           </Box>
         </Box>
       </Box>

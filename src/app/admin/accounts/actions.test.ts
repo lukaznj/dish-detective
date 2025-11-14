@@ -90,7 +90,8 @@ describe("Accounts Server Actions", () => {
       });
 
       // Mock Clerk client
-      const mockGetUser = jest.fn()
+      const mockGetUser = jest
+        .fn()
         .mockResolvedValueOnce({
           id: "clerk_worker_1",
           firstName: "John",
@@ -165,9 +166,9 @@ describe("Accounts Server Actions", () => {
       });
 
       // Mock Clerk client throwing error
-      const mockGetUser = jest.fn().mockRejectedValue(
-        new Error("Clerk user not found")
-      );
+      const mockGetUser = jest
+        .fn()
+        .mockRejectedValue(new Error("Clerk user not found"));
 
       (clerkClient as jest.Mock).mockResolvedValue({
         users: {
@@ -303,9 +304,9 @@ describe("Accounts Server Actions", () => {
       });
 
       // Mock Clerk client throwing error
-      const mockDeleteUser = jest.fn().mockRejectedValue(
-        new Error("Clerk API error")
-      );
+      const mockDeleteUser = jest
+        .fn()
+        .mockRejectedValue(new Error("Clerk API error"));
 
       (clerkClient as jest.Mock).mockResolvedValue({
         users: {
@@ -316,7 +317,9 @@ describe("Accounts Server Actions", () => {
       const result = await deleteEmployee(String(employee._id));
 
       expect(result.success).toBe(false);
-      expect(result.error).toBe("Failed to delete employee from authentication service");
+      expect(result.error).toBe(
+        "Failed to delete employee from authentication service",
+      );
 
       // Verify user was still deleted from MongoDB despite Clerk error
       const deletedUser = await User.findById(employee._id);
@@ -356,4 +359,3 @@ describe("Accounts Server Actions", () => {
     });
   });
 });
-

@@ -61,7 +61,7 @@ describe("Create Dish Server Actions", () => {
     expect(put).toHaveBeenCalledWith(
       expect.stringContaining("dishes/"),
       mockFile,
-      { access: "public" }
+      { access: "public" },
     );
   });
 
@@ -77,7 +77,9 @@ describe("Create Dish Server Actions", () => {
     formData.append("allergens", "");
 
     // Provide a small image with content
-    const mockFile = new File(["small content"], "small.jpg", { type: "image/jpeg" });
+    const mockFile = new File(["small content"], "small.jpg", {
+      type: "image/jpeg",
+    });
     formData.append("image", mockFile);
 
     const result = await createDish(formData);
@@ -89,7 +91,7 @@ describe("Create Dish Server Actions", () => {
     expect(put).toHaveBeenCalledWith(
       expect.stringContaining("dishes/"),
       mockFile,
-      { access: "public" }
+      { access: "public" },
     );
   });
 
@@ -210,4 +212,3 @@ describe("Create Dish Server Actions", () => {
     expect(dish.allergens).toEqual(["dairy", "gluten", "eggs"]);
   });
 });
-

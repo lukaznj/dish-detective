@@ -247,14 +247,16 @@ const DishCard = ({
       </Box>
 
       {/* Content Section */}
-      <Box sx={{
-        p: 2,
-        flexGrow: 1,
-        display: "flex",
-        flexDirection: "column",
-        overflow: "hidden",
-        minHeight: 0,
-      }}>
+      <Box
+        sx={{
+          p: 2,
+          flexGrow: 1,
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden",
+          minHeight: 0,
+        }}
+      >
         <Typography
           variant="h6"
           component="div"
@@ -309,7 +311,15 @@ const DishCard = ({
 
         {/* Allergens */}
         {allergens.length > 0 && (
-          <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5, mb: 1, minHeight: "24px" }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 0.5,
+              mb: 1,
+              minHeight: "24px",
+            }}
+          >
             {allergens.slice(0, 3).map((allergen) => (
               <Chip
                 key={allergen}
