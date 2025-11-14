@@ -20,6 +20,10 @@ jobs:
           node-version: lts/*
       - name: Install dependencies
         run: npm ci
+      - name: Run jest tests
+        run: npm test
+      - name: Run prettier check
+        run: npm run format-check
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
