@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { UserButton } from "@clerk/nextjs";
+import { UserButton, useUser } from "@clerk/nextjs"; // Import useUser
 import {
   Menu,
   MenuItem,
@@ -20,6 +20,8 @@ import {
 export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
+  const { user } = useUser(); // Get the user data from Clerk
+
   const isHomepage = pathname === "/";
   const isLoginRoute = pathname.startsWith("/login");
 
@@ -33,6 +35,7 @@ export default function Header() {
   };
 
   if (isHomepage) {
+    // ... (Homepage header remains unchanged)
     return (
       <AppBar
         position="absolute"
@@ -80,7 +83,6 @@ export default function Header() {
           </Box>
 
           <Box sx={{ display: "flex", gap: { xs: 2, md: 3 } }}>
-            {/* Kontakt Button - Hidden on mobile */}
             <Button
               variant="contained"
               sx={{
@@ -97,7 +99,6 @@ export default function Header() {
               Kontakt
             </Button>
 
-            {/* Prijava Button - Hidden on mobile */}
             <Button
               aria-controls={open ? "prijava-menu" : undefined}
               aria-haspopup="true"
@@ -118,10 +119,9 @@ export default function Header() {
               Prijava
             </Button>
 
-            {/* Translate Button - ONLY on mobile homepage */}
             <Button
               sx={{
-                display: { xs: "flex", sm: "none" }, // Only show on mobile
+                display: { xs: "flex", sm: "none" },
                 minWidth: 0,
                 padding: 0,
                 bgcolor: "transparent",
@@ -167,6 +167,13 @@ export default function Header() {
     );
   }
 
+  // --- CHANGES ARE IN THIS SECTION ---
+
+  // Get the role from the public metadata we just set
+  const userRole = user?.publicMetadata?.role as string;
+  // Create the dynamic link. Default to "/" if role isn't found.
+  const homeHref = userRole ? `/${userRole}` : "/";
+
   // Non-homepage header (blue header)
   return (
     <AppBar position="static" sx={{ bgcolor: "#56aaf4" }}>
@@ -180,7 +187,7 @@ export default function Header() {
       >
         <Box
           component={Link}
-          href="/"
+          href={homeHref} // Use the dynamic homeHref here
           sx={{
             display: "flex",
             alignItems: "center",
@@ -209,10 +216,9 @@ export default function Header() {
         </Box>
 
         <Box sx={{ display: "flex", gap: { xs: 2, md: 3 } }}>
-          {/* Translate Button - Hidden on mobile */}
           <Button
             sx={{
-              display: { xs: "none", sm: "flex" }, // Hide on mobile, show on desktop
+              display: { xs: "none", sm: "flex" },
               minWidth: 0,
               padding: 0,
               bgcolor: "transparent",
