@@ -19,60 +19,6 @@ type ActionResponse = {
   errors?: Record<string, string>;
 };
 
-export async function createDish(input: DishInput): Promise<ActionResponse> {
-  try {
-    const conn = await dbConnect();
-    // Needed because we use a custom connection
-    const DishModel = conn.model("Dish", Dish.schema);
-
-    const dish = await DishModel.create({
-      name: input.name.trim(),
-      description: input.description.trim(),
-      category: input.category.trim(),
-      imageUrl: input.imageUrl.trim(),
-      allergens: input.allergens || [],
-    });
-
-    return {
-      success: true,
-      message: "Dish created successfully",
-      data: {
-        id: (dish._id as Types.ObjectId).toString(),
-      },
-    };
-  } catch (error: any) {
-    console.error("Error creating dish:", error);
-
-    // Handle duplicate name error
-    if (error.code === 11000) {
-      return {
-        success: false,
-        message: "A dish with this name already exists",
-        errors: { name: "This name is already taken" },
-      };
-    }
-
-    // Mongoose validation
-    if (error.name === "ValidationError") {
-      const errors: Record<string, string> = {};
-      Object.keys(error.errors).forEach((key) => {
-        errors[key] = error.errors[key].message;
-      });
-
-      return {
-        success: false,
-        message: "Validation failed",
-        errors,
-      };
-    }
-
-    return {
-      success: false,
-      message: "Failed to create dish. Please try again.",
-    };
-  }
-}
-
 export async function deleteDish(dishId: string): Promise<ActionResponse> {
   try {
     const conn = await dbConnect();

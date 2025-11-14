@@ -14,7 +14,7 @@ import {
   useTheme,
 } from "@mui/material";
 import PancakeStackLoader from "@/components/PancakeStackLoader";
-import { getUserRole } from "./actions"
+import { getUserRole } from "./actions";
 
 export default function Home() {
   const router = useRouter();
@@ -90,23 +90,6 @@ export default function Home() {
     );
   }
 
-  const handleRoleSelect = (role: string) => {
-    setAnchorEl(null);
-    setAnchorElTop(null);
-
-    // Navigate to appropriate login page based on role
-    if (role === "student") {
-      router.push("/login/student");
-    } else if (role === "radnik") {
-      router.push("/login/employee");
-    }
-  };
-
-  const handleKontakt = () => {
-    // TODO: go to contact page
-  };
-
-  // Mobile layout
   if (isMobile) {
     return (
       <Box
@@ -124,94 +107,6 @@ export default function Home() {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <Box
-          sx={{
-            position: "absolute",
-            top: 22,
-            left: 20,
-            display: "flex",
-            gap: 1,
-            alignItems: "center",
-            zIndex: 1,
-          }}
-        >
-          <img
-            src="/logoDark.png"
-            alt="Dish Detective Logo"
-            style={{ width: 36, height: 36 }}
-          />
-          <Typography
-            variant="body1"
-            sx={{
-              color: "#212222",
-              fontWeight: 700,
-              fontSize: "1.2rem",
-            }}
-          >
-            Dish Detective
-          </Typography>
-        </Box>
-
-        <Box
-          sx={{
-            position: "absolute",
-            top: 22,
-            right: 20,
-            display: "flex",
-            alignItems: "center",
-            gap: 1.5,
-          }}
-        >
-          <img
-            src="/translate.png"
-            alt="Translate Icon"
-            style={{ width: 36, height: 36, cursor: "pointer" }}
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={(e) => setAnchorElTop(e.currentTarget)}
-            sx={{
-              fontWeight: 600,
-              borderRadius: 2,
-              minHeight: 35,
-              textTransform: "none",
-            }}
-          >
-            Prijava
-          </Button>
-
-          <Menu
-            anchorEl={anchorElTop}
-            open={openTop}
-            onClose={() => setAnchorElTop(null)}
-            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-            transformOrigin={{ vertical: "top", horizontal: "right" }}
-            slotProps={{
-              list: {
-                disablePadding: true,
-              },
-              paper: {
-                sx: { minWidth: 300, mt: 1, borderRadius: 2 },
-              },
-            }}
-          >
-            <MenuItem
-              onClick={() => handleRoleSelect("radnik")}
-              sx={{ fontSize: "1rem", py: 0 }}
-            >
-              Radnik u menzi
-            </MenuItem>
-            <Box sx={{ borderBottom: "1px solid black", my: 0 }} />
-            <MenuItem
-              onClick={() => handleRoleSelect("student")}
-              sx={{ fontSize: "1rem" }}
-            >
-              Student
-            </MenuItem>
-          </Menu>
-        </Box>
-
         <Box
           sx={{
             backgroundColor: "rgba(255, 255, 255, 0.8)",
@@ -325,14 +220,14 @@ export default function Home() {
             }}
           >
             <MenuItem
-              onClick={() => handleRoleSelect("radnik")}
+              onClick={() => router.push("/login/employee")}
               sx={{ fontSize: "1.2rem", py: 1.2 }}
             >
               Radnik u menzi
             </MenuItem>
             <Box sx={{ borderBottom: "1px solid black", my: 0 }} />
             <MenuItem
-              onClick={() => handleRoleSelect("student")}
+              onClick={() => router.push("/login/student")}
               sx={{ fontSize: "1.2rem", py: 1.2 }}
             >
               Student
@@ -374,111 +269,6 @@ export default function Home() {
           zIndex: 0,
         }}
       />
-
-      <Box
-        sx={{
-          position: "absolute",
-          top: 20,
-          left: 40,
-          display: "flex",
-          gap: 1,
-          alignItems: "center",
-          zIndex: 1,
-        }}
-      >
-        <img
-          src="/logoWhite.png"
-          alt="Dish Detective Logo"
-          style={{ width: 36, height: 36 }}
-        />
-        <Typography
-          variant="body1"
-          sx={{
-            color: "white",
-            fontWeight: 700,
-            fontSize: "1.2rem",
-          }}
-        >
-          Dish Detective
-        </Typography>
-      </Box>
-
-      <Box
-        sx={{
-          position: "absolute",
-          top: 20,
-          right: 40,
-          display: "flex",
-          gap: 2,
-          alignItems: "center",
-          zIndex: 1,
-        }}
-      >
-        <Button
-          disableRipple
-          onClick={handleKontakt}
-          sx={{
-            color: "black",
-            textTransform: "none",
-            fontWeight: 600,
-            backgroundColor: "transparent",
-            "&:hover": {
-              textDecoration: "underline",
-            },
-          }}
-        >
-          Kontakt
-        </Button>
-
-        <Button
-          variant="contained"
-          onClick={(e) => setAnchorElTop(e.currentTarget)}
-          sx={{
-            fontWeight: 600,
-            borderRadius: 2,
-            minHeight: 35,
-            minWidth: 90,
-            backgroundColor: "#ff8c00",
-            color: "white",
-            textTransform: "none",
-            "&:hover": {
-              backgroundColor: "#f18501ff",
-            },
-          }}
-        >
-          Prijava
-        </Button>
-
-        <Menu
-          anchorEl={anchorElTop}
-          open={openTop}
-          onClose={() => setAnchorElTop(null)}
-          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-          transformOrigin={{ vertical: "top", horizontal: "right" }}
-          slotProps={{
-            list: {
-              disablePadding: true,
-            },
-            paper: {
-              sx: { minWidth: 300, mt: 1, borderRadius: 2 },
-            },
-          }}
-        >
-          <MenuItem
-            onClick={() => handleRoleSelect("radnik")}
-            sx={{ fontSize: "1rem", py: 1.2 }}
-          >
-            Radnik u menzi
-          </MenuItem>
-          <Box sx={{ borderBottom: "1px solid black", my: 0 }} />
-          <MenuItem
-            onClick={() => handleRoleSelect("student")}
-            sx={{ fontSize: "1rem", py: 1.2 }}
-          >
-            Student
-          </MenuItem>
-        </Menu>
-      </Box>
 
       <Box
         sx={{
@@ -542,14 +332,14 @@ export default function Home() {
             }}
           >
             <MenuItem
-              onClick={() => handleRoleSelect("radnik")}
+              onClick={() => router.push("/login/employee")}
               sx={{ fontSize: "1rem", py: 1.2 }}
             >
               Radnik u menzi
             </MenuItem>
             <Box sx={{ borderBottom: "1px solid black", my: 0 }} />
             <MenuItem
-              onClick={() => handleRoleSelect("student")}
+              onClick={() => router.push("/login/student")}
               sx={{ fontSize: "1rem", py: 1.2 }}
             >
               Student
