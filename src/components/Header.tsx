@@ -27,19 +27,6 @@ export default function Header() {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleRoleSelect = (role: string) => {
-    setAnchorEl(null);
-
-    if (role === "student") {
-      router.push("/login/student");
-    } else if (role === "radnik") {
-      router.push("/login/employee");
-    }
-  };
 
   if (isHomepage) {
     return (
@@ -124,7 +111,7 @@ export default function Header() {
               id="prijava-menu"
               anchorEl={anchorEl}
               open={open}
-              onClose={handleClose}
+              onClose={() => setAnchorEl(null)}
               slotProps={{
                 paper: {
                   sx: { minWidth: 200, mt: 1, borderRadius: 2 },
@@ -134,11 +121,11 @@ export default function Header() {
                 },
               }}
             >
-              <MenuItem onClick={() => handleRoleSelect("radnik")}>
+              <MenuItem onClick={() => router.push("/login/employee")}>
                 Radnik u menzi
               </MenuItem>
               <Box sx={{ borderBottom: "1px solid #e0e0e0", my: 0 }} />
-              <MenuItem onClick={() => handleRoleSelect("student")}>
+              <MenuItem onClick={() => router.push("/login/student")}>
                 Student
               </MenuItem>
             </Menu>
@@ -146,7 +133,9 @@ export default function Header() {
         </Toolbar>
       </AppBar>
     );
-  } else {
+  }
+
+
     return (
       <AppBar position="static" sx={{ bgcolor: "#56aaf4" }}>
         <Toolbar
@@ -200,5 +189,5 @@ export default function Header() {
         </Toolbar>
       </AppBar>
     );
-  }
+
 }
