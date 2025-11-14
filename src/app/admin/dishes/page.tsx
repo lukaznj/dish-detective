@@ -249,6 +249,7 @@ export default function Page() {
                   restaurantName={dish.category}
                   position={dish.description}
                   imageUrl={dish.imageUrl}
+                  allergens={dish.allergens}
                   onEdit={() => handleEdit(dish._id)}
                   onDelete={() => handleDelete(dish._id)}
                 />
