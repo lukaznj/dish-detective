@@ -10,6 +10,8 @@ import {
   Typography,
   Alert,
   CircularProgress,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { getAllRestaurants } from "../../restaurants/actions";
 import { createEmployeeAccount } from "./actions";
@@ -22,7 +24,10 @@ type Restaurant = {
 
 export default function EmployeeCreatePage() {
   const router = useRouter();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  // ...existing code...
   const [loading, setLoading] = useState(false);
   const [loadingRestaurants, setLoadingRestaurants] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -112,34 +117,244 @@ export default function EmployeeCreatePage() {
     return <SuccessScreen message="Račun uspješno kreiran!" />;
   }
 
+  // Mobile Layout
+  if (isMobile) {
+    return (
+      <Box
+        sx={{
+          minHeight: "100vh",
+          bgcolor: "#f5f5f5",
+          display: "flex",
+          flexDirection: "column",
+          pb: "134px", // Space for button (70px) + navbar (64px)
+        }}
+      >
+        <Box sx={{ p: 3, flexGrow: 1 }}>
+          <Typography
+            variant="h4"
+            sx={{
+              fontWeight: 780,
+              mb: 4,
+              color: "#212222",
+            }}
+          >
+            Unesite podatke
+          </Typography>
+
+          {error && (
+            <Alert severity="error" sx={{ mb: 3 }}>
+              {error}
+            </Alert>
+          )}
+
+          {success && (
+            <Alert severity="success" sx={{ mb: 3 }}>
+              {success}
+            </Alert>
+          )}
+
+          <Box component="form" onSubmit={handleSubmit}>
+            <TextField
+              fullWidth
+              label="Ime"
+              value={formData.name}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              required
+              sx={{
+                mb: 3,
+                bgcolor: "white",
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: 2,
+                },
+              }}
+            />
+
+            <TextField
+              fullWidth
+              label="Prezime"
+              value={formData.lastName}
+              onChange={(e) =>
+                setFormData({ ...formData, lastName: e.target.value })
+              }
+              required
+              sx={{
+                mb: 3,
+                bgcolor: "white",
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: 2,
+                },
+              }}
+            />
+
+            <TextField
+              fullWidth
+              label="Korisničko ime"
+              value={formData.username}
+              onChange={(e) =>
+                setFormData({ ...formData, username: e.target.value })
+              }
+              required
+              sx={{
+                mb: 3,
+                bgcolor: "white",
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: 2,
+                },
+              }}
+            />
+
+            <TextField
+              fullWidth
+              label="Lozinka..."
+              type="password"
+              value={formData.password}
+              onChange={(e) => handlePasswordChange(e.target.value)}
+              required
+              error={!!passwordError && formData.password.length > 0}
+              helperText={
+                passwordError && formData.password.length > 0
+                  ? passwordError
+                  : "Minimalno 8 znakova"
+              }
+              sx={{
+                mb: 3,
+                bgcolor: "white",
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: 2,
+                },
+              }}
+            />
+
+            <TextField
+              fullWidth
+              select
+              label="Ime restorana"
+              value={formData.restaurantId}
+              onChange={(e) =>
+                setFormData({ ...formData, restaurantId: e.target.value })
+              }
+              required
+              disabled={loadingRestaurants}
+              sx={{
+                mb: 3,
+                bgcolor: "white",
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: 2,
+                },
+              }}
+            >
+              {loadingRestaurants ? (
+                <MenuItem disabled>
+                  <CircularProgress size={20} sx={{ mr: 1 }} />
+                  Učitavanje...
+                </MenuItem>
+              ) : restaurants.length === 0 ? (
+                <MenuItem disabled>Nema dostupnih restorana</MenuItem>
+              ) : (
+                restaurants.map((restaurant) => (
+                  <MenuItem key={restaurant._id} value={restaurant._id}>
+                    {restaurant.name}
+                  </MenuItem>
+                ))
+              )}
+            </TextField>
+
+            <TextField
+              fullWidth
+              select
+              label="Odaberite poziciju"
+              value={formData.role}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  role: e.target.value as "worker" | "manager",
+                })
+              }
+              required
+              sx={{
+                mb: 3,
+                bgcolor: "white",
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: 2,
+                },
+              }}
+            >
+              <MenuItem value="worker">Radnik</MenuItem>
+              <MenuItem value="manager">Voditelj</MenuItem>
+            </TextField>
+          </Box>
+        </Box>
+
+        {/* Fixed Button Area at Bottom */}
+        <Box
+          onClick={loading || loadingRestaurants || !!passwordError ? undefined : handleSubmit}
+          sx={{
+            position: "fixed",
+            bottom: "64px", // Above navbar
+            left: 0,
+            right: 0,
+            height: "70px",
+            bgcolor: loading || loadingRestaurants || !!passwordError ? "grey.400" : "primary.main",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            cursor: loading || loadingRestaurants || !!passwordError ? "not-allowed" : "pointer",
+            transition: "all 0.2s ease-in-out",
+            "&:active": {
+              bgcolor: loading || loadingRestaurants || !!passwordError ? "grey.400" : "primary.dark",
+            },
+          }}
+        >
+          <Typography
+            sx={{
+              color: "white",
+              fontSize: "1.1rem",
+              fontWeight: 600,
+              textTransform: "none",
+            }}
+          >
+            {loading ? (
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                <CircularProgress size={24} color="inherit" />
+                Kreiranje...
+              </Box>
+            ) : (
+              "Kreiraj račun"
+            )}
+          </Typography>
+        </Box>
+      </Box>
+    );
+  }
+
+  // Desktop Layout
   return (
     <Box
       sx={{
         minHeight: "100vh",
         bgcolor: "#f5f5f5",
-        backgroundImage: "url(/BackgroundMan.svg)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        p: 3,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
       <Box
         sx={{
           maxWidth: 500,
-          mx: "auto",
+          width: "100%",
           bgcolor: "white",
-          borderRadius: 2,
+          borderRadius: 3,
           p: 4,
-          boxShadow: 1,
+          boxShadow: 2,
         }}
       >
         <Typography
           variant="h4"
           sx={{
-            fontWeight: 700,
+            fontWeight: 780,
             mb: 4,
             textAlign: "center",
+            color: "#212222",
           }}
         >
           Unesite podatke
@@ -164,7 +379,12 @@ export default function EmployeeCreatePage() {
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             required
-            sx={{ mb: 2 }}
+            sx={{
+              mb: 3,
+              "& .MuiOutlinedInput-root": {
+                borderRadius: 2,
+              },
+            }}
           />
 
           <TextField
@@ -175,7 +395,12 @@ export default function EmployeeCreatePage() {
               setFormData({ ...formData, lastName: e.target.value })
             }
             required
-            sx={{ mb: 2 }}
+            sx={{
+              mb: 3,
+              "& .MuiOutlinedInput-root": {
+                borderRadius: 2,
+              },
+            }}
           />
 
           <TextField
@@ -186,7 +411,12 @@ export default function EmployeeCreatePage() {
               setFormData({ ...formData, username: e.target.value })
             }
             required
-            sx={{ mb: 2 }}
+            sx={{
+              mb: 3,
+              "& .MuiOutlinedInput-root": {
+                borderRadius: 2,
+              },
+            }}
           />
 
           <TextField
@@ -202,7 +432,12 @@ export default function EmployeeCreatePage() {
                 ? passwordError
                 : "Minimalno 8 znakova"
             }
-            sx={{ mb: 2 }}
+            sx={{
+              mb: 3,
+              "& .MuiOutlinedInput-root": {
+                borderRadius: 2,
+              },
+            }}
           />
 
           <TextField
@@ -215,7 +450,12 @@ export default function EmployeeCreatePage() {
             }
             required
             disabled={loadingRestaurants}
-            sx={{ mb: 2 }}
+            sx={{
+              mb: 3,
+              "& .MuiOutlinedInput-root": {
+                borderRadius: 2,
+              },
+            }}
           >
             {loadingRestaurants ? (
               <MenuItem disabled>
@@ -245,7 +485,12 @@ export default function EmployeeCreatePage() {
               })
             }
             required
-            sx={{ mb: 3 }}
+            sx={{
+              mb: 4,
+              "& .MuiOutlinedInput-root": {
+                borderRadius: 2,
+              },
+            }}
           >
             <MenuItem value="worker">Radnik</MenuItem>
             <MenuItem value="manager">Voditelj</MenuItem>
@@ -262,6 +507,11 @@ export default function EmployeeCreatePage() {
               textTransform: "none",
               fontSize: "1.1rem",
               fontWeight: 600,
+              borderRadius: 2,
+              boxShadow: 2,
+              "&:hover": {
+                boxShadow: 4,
+              },
             }}
           >
             {loading ? (
