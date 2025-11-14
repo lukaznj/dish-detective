@@ -11,8 +11,6 @@ import {
   TextField,
   Typography,
   IconButton,
-  Snackbar,
-  Alert,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
@@ -34,12 +32,10 @@ import CreateIcon from "@mui/icons-material/Create";
 import PeopleIcon from "@mui/icons-material/People";
 import ChatIcon from "@mui/icons-material/Chat";
 import AddIcon from "@mui/icons-material/Add";
-import FileUploadIcon from '@mui/icons-material/FileUpload';
+import FileUploadIcon from "@mui/icons-material/FileUpload";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PersonIcon from "@mui/icons-material/Person";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-
-import { createDish } from "../actions";
 
 export default function Page() {
   const theme = useTheme();
@@ -53,6 +49,10 @@ export default function Page() {
 
   const handleAdminDashboard = () => {
     router.push("/admin");
+  };
+
+  const handleLogout = () => {
+    // TODO: Clear session and navigate to home page
   };
 
   const handleAddIngredient = () => {
@@ -100,10 +100,284 @@ export default function Page() {
     // TODO: Backend integration
   };
 
-  
-
   if (isMobile) {
-    return null;
+    return (
+      <Box
+        sx={{
+          height: "100vh",
+          width: "100vw",
+          display: "flex",
+          flexDirection: "column",
+          bgcolor: "background.default",
+        }}
+      >
+        {/* Header */}
+        <Box
+          component="header"
+          sx={{
+            height: 64,
+            width: "100%",
+            bgcolor: "primary.main",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            px: 2,
+            boxShadow: 1,
+            top: 0,
+            flexShrink: 0,
+            zIndex: 10,
+          }}
+        >
+          <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+            <img
+              src="/logoWhite.png"
+              alt="Logo"
+              style={{ width: 28, height: 28 }}
+            />
+            <Typography
+              variant="body1"
+              sx={{ color: "white", fontWeight: 700, fontSize: "1rem" }}
+            >
+              Dish Detective
+            </Typography>
+          </Box>
+
+          <Button
+            variant="contained"
+            size="small"
+            onClick={handleLogout}
+            sx={{
+              bgcolor: "grey.800",
+              color: "white",
+              fontSize: "0.75rem",
+              textTransform: "none",
+              "&:hover": { bgcolor: "success.dark" },
+            }}
+          >
+            Log out
+          </Button>
+        </Box>
+
+        <Typography
+          variant="h4"
+          fontWeight={700}
+          sx={{ color: "#212222", px: 2, pt: 3, pb: 2 }}
+        >
+          Unesite podatke
+        </Typography>
+
+        {/* Form Content */}
+        <Box sx={{ flex: 1, overflowY: "auto", p: 2 }}>
+          <Box sx={{ mb: 3 }}>
+            <Typography
+              variant="body2"
+              sx={{ mb: 1, fontWeight: 500, color: "text.primary" }}
+            >
+              Naziv jela
+            </Typography>
+            <TextField
+              fullWidth
+              size="small"
+              variant="outlined"
+              placeholder="Unesite naziv jela..."
+              value={dishName}
+              onChange={(e) => setDishName(e.target.value)}
+              sx={{
+                bgcolor: "background.paper",
+                mb: 1.5,
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: 2,
+                },
+              }}
+            />
+            <Button
+              fullWidth
+              size="small"
+              variant="outlined"
+              component="label"
+              startIcon={<FileUploadIcon />}
+              sx={{
+                textTransform: "none",
+                borderRadius: 2,
+                py: 1,
+                borderColor: "grey.500",
+                color: "text.secondary",
+                "&:hover": {
+                  borderColor: "primary.main",
+                  bgcolor: "action.hover",
+                },
+              }}
+            >
+              {imageFile ? imageFile.name : "Upload image"}
+              <input
+                type="file"
+                hidden
+                accept="image/*"
+                onChange={handleImageUpload}
+              />
+            </Button>
+          </Box>
+
+          <Box sx={{ mb: 3 }}>
+            <Typography
+              variant="body2"
+              sx={{ mb: 1, fontWeight: 500, color: "text.primary" }}
+            >
+              Sastojci
+            </Typography>
+            {ingredients.map((ingredient, index) => (
+              <Box key={index} sx={{ display: "flex", gap: 1, mb: 1.5 }}>
+                <TextField
+                  fullWidth
+                  size="small"
+                  variant="outlined"
+                  placeholder="Unesite sastojak..."
+                  value={ingredient}
+                  onChange={(e) =>
+                    handleIngredientChange(index, e.target.value)
+                  }
+                  sx={{
+                    bgcolor: "background.paper",
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: 2,
+                    },
+                  }}
+                />
+                {ingredients.length > 1 && (
+                  <IconButton
+                    size="small"
+                    onClick={() => handleRemoveIngredient(index)}
+                    sx={{ color: "error.main" }}
+                  >
+                    <DeleteIcon fontSize="small" />
+                  </IconButton>
+                )}
+              </Box>
+            ))}
+            <Button
+              fullWidth
+              size="small"
+              variant="outlined"
+              startIcon={<AddIcon />}
+              onClick={handleAddIngredient}
+              sx={{
+                textTransform: "none",
+                borderRadius: 2,
+                py: 1,
+                borderColor: "grey.500",
+                color: "text.secondary",
+                "&:hover": {
+                  borderColor: "primary.main",
+                  bgcolor: "action.hover",
+                },
+              }}
+            >
+              Dodaj sastojak
+            </Button>
+          </Box>
+
+          <Box sx={{ mb: 3 }}>
+            <Typography
+              variant="body2"
+              sx={{ mb: 1, fontWeight: 500, color: "text.primary" }}
+            >
+              Alergeni
+            </Typography>
+            {allergens.map((allergen, index) => (
+              <Box key={index} sx={{ display: "flex", gap: 1, mb: 1.5 }}>
+                <TextField
+                  fullWidth
+                  size="small"
+                  variant="outlined"
+                  placeholder="Unesite alergen..."
+                  value={allergen}
+                  onChange={(e) => handleAllergenChange(index, e.target.value)}
+                  sx={{
+                    bgcolor: "background.paper",
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: 2,
+                    },
+                  }}
+                />
+                {allergens.length > 1 && (
+                  <IconButton
+                    size="small"
+                    onClick={() => handleRemoveAllergen(index)}
+                    sx={{ color: "error.main" }}
+                  >
+                    <DeleteIcon fontSize="small" />
+                  </IconButton>
+                )}
+              </Box>
+            ))}
+            <Button
+              fullWidth
+              size="small"
+              variant="outlined"
+              startIcon={<AddIcon />}
+              onClick={handleAddAllergen}
+              sx={{
+                textTransform: "none",
+                borderRadius: 2,
+                py: 1,
+                borderColor: "grey.500",
+                color: "text.secondary",
+                "&:hover": {
+                  borderColor: "primary.main",
+                  bgcolor: "action.hover",
+                },
+              }}
+            >
+              Dodaj alergen
+            </Button>
+          </Box>
+
+          <Button
+            fullWidth
+            variant="contained"
+            onClick={handleSubmit}
+            sx={{
+              textTransform: "none",
+              borderRadius: 2,
+              py: 1.5,
+              bgcolor: "grey.900",
+              color: "white",
+              fontWeight: 600,
+              "&:hover": {
+                bgcolor: "primary.dark",
+              },
+            }}
+          >
+            Dodaj jelo
+          </Button>
+        </Box>
+
+        <Box
+          component="footer"
+          sx={{
+            height: 60,
+            bgcolor: "background.paper",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-around",
+            px: 2,
+            boxShadow: "0 -2px 8px rgba(0,0,0,0.15)",
+            zIndex: 10,
+            flexShrink: 0,
+          }}
+        >
+          <IconButton sx={{ color: "grey.900" }}>
+            <PersonIcon />
+          </IconButton>
+          <IconButton onClick={handleAdminDashboard} sx={{ color: "grey.900" }}>
+            <HomeFilledIcon />
+          </IconButton>
+          <IconButton sx={{ color: "grey.900" }}>
+            <NotificationsIcon />
+          </IconButton>
+        </Box>
+      </Box>
+    );
   }
 
   const navWidth = 80;
@@ -235,13 +509,13 @@ export default function Page() {
         </Box>
 
         <Typography
-            marginLeft={`${navWidth}px`}
-            variant="h4"
-            fontWeight={780}
-            sx={{ color: "#212222", p: 5, pb: 2 }}
-          >
-            Unesite podatke
-          </Typography>
+          marginLeft={`${navWidth}px`}
+          variant="h4"
+          fontWeight={780}
+          sx={{ color: "#212222", p: 5, pb: 2 }}
+        >
+          Unesite podatke
+        </Typography>
 
         <Box
           sx={{
@@ -253,9 +527,7 @@ export default function Page() {
             marginLeft: `${navWidth}px`,
           }}
         >
-            
           <Box sx={{ maxWidth: 500, width: "100%" }}>
-            {/* Naziv jela */}
             <Box sx={{ mb: 4 }}>
               <Typography
                 variant="body1"
@@ -267,7 +539,7 @@ export default function Page() {
                 fullWidth
                 variant="outlined"
                 placeholder="..."
-                value = {dishName}
+                value={dishName}
                 onChange={(e) => setDishName(e.target.value)}
                 sx={{
                   bgcolor: "background.paper",
@@ -305,7 +577,6 @@ export default function Page() {
               </Button>
             </Box>
 
-            {/* Sastojci */}
             <Box sx={{ mb: 4 }}>
               <Typography
                 variant="body1"
@@ -374,7 +645,9 @@ export default function Page() {
                     variant="outlined"
                     placeholder="Unesite alergen..."
                     value={allergen}
-                    onChange={(e) => handleAllergenChange(index, e.target.value)}
+                    onChange={(e) =>
+                      handleAllergenChange(index, e.target.value)
+                    }
                     sx={{
                       bgcolor: "background.paper",
                       "& .MuiOutlinedInput-root": {
