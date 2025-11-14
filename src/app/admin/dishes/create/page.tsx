@@ -39,11 +39,13 @@ export default function Page() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [showSuccessScreen, setShowSuccessScreen] = useState(false);
+  const [imageError, setImageError] = useState<string | null>(null);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       setImageFile(file);
+      setImageError(null); // Clear error when image is selected
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreview(reader.result as string);
@@ -78,9 +80,17 @@ export default function Page() {
   const handleSubmit = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
 
+    // Validate image is uploaded
+    if (!imageFile) {
+      setImageError("Slika je obavezna");
+      setError("Molimo odaberite sliku jela");
+      return;
+    }
+
     setLoading(true);
     setError(null);
     setSuccess(null);
+    setImageError(null);
 
     try {
       const formDataToSend = new FormData();
@@ -167,7 +177,11 @@ export default function Page() {
                 borderRadius: 2,
                 p: 2,
                 border: "2px dashed",
-                borderColor: imagePreview ? "primary.main" : "grey.300",
+                borderColor: imageError
+                  ? "error.main"
+                  : imagePreview
+                    ? "primary.main"
+                    : "grey.300",
                 textAlign: "center",
                 position: "relative",
               }}
@@ -216,15 +230,15 @@ export default function Page() {
                       startIcon={<CloudUploadIcon />}
                       sx={{ textTransform: "none" }}
                     >
-                      Odaberi sliku
+                      Odaberi sliku *
                     </Button>
                   </label>
                   <Typography
                     variant="caption"
                     display="block"
-                    sx={{ mt: 1, color: "text.secondary" }}
+                    sx={{ mt: 1, color: imageError ? "error.main" : "text.secondary" }}
                   >
-                    PNG, JPG do 5MB
+                    {imageError || "PNG, JPG do 5MB"}
                   </Typography>
                 </Box>
               )}
@@ -449,7 +463,11 @@ export default function Page() {
               borderRadius: 2,
               p: 2,
               border: "2px dashed",
-              borderColor: imagePreview ? "primary.main" : "grey.300",
+              borderColor: imageError
+                ? "error.main"
+                : imagePreview
+                  ? "primary.main"
+                  : "grey.300",
               textAlign: "center",
               position: "relative",
             }}
@@ -498,15 +516,15 @@ export default function Page() {
                     startIcon={<CloudUploadIcon />}
                     sx={{ textTransform: "none" }}
                   >
-                    Odaberi sliku
+                    Odaberi sliku *
                   </Button>
                 </label>
                 <Typography
                   variant="caption"
                   display="block"
-                  sx={{ mt: 1, color: "text.secondary" }}
+                  sx={{ mt: 1, color: imageError ? "error.main" : "text.secondary" }}
                 >
-                  PNG, JPG do 5MB
+                  {imageError || "PNG, JPG do 5MB"}
                 </Typography>
               </Box>
             )}
