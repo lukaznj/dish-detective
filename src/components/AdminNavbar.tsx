@@ -4,9 +4,8 @@ import { Box, Stack, IconButton } from "@mui/material";
 import { useRouter, usePathname } from "next/navigation";
 import HomeFilledIcon from "@mui/icons-material/HomeFilled";
 import TuneIcon from "@mui/icons-material/Tune";
-import CreateIcon from "@mui/icons-material/Create";
+import RestaurantIcon from "@mui/icons-material/Restaurant";
 import PeopleIcon from "@mui/icons-material/People";
-import ChatIcon from "@mui/icons-material/Chat";
 
 
 export const navWidth = 80;
@@ -88,16 +87,13 @@ export default function AdminNavbar({ isMobile = false }: AdminNavbarProps) {
                     onClick={() => router.push("/admin/dishes")}
                     sx={getIconButtonStyle("/admin/dishes")}
                 >
-                    <CreateIcon />
+                    <RestaurantIcon />
                 </IconButton>
                 <IconButton
                     onClick={() => router.push("/admin/accounts")}
                     sx={getIconButtonStyle("/admin/accounts")}
                 >
                     <PeopleIcon />
-                </IconButton>
-                <IconButton>
-                    <ChatIcon />
                 </IconButton>
             </Stack>
         </Box>

@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 
 import TuneIcon from "@mui/icons-material/Tune";
-import CreateIcon from "@mui/icons-material/Create";
+import RestaurantIcon from "@mui/icons-material/Restaurant";
 import PeopleIcon from "@mui/icons-material/People";
 
 import { ReactNode, useEffect, useState } from "react";
@@ -199,7 +199,7 @@ export default function Page() {
                     </MobileActionCard>
                     <MobileActionCard
                         onClick={() => router.push("/admin/dishes")}
-                        icon={<CreateIcon sx={{ fontSize: 32, color: "text.primary" }} />}
+                        icon={<RestaurantIcon sx={{ fontSize: 32, color: "text.primary" }} />}
                         animationDelay="0.3s"
                     >
                         Upravljaj jelima
@@ -258,7 +258,7 @@ export default function Page() {
                 />
 
                 <DesktopActionCard
-                    icon={<CreateIcon sx={{ fontSize: 40, color: "text.primary" }} />}
+                    icon={<RestaurantIcon sx={{ fontSize: 40, color: "text.primary" }} />}
                     title="Upravljaj jelima"
                     descriptions={[
                         "• Dodavanje i brisanje jela",

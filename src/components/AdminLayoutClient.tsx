@@ -1,8 +1,9 @@
 "use client";
 
-import { ReactNode } from "react";
-import AdminNavbar, { navWidth, headerHeight } from "@/components/AdminNavbar";
+import { ReactNode, useState, useEffect } from "react";
+import AdminNavbar, { navWidth } from "@/components/AdminNavbar";
 import { Box, useMediaQuery, useTheme } from "@mui/material";
+import PancakeStackLoader from "@/components/PancakeStackLoader";
 
 export default function AdminLayoutClient({
     children,
@@ -11,11 +12,31 @@ export default function AdminLayoutClient({
 }) {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted) {
+        return (
+            <Box
+                sx={{
+                    height: "100vh",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    bgcolor: "#f5f5f5",
+                }}
+            >
+                <PancakeStackLoader />
+            </Box>
+        );
+    }
 
     return (
         <Box sx={{
             display: "flex",
-
         }}>
             <AdminNavbar isMobile={isMobile} />
             <Box
