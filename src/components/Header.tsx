@@ -1,9 +1,9 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import { UserButton, useUser } from "@clerk/nextjs"; // Import useUser
 import {
   Menu,
@@ -22,8 +22,15 @@ export default function Header() {
   const router = useRouter();
   const { user } = useUser(); // Get the user data from Clerk
 
-  const isHomepage = pathname === "/";
-  const isLoginRoute = pathname.startsWith("/login");
+  const [isHomepage, setisHomepage] = useState(false);
+  const [isLoginRoute, setisLoginRoute] = useState(false);
+
+  useEffect(() => {
+    // This code runs only on the client, after hydration
+    setisHomepage(pathname === "/");
+    setisLoginRoute(pathname.startsWith("/login"));
+  }, []); // The empty dependency array ensures this runs only once on mount
+
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
