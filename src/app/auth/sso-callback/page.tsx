@@ -19,7 +19,6 @@ export default function SSOCallback() {
         <PancakeStackLoader />
       </Box>
       <AuthenticateWithRedirectCallback />
-      <div id="clerk-captcha" />
     </Box>
   );
 }

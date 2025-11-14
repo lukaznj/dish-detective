@@ -104,7 +104,7 @@ export default function Page() {
             {error}
           </Alert>
         )}
-
+        <div id="clerk-captcha" />
         <Button
           fullWidth
           variant="outlined"
