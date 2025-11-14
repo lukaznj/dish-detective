@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-
+import { useUser } from "@clerk/nextjs";
 import {
   Box,
   Button,
@@ -13,9 +13,13 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import PancakeStackLoader from "@/components/PancakeStackLoader";
+import { getUserRole } from "./actions"
 
 export default function Home() {
   const router = useRouter();
+  const { isLoaded, isSignedIn, user } = useUser();
+  const [checkingRole, setCheckingRole] = useState(true);
 
   // Used for main login dropdown
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -29,6 +33,62 @@ export default function Home() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const isShortScreen = useMediaQuery("(max-height: 740px)");
+
+  // Redirect logged-in users to their dashboard
+  useEffect(() => {
+    async function checkUserRole() {
+      if (!isLoaded) return;
+
+      if (isSignedIn && user) {
+        // Fetch user role using server action
+        const { role, error } = await getUserRole();
+
+        if (role) {
+          switch (role) {
+            case "admin":
+              router.push("/admin");
+              return;
+            case "manager":
+              router.push("/manager");
+              return;
+            case "worker":
+              router.push("/worker");
+              return;
+            case "student":
+              router.push("/student");
+              return;
+          }
+        }
+
+        if (error) {
+          console.error("Error fetching user role:", error);
+        }
+      }
+
+      setCheckingRole(false);
+    }
+
+    checkUserRole();
+  }, [isLoaded, isSignedIn, user, router]);
+
+  // Show loading while checking authentication
+  if (!isLoaded || checkingRole) {
+    return (
+      <Box
+        sx={{
+          minHeight: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          bgcolor: "#f5f5f5",
+        }}
+      >
+        <Box sx={{ width: 200, height: 200 }}>
+          <PancakeStackLoader />
+        </Box>
+      </Box>
+    );
+  }
 
   const handleRoleSelect = (role: string) => {
     setAnchorEl(null);
