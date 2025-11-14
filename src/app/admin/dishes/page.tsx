@@ -29,7 +29,7 @@ interface Dish {
 
 import DishCard from "@/components/DishCard";
 import AddIcon from "@mui/icons-material/Add";
-import { getAllDishes, deleteDish, createDish } from "./actions";
+import { getAllDishes, deleteDish } from "./actions";
 
 import HomeFilledIcon from "@mui/icons-material/HomeFilled";
 import TuneIcon from "@mui/icons-material/Tune";
@@ -38,66 +38,6 @@ import PeopleIcon from "@mui/icons-material/People";
 import ChatIcon from "@mui/icons-material/Chat";
 import PersonIcon from "@mui/icons-material/Person";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-
-const dishNames = [
-  "Margherita Pizza",
-  "Caesar Salad",
-  "Spaghetti Carbonara",
-  "Beef Burger",
-  "Chicken Tikka Masala",
-  "Pad Thai",
-  "Sushi Roll",
-  "Fish and Chips",
-  "Tacos al Pastor",
-  "Ramen Bowl",
-  "Grilled Salmon",
-  "Greek Salad",
-  "BBQ Ribs",
-  "Penne Arrabbiata",
-  "Chicken Wings",
-  "Tom Yum Soup",
-  "Beef Stew",
-  "Mushroom Risotto",
-  "Lamb Chops",
-  "Falafel Wrap",
-];
-
-const descriptions = [
-  "A delicious and savory dish",
-  "Fresh ingredients cooked to perfection",
-  "Traditional recipe with a modern twist",
-  "Authentic flavors from around the world",
-  "Chef's special recommendation",
-  "Popular customer favorite",
-  "Made with locally sourced ingredients",
-  "A classic comfort food",
-  "Perfectly seasoned and grilled",
-  "Rich and flavorful",
-];
-
-const categories = [
-  "Appetizer",
-  "Main Course",
-  "Dessert",
-  "Soup",
-  "Salad",
-  "Pasta",
-  "Seafood",
-  "Vegetarian",
-  "Grill",
-  "Asian",
-];
-
-const allergensList = [
-  ["Gluten", "Dairy"],
-  ["Nuts", "Eggs"],
-  ["Shellfish"],
-  ["Soy"],
-  ["Dairy", "Eggs"],
-  [],
-  ["Gluten"],
-  ["Nuts", "Dairy"],
-];
 
 function getRandomElement<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
@@ -129,23 +69,7 @@ export default function Page() {
   };
 
   const handleAddDish = async () => {
-    const randomDish = {
-      name: getRandomElement(dishNames),
-      description: getRandomElement(descriptions),
-      category: getRandomElement(categories),
-      // Placeholder URL
-      imageUrl: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c",
-      allergens: getRandomElement(allergensList),
-    };
-
-    const response = await createDish(randomDish);
-
-    if (response.success) {
-      loadDishes();
-    } else {
-      console.error("Failed to create dish:", response.message);
-      alert("Failed to create dish: " + response.message);
-    }
+    router.push("/admin/dishes/create");
   };
 
   const handleDeleteDish = async (id: string) => {
