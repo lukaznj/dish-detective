@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   Menu,
   MenuItem,
@@ -17,6 +17,7 @@ import {
 
 export default function Header() {
   const pathname = usePathname();
+  const router = useRouter();
   const isHomepage = pathname === "/";
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -26,6 +27,16 @@ export default function Header() {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleRoleSelect = (role: string) => {
+    setAnchorEl(null);
+
+    if (role === "student") {
+      router.push("/login/student");
+    } else if (role === "radnik") {
+      router.push("/login/employee");
+    }
   };
 
   if (isHomepage) {
@@ -112,18 +123,22 @@ export default function Header() {
               anchorEl={anchorEl}
               open={open}
               onClose={handleClose}
-              MenuListProps={{
-                "aria-labelledby": "prijava-button",
-              }}
               slotProps={{
                 paper: {
                   sx: { minWidth: 200, mt: 1, borderRadius: 2 },
                 },
+                list: {
+                  "aria-labelledby": "prijava-button",
+                },
               }}
             >
-              <MenuItem onClick={handleClose}>Radnik u menzi</MenuItem>
+              <MenuItem onClick={() => handleRoleSelect("radnik")}>
+                Radnik u menzi
+              </MenuItem>
               <Box sx={{ borderBottom: "1px solid #e0e0e0", my: 0 }} />
-              <MenuItem onClick={handleClose}>Student</MenuItem>
+              <MenuItem onClick={() => handleRoleSelect("student")}>
+                Student
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>
