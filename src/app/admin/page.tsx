@@ -65,6 +65,8 @@ export default function Page() {
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isShortScreen = useMediaQuery("(max-height: 840px)");
+  const isNarrowerScreen = useMediaQuery("(max-width: 1210px)");
 
   if (isMobile) {
     return (
@@ -272,6 +274,7 @@ export default function Page() {
             gap: 3,
             flexWrap: "wrap",
             justifyContent: "center",
+            mt: isShortScreen ? 1 : 10,
           }}
         >
           <Button
@@ -281,7 +284,8 @@ export default function Page() {
               flexDirection: "column",
               alignItems: "flex-start",
               minWidth: 150,
-              maxWidth: 350,
+              maxWidth: 400,
+              minHeight: isShortScreen ? 350 : 450,
               bgColor: "white",
               boxShadow: 2,
               p: 3,
@@ -311,7 +315,7 @@ export default function Page() {
             <TuneIcon sx={{ fontSize: 40, color: "text.primary" }} />
             <Typography
               sx={{
-                fontSize: "clamp(1rem, 1.7vw, 2rem)",
+                fontSize: isNarrowerScreen ? "1.8vw" : "1.6rem",
                 fontWeight: "600",
                 color: "text.primary",
                 pt: 1,
@@ -321,7 +325,7 @@ export default function Page() {
             </Typography>
             <Typography
               sx={{
-                fontSize: "clamp(0.75rem, 0.9vw, 1.2rem)",
+                fontSize: isNarrowerScreen ? "1.2vw" : "1rem",
                 fontWeight: "550",
                 color: "text.secondary",
                 pt: 1,
@@ -331,7 +335,7 @@ export default function Page() {
             </Typography>
             <Typography
               sx={{
-                fontSize: "clamp(0.75rem, 0.9vw, 1.2rem)",
+                fontSize: isNarrowerScreen ? "1.2vw" : "1rem",
                 fontWeight: "550",
                 color: "text.secondary",
               }}
@@ -346,8 +350,8 @@ export default function Page() {
               flexDirection: "column",
               alignItems: "flex-start",
               minWidth: 150,
-              maxWidth: 350,
-              minHeight: 350,
+              maxWidth: 400,
+              minHeight: isShortScreen ? 350 : 450,
               bgColor: "white",
               boxShadow: 2,
               p: 3,
@@ -377,7 +381,7 @@ export default function Page() {
             <CreateIcon sx={{ fontSize: 40, color: "text.primary" }} />
             <Typography
               sx={{
-                fontSize: "clamp(1rem, 1.7vw, 2rem)",
+                fontSize: isNarrowerScreen ? "1.8vw" : "1.6rem",
                 fontWeight: "600",
                 color: "text.primary",
                 pt: 1,
@@ -387,7 +391,7 @@ export default function Page() {
             </Typography>
             <Typography
               sx={{
-                fontSize: "clamp(0.75rem, 0.9vw, 1.2rem)",
+                fontSize: isNarrowerScreen ? "1.2vw" : "1rem",
                 fontWeight: "550",
                 color: "text.secondary",
                 pt: 1,
@@ -397,7 +401,7 @@ export default function Page() {
             </Typography>
             <Typography
               sx={{
-                fontSize: "clamp(0.75rem, 0.9vw, 1.2rem)",
+                fontSize: isNarrowerScreen ? "1.2vw" : "1rem",
                 fontWeight: "550",
                 color: "text.secondary",
               }}
@@ -412,7 +416,8 @@ export default function Page() {
               flexDirection: "column",
               alignItems: "flex-start",
               minWidth: 150,
-              maxWidth: 350,
+              maxWidth: 400,
+              minHeight: isShortScreen ? 350 : 450,
               bgColor: "white",
               boxShadow: 2,
               p: 3,
@@ -443,7 +448,7 @@ export default function Page() {
             <PeopleIcon sx={{ fontSize: 40, color: "text.primary" }} />
             <Typography
               sx={{
-                fontSize: "clamp(1rem, 1.7vw, 2rem)",
+                fontSize: isNarrowerScreen ? "1.8vw" : "1.6rem",
                 fontWeight: "600",
                 color: "text.primary",
                 pt: 1,
@@ -453,7 +458,7 @@ export default function Page() {
             </Typography>
             <Typography
               sx={{
-                fontSize: "clamp(0.75rem, 0.9vw, 1.2rem)",
+                fontSize: isNarrowerScreen ? "1.2vw" : "1rem",
                 fontWeight: "550",
                 color: "text.secondary",
                 pt: 1,
