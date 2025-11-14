@@ -32,8 +32,10 @@ import CreateIcon from "@mui/icons-material/Create";
 import PeopleIcon from "@mui/icons-material/People";
 import ChatIcon from "@mui/icons-material/Chat";
 import AddIcon from "@mui/icons-material/Add";
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 import PersonIcon from "@mui/icons-material/Person";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import { FileUpload } from "@mui/icons-material";
 
 export default function Page() {
   const theme = useTheme();
@@ -180,7 +182,7 @@ export default function Page() {
             marginLeft={`${navWidth}px`}
             variant="h4"
             fontWeight={780}
-            sx={{ color: "#212222", p: 5 }}
+            sx={{ color: "#212222", p: 5, pb: 2 }}
           >
             Unesite podatke
           </Typography>
@@ -195,6 +197,7 @@ export default function Page() {
             marginLeft: `${navWidth}px`,
           }}
         >
+            
           <Box sx={{ maxWidth: 500, width: "100%" }}>
             {/* Naziv jela */}
             <Box sx={{ mb: 4 }}>
@@ -210,11 +213,31 @@ export default function Page() {
                 placeholder="..."
                 sx={{
                   bgcolor: "background.paper",
+                  mb: 2,
                   "& .MuiOutlinedInput-root": {
                     borderRadius: 2,
                   },
                 }}
               />
+              <Button
+                fullWidth
+                variant="outlined"
+                startIcon={<FileUploadIcon />}
+                sx={{
+                  textTransform: "none",
+                  borderRadius: 2,
+                  placeholder: "Upload image",
+                  py: 1.5,
+                  borderColor: "grey.500",
+                  color: "text.secondary",
+                  "&:hover": {
+                    borderColor: "primary.main",
+                    bgcolor: "action.hover",
+                  },
+                }}
+              >
+                Upload image
+              </Button>
             </Box>
 
             {/* Sastojci */}
@@ -294,6 +317,17 @@ export default function Page() {
             </Box>
           </Box>
         </Box>
+        <Box
+          sx={{
+            bgcolor: "primary.main",
+            height: 50,
+            width: "100%",
+            mt: "auto",
+            zIndex: 20,
+            position: "relative",
+            flexShrink: 0,
+          }}
+        />
       </Box>
     </Box>
   );
