@@ -362,14 +362,16 @@ export default function Page() {
             left: 0,
             right: 0,
             height: "70px",
-            bgcolor: loading ? "grey.400" : "primary.main",
+            bgcolor: loading ? "grey.400" : "#57aaf4",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             cursor: loading ? "not-allowed" : "pointer",
             transition: "all 0.2s ease-in-out",
+            zIndex: 1000,
+            boxShadow: "0 -2px 8px rgba(0,0,0,0.15)",
             "&:active": {
-              bgcolor: loading ? "grey.400" : "primary.dark",
+              bgcolor: loading ? "grey.400" : "#3d8fd9",
             },
           }}
         >
@@ -641,7 +643,9 @@ export default function Page() {
               fontWeight: 600,
               borderRadius: 2,
               boxShadow: 2,
+              bgcolor: "#57aaf4",
               "&:hover": {
+                bgcolor: "#3d8fd9",
                 boxShadow: 4,
               },
             }}
