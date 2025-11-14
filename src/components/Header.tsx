@@ -74,8 +74,6 @@ export default function Header() {
 
           <Box sx={{ display: "flex", gap: { xs: 2, md: 3 } }}>
             <Button
-              component={Link}
-              href="/kontakt"
               variant="contained"
               sx={{
                 bgcolor: "white",
