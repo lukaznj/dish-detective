@@ -20,7 +20,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { createDishWithImage } from "./actions";
 import SuccessScreen from "@/components/SuccessScreen";
 
-export default function DishCreatePage() {
+export default function Page() {
   const router = useRouter();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
